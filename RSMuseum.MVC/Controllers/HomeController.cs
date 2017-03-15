@@ -26,5 +26,19 @@ namespace RSMuseum.MVC.Controllers
 
             return View();
         }
+
+        public ActionResult Godkendelse()
+        {
+            ViewData["Message"] = "Godkendelse tab";
+
+            return View();
+        }
+
+        public ActionResult Frivillige()
+        {
+            ViewData["Message"] = "Frivillige tab";
+
+            return View();
+        }
     }
 }

@@ -22,3 +22,19 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#custom-search-input {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#custom-margin-from-top {
+    padding-top: 50px;
+    padding-bottom: 5px;
+}
+
+
+.button-wrapper {
+    margin-top: 20px;
+}
+
