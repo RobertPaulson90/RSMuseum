@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using RSMuseum.ClassLibrary;
 
 [assembly: OwinStartupAttribute(typeof(RSMuseum.MVC.Startup))]
 namespace RSMuseum.MVC
@@ -8,7 +9,7 @@ namespace RSMuseum.MVC
     {
         public void Configuration(IAppBuilder app)
         {
-            new DIContainer
+            new DI(); // Instantiere vores DI container
             ConfigureAuth(app);
         }
     }

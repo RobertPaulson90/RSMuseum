@@ -10,6 +10,21 @@ namespace RSMuseum.ClassLibrary
 {
     public class DI
     {
-        public int Container { get; set; }
+        public Container Container { get; set; }
+
+        public DI()
+        {
+            Container = new Container();
+
+            // Register eksempel
+            // Container.Register<IUserRepository, SqlUserRepository>();
+            // Container.Register<MyRootType>();
+
+            // Tilgå containeren i andre 
+
+            Container.Verify();
+        }
     }
+
+    
 }
