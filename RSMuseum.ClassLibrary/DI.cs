@@ -13,11 +13,9 @@ namespace RSMuseum.ClassLibrary
         // Access the container in other classes with DI.Container. Remember: using RSMuseum.ClassLibrary;
         public static Container Container { get; set; }
 
-        public DI()
+        public DI(bool testing = false)
         {
             Container = new Container();
-
-            var testing = false;
 
             if (!testing)
             {

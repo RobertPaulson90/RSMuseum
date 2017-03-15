@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace RSMuseum.MVC.Tests.Controllers
 {
-    class HomeControllerTest
+    public class HomeControllerTests
     {
         [Fact]
         public void Index()
