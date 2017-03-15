@@ -8,8 +8,8 @@ namespace RSMuseum.MVC
     {
         public void Configuration(IAppBuilder app)
         {
-            new DIContainer
-            ConfigureAuth(app);
+            //new DIContainer
+            //ConfigureAuth(app);
         }
     }
 }

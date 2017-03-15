@@ -1,0 +1,119 @@
+﻿<head>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Liste med frivillige</h2>
+        @*Søgefelt*@
+        <div id="app">
+            <div id="custom-search-input">
+                <div class="input-group col-md-3">
+                    <input type="text" v-model="keyword" class="form-control input-lg" placeholder="Søg" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Navn</th>
+                        <th>ID</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="entry in filteredList">
+                        <td>{{entry.Navn}}</td>
+                        <td>{{entry.Id}}</td>
+                        <td>{{entry.Laug}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+
+    <script>
+        class Frivillige {
+            constructor(Navn, Id, Laug) {
+                this.Navn = Navn;
+                this.Id = Id;
+                this.Laug = Laug;
+            }
+        }
+
+        new Vue({
+            el: '#app',
+            data: {
+                keyword: '',
+                frivilligeList:
+                [
+                    new Frivillige(
+                        'Peter Hansen',
+                        523,
+                        'Laug 4'
+                    ),
+                    new Frivillige(
+                        'Hanna Raymer',
+                        453,
+                        'Laug 2'
+                    ),
+                    new Frivillige(
+                        'Lisette Arant',
+                        654,
+                        'Laug 10'
+                    ),
+                    new Frivillige(
+                        'Melvin Mullinax',
+                        123,
+                        'Laug 7'
+                    ),
+                    new Frivillige(
+                        'Palmer Wilkie',
+                        744,
+                        'Laug 1'
+                    ),
+                    new Frivillige(
+                        'Jule Winnett',
+                        631,
+                        'Laug 9'
+                    ),
+                    new Frivillige(
+                        'Phyllis Gabriele',
+                        231,
+                        'Laug 6'
+                    ),
+                    new Frivillige(
+                        'Janetta Noe',
+                        865,
+                        'Laug 2'
+                    ),
+                    new Frivillige(
+                        'Patrick Baxter',
+                        742,
+                        'Laug 1'
+                    ),
+                ]
+
+            },
+            computed: {
+                filteredList() {
+                    return this.frivilligeList.filter((Frivillige) => {
+                        return Frivillige.Navn.toLowerCase().includes(this.keyword.toLowerCase());
+
+                    })
+                }
+            },
+
+        })
+    </script>
+</body>
+
+
+

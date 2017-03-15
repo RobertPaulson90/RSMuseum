@@ -1,31 +1,122 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿<head>
+    <script src="https://unpkg.com/vue"></script>
+    
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+</head>
+<body>
+    <div class="container col-md-12 button-wrapper">
+        <div id="Index">
+            <h2>TidsRegistrering</h2>
+            @* MedlemsNummer input *@
+            <div id="custom-margin-from-top">
+                <div class="form-group input-group">
+                    <label for="medNr">Medlems Nr.:</label>
+                    <input v-model="medlemsNr" type="text" class="form-control" id="medNr">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+                </div>
+                @* Antal timer input *@
+                <div class="form-group input-group">
+                    <label for="Timer">Antal Timer:</label>
+                    <input v-model="antalTimer" type="text" class="form-control" id="Timer">
+                </div>
+            </div>
+
+            @*Laug input*@
+            <div class="form-group input-group">
+                <label for="test">Laug:</label>
+                <select v-model="laug" class="form-control">
+                    <option v-for="entry in laugListe">{{entry.Navn}}</option>
+                </select>
+            </div>
+
+            @* Dato input *@
+            <label for="Timer">Dato:</label>
+            <div class="iform-group input-group">
+                <div class="input-group date" data-provide="datepicker">
+                    <input v-model="dato" type="text" class="form-control" id="datetimepicker">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-wrapper input-group">
+                <button v-on:click="ConvertToJson" type="button" class="btn btn-primary">Submit</button>
+            </div>
+
+            <p>{{Json}}</p>
+        </div>
+
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+
+
+    <script>
+
+        class Data {
+            constructor(MedlemsNr, AntalTimer, Dato, Laug) {
+                this.MedlemsNr = MedlemsNr;
+                this.AntalTimer = AntalTimer;
+                this.Dato = Dato;
+                this.Laug = Laug;
+            }
+        }
+
+        class Laug {
+            constructor(Navn) {
+                this.Navn = Navn;
+            }
+        }
+        new Vue({
+            el: '#Index',
+            data: {
+                medlemsNr: '',
+                antalTimer: '',
+                dato: '',
+                laug: 'Laug',
+                Json: '',
+                laugListe:
+                [
+                    new Laug(
+                        'Laug 1'
+                    ),
+                    new Laug(
+                        'Laug 2'
+                    ),
+                    new Laug(
+                        'Laug 3'
+                    ),
+                    new Laug(
+                        'Laug 4'
+                    ),
+                    new Laug(
+                        'Laug 5'
+                    ),
+                    new Laug(
+                        'Laug 6'
+                    ),
+                    new Laug(
+                        'Laug 7'
+                    ),
+                    ]
+            },
+            methods: {
+                ConvertToJson: function (event) {
+                    var tempDato = $("#datetimepicker").val();
+                    this.dato = tempDato; // Kan ikke lide den måde vi får dato værdi på
+
+                    var test = new Data();
+                    test.MedlemsNr = this.medlemsNr;
+                    test.AntalTimer = this.antalTimer;
+                    test.Dato = this.dato;
+                    test.Laug = this.laug
+
+                    this.Json = JSON.stringify(test);
+                }
+            }
+
+        })
+
+
+    </script>
+</body>
