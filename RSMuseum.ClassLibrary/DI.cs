@@ -10,16 +10,25 @@ namespace RSMuseum.ClassLibrary
 {
     public class DI
     {
-        // Tilgå containeren i andre klasser med DI.Container. Husk using RSMuseum.ClassLibrary;
+        // Access the container in other classes with DI.Container. Remember: using RSMuseum.ClassLibrary;
         public static Container Container { get; set; }
 
         public DI()
         {
             Container = new Container();
 
-            // Register eksempel
-            // Container.Register<IUserRepository, SqlUserRepository>();
-            // Container.Register<MyRootType>();
+            var testing = false;
+
+            if (!testing)
+            {
+                // Register example:
+                // Container.Register<IUserRepository, SqlUserRepository>();
+                // Container.Register<MyRootType>();
+            }
+            else if (testing)
+            {
+                // Register mocked interfaces instead
+            }
 
             Container.Verify();
         }
