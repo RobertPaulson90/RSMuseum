@@ -13,16 +13,18 @@ namespace RSMuseum.MVC.Tests
     public class SeleniumTests : IDisposable
     {
         private static IWebDriver wd;
+        private string testURL;
 
         public SeleniumTests()
         {
-             wd = new ChromeDriver();
+            testURL = "http://google.dk";
+            wd = new ChromeDriver();
         }
 
         [Fact]
         public void TestingSeleniumLoadGoogle()
         {
-            wd.Navigate().GoToUrl("http://google.dk");
+            wd.Navigate().GoToUrl(testURL);
             var result = wd.FindElement(By.Id("gs_lc0"));
             Assert.NotNull(result);
         }
