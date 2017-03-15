@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSMuseum.MVC", "RSMuseum.MVC\RSMuseum.MVC.csproj", "{5F49AA70-2CF7-4F49-930B-9EBB88C00EC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSMuseum.MVC.Tests", "RSMuseum.MVC.Tests\RSMuseum.MVC.Tests.csproj", "{D2CA7A36-A6EF-4902-B9BB-916D37B90D49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSMuseum.ClassLibrary", "RSMuseum.ClassLibrary\RSMuseum.ClassLibrary.csproj", "{042D0814-233D-44FF-A4DB-401F086BE819}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F49AA70-2CF7-4F49-930B-9EBB88C00EC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F49AA70-2CF7-4F49-930B-9EBB88C00EC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F49AA70-2CF7-4F49-930B-9EBB88C00EC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F49AA70-2CF7-4F49-930B-9EBB88C00EC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2CA7A36-A6EF-4902-B9BB-916D37B90D49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2CA7A36-A6EF-4902-B9BB-916D37B90D49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2CA7A36-A6EF-4902-B9BB-916D37B90D49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2CA7A36-A6EF-4902-B9BB-916D37B90D49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{042D0814-233D-44FF-A4DB-401F086BE819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{042D0814-233D-44FF-A4DB-401F086BE819}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{042D0814-233D-44FF-A4DB-401F086BE819}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{042D0814-233D-44FF-A4DB-401F086BE819}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
