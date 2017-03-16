@@ -64,6 +64,8 @@
   <ItemGroup>
     <Compile Include="DbRepo.cs" />
     <Compile Include="DI.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\VolenteerRepository.cs" />
     <Compile Include="Models\DummyModel.cs" />
     <Compile Include="Models\IDummyModel.cs" />
     <Compile Include="Models\ITestModel.cs" />
