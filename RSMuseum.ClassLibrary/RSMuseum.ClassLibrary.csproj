@@ -40,6 +40,7 @@
       <HintPath>..\packages\SimpleInjector.3.3.2\lib\net45\SimpleInjector.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -64,9 +65,16 @@
   <ItemGroup>
     <Compile Include="DbRepo.cs" />
     <Compile Include="DI.cs" />
+    <Compile Include="Entities\Address.cs" />
+    <Compile Include="Entities\Guild.cs" />
+    <Compile Include="Entities\PostTable.cs" />
+    <Compile Include="Entities\ProjectManager.cs" />
+    <Compile Include="Entities\Person.cs" />
+    <Compile Include="Entities\Volunteer.cs" />
     <Compile Include="Models\DummyModel.cs" />
     <Compile Include="Models\IDummyModel.cs" />
     <Compile Include="Models\ITestModel.cs" />
+    <Compile Include="Entities\Registration.cs" />
     <Compile Include="Models\TestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
