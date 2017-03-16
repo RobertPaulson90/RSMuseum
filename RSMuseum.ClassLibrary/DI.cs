@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RSMuseum.ClassLibrary.Models;
 using SimpleInjector;
 
 
@@ -25,6 +21,8 @@ namespace RSMuseum.ClassLibrary
             }
             else if (testing)
             {
+                //DI.Container.Register<ITestModel, TestModel>();
+                //DI.Container.Register<IDummyModel, DummyModel>();
                 // Register mocked interfaces instead
             }
 

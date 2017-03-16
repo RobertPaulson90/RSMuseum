@@ -16,7 +16,7 @@
                     </span>
                 </div>
             </div>
-
+        @*Tabel*@
             <table class="table">
                 <thead>
                     <tr>
@@ -34,9 +34,6 @@
                 </tbody>
             </table>
         </div>
-
-
-
     </div>
 
     <script>
@@ -47,7 +44,6 @@
                 this.Laug = Laug;
             }
         }
-
         new Vue({
             el: '#app',
             data: {
@@ -100,17 +96,14 @@
                         'Laug 1'
                     ),
                 ]
-
             },
             computed: {
                 filteredList() {
                     return this.frivilligeList.filter((Frivillige) => {
                         return Frivillige.Navn.toLowerCase().includes(this.keyword.toLowerCase());
-
                     })
                 }
             },
-
         })
     </script>
 </body>

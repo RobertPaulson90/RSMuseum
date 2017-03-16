@@ -1,9 +1,5 @@
 ﻿using RSMuseum.ClassLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SimpleInjector;
 using Xunit;
 using Moq;
 
@@ -11,6 +7,12 @@ namespace RSMuseum.ClassLibrary.Tests
 {
     public class TestTests
     {
+
+        public TestTests()
+        {
+            new DI(true);
+        }
+
         [Fact]
         public void PassingTest()
         {
@@ -32,8 +34,12 @@ namespace RSMuseum.ClassLibrary.Tests
         public void MockTest()
         {
             var mock = new Mock<ITestModel>();
-            mock.Setup(foo => foo.Id).Returns(3);
-            Assert.Equal(mock.Object.Id, 3);
+            //mock.Object.Age = DI.Container.GetInstance<ITestModel>;
+
+
+            mock.Object.PrintAge();
+
+            Assert.Equal(mock.Object.PrintAge(), 15);
         }
     }
 }

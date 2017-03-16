@@ -12,9 +12,14 @@ namespace RSMuseum.ClassLibrary.Models
         public string Name { get; set; }
         public int Age { get; set; }
 
-        public static int PrintAge(TestModel input)
+        public TestModel()
         {
-            return input.Age;
+            //this.Age = dummy.Age;
+        }
+
+        public int PrintAge()
+        {
+            return this.Age;
         }
     }
 }
