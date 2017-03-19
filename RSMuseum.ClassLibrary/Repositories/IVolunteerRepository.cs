@@ -5,9 +5,9 @@ namespace RSMuseum.ClassLibrary.Repositories
 {
     public interface IVolunteerRepository
     {
-        List<object> GetAllNotConfirmedRegistrations();
+        IList<object> GetAllNotConfirmedRegistrations();
 
-        ICollection<Volunteer> GetAllVolunteers();
+        IList<Volunteer> GetAllVolunteers();
 
         void AddTimeRegistration(Registration registration);
     }

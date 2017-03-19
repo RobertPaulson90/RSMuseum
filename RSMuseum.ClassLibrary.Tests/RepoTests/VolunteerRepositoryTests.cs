@@ -33,7 +33,7 @@ namespace RSMuseum.ClassLibrary.Tests
             fakeVolunteerRepo.Setup(vo => vo.GetAllVolunteers()).Returns(expected);
 
             var mockedvolunteer = new Mock<DbSet<Volunteer>>();
-            mockedvolunteer.Setup(d => d.Add(It.IsAny<T>())).Callback<T>((s) => expected.Add(s));
+            // mockedvolunteer.Setup(d => d.Add(It.IsAny<T>())).Callback<T>((s) => expected.Add(s));
 
             mockedvolunteer.Setup(m => m.Add(expected[0]));
             //mockedvolunteer.Object.Add(expected[0]);
