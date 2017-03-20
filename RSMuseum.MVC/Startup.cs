@@ -10,7 +10,6 @@ namespace RSMuseum.MVC
         public void Configuration(IAppBuilder app)
         {
             new DI(); // Instantiere vores DI container
-            //AddDbContext her
             ConfigureAuth(app);
         }
     }
