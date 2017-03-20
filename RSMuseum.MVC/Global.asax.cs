@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using RSMuseum.ClassLibrary;
+using RSMuseum.MVC.Models;
+using SimpleInjector;
+using SimpleInjector.Integration.Web.Mvc;
 
 namespace RSMuseum.MVC
 {
@@ -18,6 +25,11 @@ namespace RSMuseum.MVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // Instantiere vores DI container
+            var di = new DI();
+            DI.Container.Verify();
+            // DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(DI.Container));
         }
     }
 }

@@ -12,13 +12,13 @@ namespace RSMuseum.ClassLibrary
     {
         public class RSMContext : DbContext
         {
-            public DbSet<Address> Address { get; set; }
-            public DbSet<Guild> Guild { get; set; }
-            public DbSet<Person> Person { get; set; }
-            public DbSet<ZipCodeTable> ZipCodeTable { get; set; }
-            public DbSet<ProjectManager> ProjectManager { get; set; }
+            public virtual DbSet<Address> Address { get; set; }
+            public virtual DbSet<Guild> Guild { get; set; }
+            public virtual DbSet<Person> Person { get; set; }
+            public virtual DbSet<ZipCodeTable> ZipCodeTable { get; set; }
+            public virtual DbSet<ProjectManager> ProjectManager { get; set; }
             public virtual DbSet<Volunteer> Volunteer { get; set; }
-            public DbSet<Registration> Registration { get; set; }
+            public virtual DbSet<Registration> Registration { get; set; }
 
             public RSMContext() : base("name = RSMConnectionString")
             {
