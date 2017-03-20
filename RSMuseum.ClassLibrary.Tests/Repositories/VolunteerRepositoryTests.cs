@@ -11,7 +11,7 @@ namespace RSMuseum.ClassLibrary.Tests.Repositories
     public class VolunteerRepositoryTests
     {
         [Fact]
-        public void GetAllVolunteersMethodWorks()
+        public void GetAllVolunteersMethodWorks() // SUT er repository-metoden, som afhænger af entity framework som vi er nødsaget til at mock så godt som muligt
         {
             // Arrange
             var fakeVolunteer = new Volunteer { Id = 0 }; // her opretter vi en "falsk" volunteer (uden brug af Moq)
