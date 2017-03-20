@@ -36,7 +36,6 @@ namespace RSMuseum.ClassLibrary.Tests
             var mock = new Mock<ITestModel>();
             //mock.Object.Age = DI.Container.GetInstance<ITestModel>;
 
-
             mock.Object.PrintAge();
 
             Assert.Equal(mock.Object.PrintAge(), 15);
