@@ -17,7 +17,7 @@ namespace RSMuseum.ClassLibrary
             public DbSet<Person> Person { get; set; }
             public DbSet<ZipCodeTable> ZipCodeTable { get; set; }
             public DbSet<ProjectManager> ProjectManager { get; set; }
-            public DbSet<Volunteer> Volunteer { get; set; }
+            public virtual DbSet<Volunteer> Volunteer { get; set; }
             public DbSet<Registration> Registration { get; set; }
 
             public RSMContext() : base("name = RSMConnectionString")

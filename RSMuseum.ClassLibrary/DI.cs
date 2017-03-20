@@ -1,5 +1,4 @@
-﻿using RSMuseum.ClassLibrary.Models;
-using SimpleInjector;
+﻿using SimpleInjector;
 using static RSMuseum.ClassLibrary.DbRepo;
 using Moq;
 
