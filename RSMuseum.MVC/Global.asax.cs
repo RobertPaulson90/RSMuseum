@@ -28,7 +28,6 @@ namespace RSMuseum.MVC
 
             // Instantiere vores DI container
             var di = new DI();
-            DI.Container.Verify();
             // DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(DI.Container));
         }
     }
