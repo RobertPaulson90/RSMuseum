@@ -33,7 +33,7 @@ namespace RSMuseum.ClassLibrary
                 // Register mocked interfaces instead
             }
 
-            Container.Verify();
+            // Container.Verify();
         }
     }
 }

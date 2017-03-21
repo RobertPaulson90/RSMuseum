@@ -14,6 +14,7 @@ namespace RSMuseum.MVC
         {
             ConfigureAuth(app);
             app.MapSignalR();
+            app.Use(async(context))
         }
     }
 }

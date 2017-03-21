@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
@@ -9,6 +10,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using RSMuseum.ClassLibrary;
 using RSMuseum.MVC.Models;
 using SimpleInjector;
@@ -28,7 +31,20 @@ namespace RSMuseum.MVC
 
             // Instantiere vores DI container
             var di = new DI();
-            // DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(DI.Container));
+
+            DI.Container.Register<IUserStore<ApplicationUser>>(() => new UserStore<ApplicationUser>());
+            DI.Container.Register<ApplicationUserManager>();
+            DI.Container.Register<ApplicationSignInManager>();
+
+            DI.Container.Register<IAuthenticationManager>(() => DI.Container.GetInstance<IOwinContext>().Authentication);
+
+            // DI.Container.Register<IAuthenticationManager, AuthenticationManager>();
+
+            DI.Container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
+
+            //DI.Container.Verify();
+
+            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(DI.Container));
         }
     }
 }
