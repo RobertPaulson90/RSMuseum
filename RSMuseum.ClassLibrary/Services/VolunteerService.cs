@@ -7,17 +7,17 @@ namespace RSMuseum.ClassLibrary.Services
 {
     public class VolunteerService
     {
-        private static IDbRepository _vRepo;
+        private static IDbRepository _dbRepo;
 
         public VolunteerService(IDbRepository volunteerRepository)
         {
-            _vRepo = volunteerRepository;
+            _dbRepo = volunteerRepository;
         }
 
         public List<VolunteerViewDTO> GetVolunteersViewDTO()
         {
             var volunteersDTO = new List<VolunteerViewDTO>();
-            var allVolunteers = _vRepo.GetAllVolunteers();
+            var allVolunteers = _dbRepo.GetAllVolunteers();
 
             foreach (var item in allVolunteers)
             {
