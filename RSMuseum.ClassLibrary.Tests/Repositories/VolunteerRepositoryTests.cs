@@ -4,6 +4,7 @@ using System.Linq;
 using Moq;
 using RSMuseum.ClassLibrary.Entities;
 using RSMuseum.ClassLibrary.Repositories;
+using RSMuseum.ClassLibrary.Tests.TestHelpers;
 using Xunit;
 
 namespace RSMuseum.ClassLibrary.Tests.Repositories
@@ -21,11 +22,11 @@ namespace RSMuseum.ClassLibrary.Tests.Repositories
             mockedDbCtxVolunteer.As<IQueryable<Volunteer>>().Setup(m => m.GetEnumerator()).Returns(expectedData.GetEnumerator());
             // Ovenstående linje er det essentielle, da vi snyder .ToList() på entiteten
 
-            var mockedCtx = new Mock<DbRepo.RSMContext>(); // Mock hele RSMContext, da det jo selvfølgelig er en dependency til VolunteerRepository
+            var mockedCtx = new Mock<DbRepo.RSMContext>(); // Mock hele RSMContext, da det jo selvfølgelig er en dependency til EntityFrameworkRepository
             mockedCtx.Setup(m => m.Volunteer).Returns(mockedDbCtxVolunteer.Object); // Og så skal mockedCtx.Volunteer være tilknyttet til mockedCtx før vi går videre
 
             // Act
-            var volunteerRepo = new VolunteerRepository(mockedCtx.Object);
+            var volunteerRepo = new EntityFrameworkRepository(mockedCtx.Object);
             var result = volunteerRepo.GetAllVolunteers();
 
             // Assert

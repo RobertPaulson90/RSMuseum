@@ -6,9 +6,9 @@ namespace RSMuseum.ClassLibrary.Services
 {
     public class VolunteerService
     {
-        private static IVolunteerRepository _vRepo;
+        private static IDbRepository _vRepo;
 
-        public VolunteerService(IVolunteerRepository volunteerRepository)
+        public VolunteerService(IDbRepository volunteerRepository)
         {
             _vRepo = volunteerRepository;
         }

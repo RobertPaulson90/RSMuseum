@@ -8,11 +8,11 @@ using static RSMuseum.ClassLibrary.DbRepo;
 
 namespace RSMuseum.ClassLibrary.Repositories
 {
-    public class VolunteerRepository : IVolunteerRepository
+    public class EntityFrameworkRepository : IDbRepository
     {
         private RSMContext dbctx;
 
-        public VolunteerRepository(RSMContext dbctx)
+        public EntityFrameworkRepository(RSMContext dbctx)
         {
             this.dbctx = dbctx;
         }

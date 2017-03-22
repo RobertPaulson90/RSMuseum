@@ -20,7 +20,7 @@ namespace RSMuseum.ClassLibrary.Tests.Services
             var fakeVolunteer = new Volunteer { Id = 0 };
             var expectedData = new List<Volunteer>(new Volunteer[] { fakeVolunteer });
 
-            var fakeVRepo = new Mock<IVolunteerRepository>();
+            var fakeVRepo = new Mock<IDbRepository>();
             fakeVRepo.Setup(m => m.GetAllVolunteers()).Returns(expectedData);
 
             // Act

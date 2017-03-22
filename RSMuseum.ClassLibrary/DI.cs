@@ -20,7 +20,7 @@ namespace RSMuseum.ClassLibrary
             if (!testing)
             {
                 Container.Register<RSMContext>(Lifestyle.Scoped);
-                Container.Register<IVolunteerRepository, VolunteerRepository>();
+                Container.Register<IDbRepository, EntityFrameworkRepository>();
                 Container.Register<VolunteerService>();
             }
             else if (testing)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RSMuseum.ClassLibrary.Repositories
 {
-    public interface IVolunteerRepository
+    public interface IDbRepository
     {
         IList<object> GetAllNotConfirmedRegistrations();
 

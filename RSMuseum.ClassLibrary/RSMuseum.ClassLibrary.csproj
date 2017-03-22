@@ -93,8 +93,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Entities\Registration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IVolunteerRepository.cs" />
-    <Compile Include="Repositories\VolunteerRepository.cs" />
+    <Compile Include="Repositories\IDbRepository.cs" />
+    <Compile Include="Repositories\EntityFrameworkRepository.cs" />
     <Compile Include="Services\VolunteerService.cs" />
   </ItemGroup>
   <ItemGroup>
