@@ -3,7 +3,6 @@
     <script src="https://unpkg.com/vue"></script>
 </head>
 <body>
-    <div id="app">
         <div class="container">
             <h2>Liste med frivillige som skal have godkendt timer</h2>
             <div class="list-group">
@@ -12,30 +11,10 @@
                 <a href="#" class="list-group-item">Sanne Sørensen, Laug 3, 01/03/2017, 4 timer</a>
             </div>
          </div>
-        
-        <h3>{{ apidata }}</h3>
-        </div>
+
        
         <script>
-           
 
-            var vue = new Vue({
-                el: '#app',
-                data: {
-                    apidata: '',
-                },
-                methods: {
-                    getVolunteer() {
-                        $.get('/api/GetVolunteers', (data) => {
-                            this.apidata = data;
-                        })
-                    }
-
-                }
-
-            })
-
-            vue.getVolunteer();
         </script>
 </body>
 
