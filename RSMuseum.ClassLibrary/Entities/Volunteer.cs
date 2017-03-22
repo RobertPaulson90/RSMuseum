@@ -10,15 +10,17 @@ namespace RSMuseum.ClassLibrary.Entities
 {
     public class Volunteer
     {
-        [Key]
-        public int Id { get; set; }
-        public Volunteer()
-        {
-            Registrations = new List<Registration>();
-        }
-       
+        public int VolunteerId { get; set; }
+
+        public int MembershipNumber { get; set; }
         public bool IsActive { get; set; }
 
-        public virtual ICollection<Registration> Registrations { get; set; }
+        public virtual IList<Registration> Registrations { get; set; }
+        public virtual IList<Guild> Guilds { get; set; }
+
+        [Required]
+        public int PersonId { get; set; }
+
+        public virtual Person Person { get; set; }
     }
 }

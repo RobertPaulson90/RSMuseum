@@ -10,8 +10,7 @@ namespace RSMuseum.ClassLibrary.Entities
 {
     public class ZipCodeTable
     {
-        [Key]
-        public int ZipCodeId { get; set; }
+        public int ZipCodeTableId { get; set; }
 
         [Required]
         public int ZipCode { get; set; }
@@ -19,6 +18,4 @@ namespace RSMuseum.ClassLibrary.Entities
         [Required]
         public string City { get; set; }
     }
-
-    
 }

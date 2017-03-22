@@ -72,10 +72,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityFrameworkTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\VolunteerRepositoryTests.cs" />
     <Compile Include="Services\VolunteerServiceTests.cs" />
-    <Compile Include="TestHelpers\FakeRSMContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

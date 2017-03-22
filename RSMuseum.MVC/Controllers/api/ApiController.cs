@@ -17,7 +17,7 @@ namespace RSMuseum.MVC.Controllers.api
             var volunteerService = DI.Container.GetInstance<VolunteerService>(); // Beder vores DI container om instans af VolunteerService
             // Vi injecter ikke VolunteerService i parametrene (endnu), fordi det kræver integrering af SimpleInjector i MVC (umiddelbart lidt tricky...)
 
-            var volunteers = volunteerService.GetAllVolunteers(); // Forretningslogikken sættes igang! For det må vi jo ikke i constructoren :-)
+            var volunteers = volunteerService.GetVolunteersViewDTO(); // Forretningslogikken sættes igang! For det må vi jo ikke i constructoren :-)
 
             if (volunteers != null)
             {

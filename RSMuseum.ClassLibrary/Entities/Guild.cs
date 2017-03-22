@@ -13,5 +13,7 @@ namespace RSMuseum.ClassLibrary.Entities
 
         [Required]
         public string GuildName { get; set; }
+
+        public virtual IList<Volunteer> Volunteers { get; set; }
     }
 }

@@ -4,17 +4,16 @@ namespace RSMuseum.ClassLibrary.Entities
 {
     public class Address
     {
-
-        public Address()
-        {
-            Person = new Person();
-        }
-        public int Id { get; set; }
+        [Key]
+        public int AddressId { get; set; }
 
         public string Street { get; set; }
 
-        public virtual ZipCodeTable ZipCodeId { get; set; }
+        [Required]
+        public int ZipCodeTableId { get; set; }
 
-        public virtual Person Person { get; set; }
+        public virtual ZipCodeTable ZipCode { get; set; }
+
+        //public virtual Person Person { get; set; }
     }
 }

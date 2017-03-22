@@ -4,7 +4,6 @@ using System.Linq;
 using Moq;
 using RSMuseum.ClassLibrary.Entities;
 using RSMuseum.ClassLibrary.Repositories;
-using RSMuseum.ClassLibrary.Tests.TestHelpers;
 using Xunit;
 
 namespace RSMuseum.ClassLibrary.Tests.Repositories
@@ -15,7 +14,7 @@ namespace RSMuseum.ClassLibrary.Tests.Repositories
         public void GetAllVolunteersMethodWorks() // SUT er repository-metoden, som afhænger af entity framework som vi er nødsaget til at mock så godt som muligt
         {
             // Arrange
-            var fakeVolunteer = new Volunteer { Id = 0 }; // her opretter vi en "falsk" volunteer (uden brug af Moq)
+            var fakeVolunteer = new Volunteer { VolunteerId = 0 }; // her opretter vi en "falsk" volunteer (uden brug af Moq)
             var expectedData = new List<Volunteer>(new Volunteer[] { fakeVolunteer }); // smider vores falsk volunteer i en ny liste
 
             var mockedDbCtxVolunteer = new Mock<DbSet<Volunteer>>(); // Så mocker vi vores <DbSet<Volunteer>>

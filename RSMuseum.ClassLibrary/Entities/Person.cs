@@ -10,22 +10,21 @@ namespace RSMuseum.ClassLibrary.Entities
 {
     public class Person
     {
-        public int Id { get; set; }
+        public int PersonId { get; set; }
 
         [Required]
         public string FirstName { get; set; }
 
         [Required]
         public string LastName { get; set; }
-   
+
         [Required]
-        [ForeignKey("Id")]
-        public virtual Address Adress { get; set; }
+        public int AddressId { get; set; }
+
+        public virtual Address Address { get; set; }
 
         public string Phone { get; set; }
 
         public string Email { get; set; }
-
-        public virtual Guild Guild { get; set; }
     }
 }

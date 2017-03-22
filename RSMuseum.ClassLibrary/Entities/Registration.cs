@@ -20,13 +20,13 @@ namespace RSMuseum.ClassLibrary.Entities
         public bool Approved { get; set; }
 
         [Required]
-        public int CurrentGuildId { get; set; }
+        public int GuildId { get; set; }
+
+        public virtual Guild Guild { get; set; }
 
         [Required]
         public int VolunteerId { get; set; }
 
-        [Required]
-        [ForeignKey("VolunteerId")]
         public virtual Volunteer Volunteer { get; set; }
     }
 }

@@ -7,13 +7,13 @@ namespace RSMuseum.ClassLibrary.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class test : IMigrationMetadata
+    public sealed partial class SeedOnly : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(test));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SeedOnly));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703171111423_test"; }
+            get { return "201703221258060_SeedOnly"; }
         }
         
         string IMigrationMetadata.Source

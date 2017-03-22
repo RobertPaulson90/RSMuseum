@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using RSMuseum.ClassLibrary.Entities;
 using RSMuseum.ClassLibrary.Repositories;
+using RSMuseum.ClassLibrary.DTOs;
 
 namespace RSMuseum.ClassLibrary.Services
 {
@@ -13,9 +14,25 @@ namespace RSMuseum.ClassLibrary.Services
             _vRepo = volunteerRepository;
         }
 
-        public IList<Volunteer> GetAllVolunteers()
+        public List<VolunteerViewDTO> GetVolunteersViewDTO()
         {
-            return _vRepo.GetAllVolunteers();
+            var volunteersDTO = new List<VolunteerViewDTO>();
+            var allVolunteers = _vRepo.GetAllVolunteers();
+
+            foreach (var item in allVolunteers)
+            {
+                var volunteerDTO = new VolunteerViewDTO();
+                volunteerDTO.Name = item.Person.FirstName + " " + item.Person.LastName;
+                volunteerDTO.MembershipNumber = item.MembershipNumber;
+                foreach (var guild in item.Guilds)
+                {
+                    volunteerDTO.GuildName.Add(guild.GuildName);
+                }
+
+                volunteersDTO.Add(volunteerDTO);
+            }
+
+            return volunteersDTO;
         }
     }
 }
