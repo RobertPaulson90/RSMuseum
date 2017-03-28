@@ -1,5 +1,6 @@
 ﻿using RSMuseum.ClassLibrary.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RSMuseum.ClassLibrary.Repositories
 {
@@ -8,6 +9,9 @@ namespace RSMuseum.ClassLibrary.Repositories
         IList<object> GetAllNotConfirmedRegistrations();
 
         IList<Volunteer> GetAllVolunteers();
+
+        IList<Volunteer> GetAllVolunteersAndGuilds();
+
 
         void AddTimeRegistration(Registration registration);
     }

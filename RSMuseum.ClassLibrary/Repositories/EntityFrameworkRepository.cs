@@ -1,9 +1,8 @@
 ﻿using RSMuseum.ClassLibrary.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static RSMuseum.ClassLibrary.DbRepo;
 
 namespace RSMuseum.ClassLibrary.Repositories
@@ -31,5 +30,16 @@ namespace RSMuseum.ClassLibrary.Repositories
         {
             return dbctx.Volunteer.ToList();
         }
+        public IList<Volunteer> GetAllVolunteersAndGuilds()
+        {
+            dbctx.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            IQueryable<Volunteer> query = dbctx.Volunteer;
+            query
+                .Include(x => x.Person)
+                .Include(x => x.Guilds)
+                .ToList();
+            return query.ToList();
+        }
+
     }
 }
