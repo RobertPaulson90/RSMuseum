@@ -7,7 +7,7 @@ using RSMuseum.ClassLibrary.Entities;
 
 namespace RSMuseum.ClassLibrary.DTOs
 {
-    public class VolunteerViewDTO
+    public class VolunteerViewDTO 
     {
         public string Name { get; set; }
         public int MembershipNumber { get; set; }

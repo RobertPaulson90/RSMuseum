@@ -11,17 +11,17 @@ namespace RSMuseum.ClassLibrary.Services
     {
         private static IDbRepository _dbRepo;
 
-        public VolunteerService(IDbRepository volunteerRepository)
+        public VolunteerService(IDbRepository volunteerRepository) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
         {
             _dbRepo = volunteerRepository;
         }
 
-        public List<VolunteerViewDTO> GetVolunteersViewDTO()
+        public List<VolunteerViewDTO> GetVolunteersViewDTO() //Bliver kaldt fra vores RESTful API
         {
-            var volunteersDTO = new List<VolunteerViewDTO>();
-            var allVolunteersAndGuilds = _dbRepo.GetAllVolunteersAndGuilds();
+            var volunteersDTO = new List<VolunteerViewDTO>(); //Instancisere en liste med de volunteer properties som vores View har brug for.
+            var allVolunteers = _dbRepo.GetAllVolunteers(); //Går ned i vores DAL for at hente vores frivillige
 
-            foreach (var item in allVolunteersAndGuilds)
+            foreach (var item in allVolunteers) //Smider data i vores VolunteerListe.
             {
                 var volunteerDTO = new VolunteerViewDTO();
                 volunteerDTO.Name = item.Person.FirstName + " " + item.Person.LastName;

@@ -11,7 +11,7 @@ namespace RSMuseum.ClassLibrary.Repositories
     {
         private RSMContext dbctx;
 
-        public EntityFrameworkRepository(RSMContext dbctx)
+        public EntityFrameworkRepository(RSMContext dbctx) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
         {
             this.dbctx = dbctx;
         }
