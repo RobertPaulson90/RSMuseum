@@ -1,8 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.Owin;
 using Owin;
-using RSMuseum.ClassLibrary;
-using SimpleInjector;
 
 [assembly: OwinStartupAttribute(typeof(RSMuseum.MVC.Startup))]
 

@@ -9,8 +9,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using RSMuseum.ClassLibrary;
 using RSMuseum.MVC.Models;
+using RSMuseum.Services;
 using SimpleInjector;
 using SimpleInjector.Integration.Web.Mvc;
 
