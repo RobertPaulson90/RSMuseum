@@ -1,4 +1,5 @@
-﻿using RSMuseum.ClassLibrary;
+﻿using AutoMapper;
+using RSMuseum.ClassLibrary;
 using RSMuseum.ClassLibrary.Entities;
 using RSMuseum.Repository;
 using SimpleInjector;
@@ -10,9 +11,11 @@ namespace RSMuseum.Services
     {
         // Access the container in other classes with DI.Container. Remember: using RSMuseum.ClassLibrary;
         public static Container Container { get; set; }
+        public Mapper AutoMapper { get; set; }
 
         public DI()
         {
+            AutoMapper = Mapper.Configuration.CreateMapper();
             Container = new Container();
             Container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
 
