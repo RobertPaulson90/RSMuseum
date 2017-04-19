@@ -9,18 +9,21 @@ using RSMuseum.Services.DTOs;
 
 namespace RSMuseum.Services
 {
-    public class AutoMapperConfiguration
+    public static class AutoMapperConfiguration
     {
-        public static IMapper Mapper { get; set; }
-
-
-        public AutoMapperConfiguration()
+        public static void Configure()
         {
             var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<List<Volunteer>, List<VolunteerViewDTO>>();
+                cfg.CreateMap<Volunteer, IVolunteerViewDTO>()
+                .ForMember(dest => dest.GuildName,
+               opts => opts.MapFrom(src => src.Guilds.Select(x => x.GuildName)))
+               .ForMember(dest => dest.FirstName,
+               opts => opts.MapFrom(src => src.Person.FirstName))
+                .ForMember(dest => dest.LastName,
+               opts => opts.MapFrom(src => src.Person.LastName));
             });
 
-            Mapper = config.CreateMapper();
+           config.CreateMapper();
         }
     }
 }

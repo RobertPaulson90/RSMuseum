@@ -17,6 +17,9 @@ namespace RSMuseum.Repository.Entities
 
             public RSMContext() : base("name = RSMConnectionString")
             {
+                this.Configuration.LazyLoadingEnabled = false;
+                this.Configuration.ProxyCreationEnabled = false;
+
             }
 
             public static RSMContext Create()
