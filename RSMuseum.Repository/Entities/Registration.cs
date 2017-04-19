@@ -17,6 +17,9 @@ namespace RSMuseum.Repository.Entities
         public int Hours { get; set; }
 
         [Required]
+        public DateTime Date { get; set; }
+
+        [Required]
         public bool Approved { get; set; }
 
         [Required]

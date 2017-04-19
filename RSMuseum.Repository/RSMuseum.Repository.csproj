@@ -92,38 +92,23 @@
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Entities\Volunteer.cs" />
     <Compile Include="Entities\Registration.cs" />
-    <Compile Include="Migrations\201703221258060_SeedOnly.cs" />
-    <Compile Include="Migrations\201703221258060_SeedOnly.Designer.cs">
-      <DependentUpon>201703221258060_SeedOnly.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703221412093_added membership number property to volunteer.cs" />
-    <Compile Include="Migrations\201703221412093_added membership number property to volunteer.Designer.cs">
-      <DependentUpon>201703221412093_added membership number property to volunteer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703221437168_seedonly2.cs" />
-    <Compile Include="Migrations\201703221437168_seedonly2.Designer.cs">
-      <DependentUpon>201703221437168_seedonly2.cs</DependentUpon>
+    <Compile Include="Migrations\201704190813003_Changed Registration.cs" />
+    <Compile Include="Migrations\201704190813003_Changed Registration.Designer.cs">
+      <DependentUpon>201704190813003_Changed Registration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IDbRepository.cs" />
     <Compile Include="EntityFrameworkRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704190813003_Changed Registration.resx">
+      <DependentUpon>201704190813003_Changed Registration.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703221258060_SeedOnly.resx">
-      <DependentUpon>201703221258060_SeedOnly.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703221412093_added membership number property to volunteer.resx">
-      <DependentUpon>201703221412093_added membership number property to volunteer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703221437168_seedonly2.resx">
-      <DependentUpon>201703221437168_seedonly2.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
