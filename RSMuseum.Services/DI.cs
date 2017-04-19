@@ -11,11 +11,11 @@ namespace RSMuseum.Services
     {
         // Access the container in other classes with DI.Container. Remember: using RSMuseum.ClassLibrary;
         public static Container Container { get; set; }
-        public Mapper AutoMapper { get; set; }
 
         public DI()
         {
-            AutoMapper = Mapper.Configuration.CreateMapper();
+            new AutoMapperConfiguration();
+
             Container = new Container();
             Container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
 

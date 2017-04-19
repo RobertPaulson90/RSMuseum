@@ -4,15 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using RSMuseum.Repository.Entities;
+using RSMuseum.Services.DTOs;
 
 namespace RSMuseum.Services
 {
-    public static class AutoMapperConfiguration
+    public class AutoMapperConfiguration
     {
-        public static void Configure()
+        public static IMapper Mapper { get; set; }
+
+
+        public AutoMapperConfiguration()
         {
-            Mapper.Map<Team, TeamDTO>()
-                  .ForMember(dest => dest.Players, opt => opt.Ignore());
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<List<Volunteer>, List<VolunteerViewDTO>>();
+            });
+
+            Mapper = config.CreateMapper();
         }
     }
 }

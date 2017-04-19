@@ -32,7 +32,7 @@ namespace RSMuseum.MVC
                         .SerializerSettings
                         .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             // Instantiere vores DI container
-            var di = new DI();
+            new DI();
             // DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(DI.Container));
         }
     }
