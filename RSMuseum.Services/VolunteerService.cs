@@ -9,9 +9,9 @@ namespace RSMuseum.Services
     {
         private static IDbRepository _dbRepo;
 
-        public VolunteerService(IDbRepository volunteerRepository) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
+        public VolunteerService(IDbRepository dbRepo) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
         {
-            _dbRepo = volunteerRepository;
+            _dbRepo = dbRepo;
         }
 
         public IList<IVolunteerViewDTO> GetVolunteersViewDTO() //Bliver kaldt fra vores RESTful API

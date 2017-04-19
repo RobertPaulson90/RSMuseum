@@ -336,6 +336,10 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RSMuseum.Repository\RSMuseum.Repository.csproj">
+      <Project>{042D0814-233D-44FF-A4DB-401F086BE819}</Project>
+      <Name>RSMuseum.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RSMuseum.Services\RSMuseum.Services.csproj">
       <Project>{2d41da9f-5bdb-43c2-a8a2-effca863dcc4}</Project>
       <Name>RSMuseum.Services</Name>

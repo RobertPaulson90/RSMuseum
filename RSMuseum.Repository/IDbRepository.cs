@@ -11,6 +11,9 @@ namespace RSMuseum.Repository
 
         IList<Volunteer> GetAllVolunteersAndGuilds();
 
+        IList<Guild> GetAllGuilds();
+
+
         void AddTimeRegistration(Registration registration);
     }
 }

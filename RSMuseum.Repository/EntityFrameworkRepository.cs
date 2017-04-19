@@ -22,6 +22,12 @@ namespace RSMuseum.Repository
             throw new NotImplementedException();
         }
 
+        public IList<Guild> GetAllGuilds()
+        {
+            var query = dbctx.Guild.ToList();
+            return query;
+        }
+
         public IList<object> GetAllNotConfirmedRegistrations()
         {
             throw new NotImplementedException();

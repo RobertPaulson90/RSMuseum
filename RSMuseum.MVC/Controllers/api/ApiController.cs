@@ -10,7 +10,7 @@ namespace RSMuseum.MVC.Controllers.api
 {
     public class ApiController : System.Web.Http.ApiController
     {
-        [Route("api/GetVolunteers")] // Så url'en er http://rsmuseummvc.azurewebsites.net/GetVolunteers
+        [Route("api/GetVolunteers")] // Så url'en er /api/GetVolunteers
         public IHttpActionResult GetVolunteers() // Denne REST-api er for at hente samtlige frivillige
         {
             var volunteerService = DI.Container.GetInstance<VolunteerService>(); // Beder vores DI container om instans af VolunteerService
@@ -27,6 +27,20 @@ namespace RSMuseum.MVC.Controllers.api
             //{
             //    return InternalServerError(); // Something went wrong... God skik at give browseren besked med HTTP-InternalServerError
             //}
+        }
+
+        [Route("api/AddRegistration")] // Så url'en er /api/AddRegistration
+        public IHttpActionResult AddRegistrations([FromBody] object registration) // Denne REST-api er for at hente samtlige frivillige
+        {
+            return Ok(); // Retunere alle frivillige ud til browseren i JSON med HTTP-OK besked
+        }
+
+        [Route("api/GetGuilds")] 
+        public IHttpActionResult GetGuilds()
+        {
+            var guildService = DI.Container.GetInstance<GuildService>();
+            var allGuilds = guildService.GetAllGuilds();
+            return Ok(allGuilds);
         }
     }
 }

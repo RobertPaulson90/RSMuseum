@@ -10,22 +10,22 @@
             @* MedlemsNummer input *@
             <div id="custom-margin-from-top">
                 <div class="form-group input-group">
-                    <label for="medNr">Medlems Nr.:</label>
-                    <input v-model="medlemsNr" type="text" class="form-control" id="medNr">
+                    <label for="VolNum">Medlems Nr.:</label>
+                    <input v-model="VolunteerId" type="text" class="form-control" id="VolNum">
 
                 </div>
                 @* Antal timer input *@
                 <div class="form-group input-group">
-                    <label for="Timer">Antal Timer:</label>
-                    <input v-model="antalTimer" type="text" class="form-control" id="Timer">
+                    <label for="Time">Antal Timer:</label>
+                    <input v-model="Hours" type="text" class="form-control" id="Time">
                 </div>
             </div>
 
             @*Laug input*@
             <div class="form-group input-group">
                 <label for="test">Laug:</label>
-                <select v-model="laug" class="form-control">
-                    <option v-for="entry in laugListe">{{entry.Navn}}</option>
+                <select v-model="Guild" class="form-control">
+                    <option v-for="entry in guildList">{{entry.Name}}</option>
                 </select>
             </div>
 
@@ -33,7 +33,7 @@
             <label for="Timer">Dato:</label>
             <div class="iform-group input-group">
                 <div class="input-group date" data-provide="datepicker">
-                    <input v-model="dato" type="text" class="form-control" id="datetimepicker">
+                    <input v-model="Date" type="text" class="form-control" id="datetimepicker">
                     <div class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </div>
@@ -53,70 +53,56 @@
 
     <script>
 
-        class Data {
-            constructor(MedlemsNr, AntalTimer, Dato, Laug) {
-                this.MedlemsNr = MedlemsNr;
-                this.AntalTimer = AntalTimer;
-                this.Dato = Dato;
-                this.Laug = Laug;
+        class Registration {
+            constructor(VolunteerId, Hours, Date, GuildId) {
+                this.VolunteerId = VolunteerId;
+                this.Hours = Hours;
+                this.Date = Date;
+                this.GuildId = GuildId;
             }
         }
 
-        class Laug {
-            constructor(Navn) {
-                this.Navn = Navn;
+        class Guild {
+            constructor(Name) {
+                this.Name = Name;
             }
         }
-        new Vue({
+
+        var vue = new Vue({
             el: '#Index',
             data: {
-                medlemsNr: '',
-                antalTimer: '',
-                dato: '',
-                laug: 'Laug',
+                VolunteerId: '',
+                Hours: '',
+                Date: '',
+                Guild: 'Laug',
                 Json: '',
-                laugListe:
-                [
-                    new Laug(
-                        'Laug 1'
-                    ),
-                    new Laug(
-                        'Laug 2'
-                    ),
-                    new Laug(
-                        'Laug 3'
-                    ),
-                    new Laug(
-                        'Laug 4'
-                    ),
-                    new Laug(
-                        'Laug 5'
-                    ),
-                    new Laug(
-                        'Laug 6'
-                    ),
-                    new Laug(
-                        'Laug 7'
-                    ),
-                    ]
+                guildList: []
             },
             methods: {
+                GetGuilds: function (event) {
+                    $.get('/api/GetGuilds', (data) => {
+                        for (index in data) {
+                            this.guildList.push(new Guild(data[index].GuildName));
+
+                        }
+                    })
+                },
                 ConvertToJson: function (event) {
                     var tempDato = $("#datetimepicker").val();
-                    this.dato = tempDato; // Kan ikke lide den måde vi får dato værdi på
+                    this.Date = tempDato; // Kan ikke lide den måde vi får dato værdi på
 
-                    var test = new Data();
-                    test.MedlemsNr = this.medlemsNr;
-                    test.AntalTimer = this.antalTimer;
-                    test.Dato = this.dato;
-                    test.Laug = this.laug
+                    var test = new Registration();
+                    test.VolunteerId = this.VolunteerId;
+                    test.Hours = this.Hours;
+                    test.Date = this.Date;
+                    test.GuildId = this.Guild
 
                     this.Json = JSON.stringify(test);
                 }
             }
 
         })
-
+        vue.GetGuilds();
 
     </script>
 </body>

@@ -63,9 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DI.cs" />
+    <Compile Include="DTOs\GuildDTO.cs" />
+    <Compile Include="DTOs\IGuildDTO.cs" />
     <Compile Include="DTOs\IVolunteerViewDTO.cs" />
-    <Compile Include="DTOs\VolunteersViewDTO.cs" />
+    <Compile Include="DTOs\VolunteerViewDTO.cs" />
     <Compile Include="FakeDataService.cs" />
+    <Compile Include="GuildService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VolunteerService.cs" />
   </ItemGroup>
