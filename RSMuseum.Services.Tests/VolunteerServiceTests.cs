@@ -31,6 +31,8 @@ namespace RSMuseum.Services.Tests
 
             // Assert
             Assert.Equal(expected.First().Name, result.First().Name);
+
+
         }
     }
 }
