@@ -54,11 +54,11 @@
     <script>
 
         class Registration {
-            constructor(VolunteerId, Hours, Date, GuildId) {
+            constructor(VolunteerId, Hours, Date, GuildName) {
                 this.VolunteerId = VolunteerId;
                 this.Hours = Hours;
                 this.Date = Date;
-                this.GuildId = GuildId;
+                this.GuildName = GuildName;
             }
         }
 
@@ -95,9 +95,18 @@
                     test.VolunteerId = this.VolunteerId;
                     test.Hours = this.Hours;
                     test.Date = this.Date;
-                    test.GuildId = this.Guild
+                    test.GuildName = this.Guild
 
                     this.Json = JSON.stringify(test);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/AddRegistration',
+                        data: JSON.stringify(test),
+                        success: function (data) { alert('data: ' + data); },
+                        contentType: "application/json",
+                        dataType: 'json'
+                    });
                 }
             }
 

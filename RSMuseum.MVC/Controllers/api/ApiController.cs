@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using RSMuseum.Services;
+using RSMuseum.Repository.Entities;
 
 namespace RSMuseum.MVC.Controllers.api
 {
@@ -30,9 +31,18 @@ namespace RSMuseum.MVC.Controllers.api
         }
 
         [Route("api/AddRegistration")] // Så url'en er /api/AddRegistration
-        public IHttpActionResult AddRegistrations([FromBody] object registration) // Denne REST-api er for at hente samtlige frivillige
+        public IHttpActionResult AddRegistrations([FromBody] Registration registration) // Denne REST-api er for at hente samtlige frivillige
         {
-            return Ok(); // Retunere alle frivillige ud til browseren i JSON med HTTP-OK besked
+            var registationService = DI.Container.GetInstance<RegistrationService>();
+            var succeeded = registationService.AddRegistration(registration);
+            if (succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return InternalServerError();
+            }
         }
 
         [Route("api/GetGuilds")] 

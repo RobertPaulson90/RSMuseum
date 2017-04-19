@@ -19,7 +19,8 @@ namespace RSMuseum.Repository
 
         public void AddTimeRegistration(Registration registration)
         {
-            throw new NotImplementedException();
+            dbctx.Registration.Add(registration);
+            dbctx.SaveChanges();
         }
 
         public IList<Guild> GetAllGuilds()
