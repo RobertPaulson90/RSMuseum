@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using RSMuseum.ClassLibrary.Entities;
+using RSMuseum.Repository.Entities;
 using RSMuseum.Repository;
 using RSMuseum.Repository.Entities;
 
-namespace RSMuseum.ClassLibrary
+namespace RSMuseum.Repository
 {
     public class EntityFrameworkRepository : IDbRepository
     {

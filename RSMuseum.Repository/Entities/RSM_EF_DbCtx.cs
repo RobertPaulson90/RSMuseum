@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using RSMuseum.Repository.Entities;
 
-namespace RSMuseum.ClassLibrary.Entities
+namespace RSMuseum.Repository.Entities
 {
     public class RSM_EF_DbCtx
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using RSMuseum.ClassLibrary;
+using RSMuseum.Repository;
 using RSMuseum.Services.DTOs;
 
 namespace RSMuseum.Services

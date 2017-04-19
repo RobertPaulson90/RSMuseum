@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using RSMuseum.Repository.Entities;
 
-namespace RSMuseum.ClassLibrary
+namespace RSMuseum.Repository
 {
     public interface IDbRepository // Vores main repository, alle andre repositories skal nedarve denne
     {
