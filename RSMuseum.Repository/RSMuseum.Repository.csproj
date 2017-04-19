@@ -8,8 +8,8 @@
     <ProjectGuid>{042D0814-233D-44FF-A4DB-401F086BE819}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RSMuseum.ClassLibrary</RootNamespace>
-    <AssemblyName>RSMuseum.ClassLibrary</AssemblyName>
+    <RootNamespace>RSMuseum.Repository</RootNamespace>
+    <AssemblyName>RSMuseum.Repository</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>

@@ -1,6 +1,5 @@
-﻿using RSMuseum.ClassLibrary;
-using RSMuseum.ClassLibrary.Entities;
-using RSMuseum.Repository;
+﻿using RSMuseum.Repository;
+using RSMuseum.Repository.Entities;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 
@@ -8,7 +7,7 @@ namespace RSMuseum.Services
 {
     public class DI
     {
-        // Access the container in other classes with DI.Container. Remember: using RSMuseum.ClassLibrary;
+        // Access the container in other classes with DI.Container.
         public static Container Container { get; set; }
 
         public DI()

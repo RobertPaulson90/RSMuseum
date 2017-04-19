@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Moq;
-using RSMuseum.ClassLibrary;
+using RSMuseum.Repository;
 using RSMuseum.Repository.Entities;
 using RSMuseum.Services.DTOs;
 using Xunit;
