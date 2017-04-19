@@ -17,11 +17,11 @@ namespace RSMuseum.Services
         {
             _dbCtx = dbCtx;
 
-            var amountOfFakeVolunteersToAdd = 50;
-            var amountOfFakeRegistrationsToAdd = 200;
+            //var amountOfFakeVolunteersToAdd = 250;
+            //var amountOfFakeRegistrationsToAdd = 100;
 
-            AddFakeVolunteersToDb(amountOfFakeVolunteersToAdd);
-            AddFakeRegistrationsToDb(amountOfFakeRegistrationsToAdd);
+            //AddFakeVolunteersToDb(amountOfFakeVolunteersToAdd);
+            //AddFakeRegistrationsToDb(amountOfFakeRegistrationsToAdd);
         }
 
         public void AddFakeVolunteersToDb(int count)
@@ -58,7 +58,23 @@ namespace RSMuseum.Services
 
         public void AddFakeRegistrationsToDb(int count)
         {
-            throw new NotImplementedException();
+            var guilds = _dbCtx.Guild.ToList();
+            var volunteers = _dbCtx.Volunteer.ToList();
+
+            for (int i = 0; i < count; i++)
+            {
+                var fakeRegistration = new Faker<Registration>()
+                    .RuleFor(x => x.Hours, y => y.Random.Int(0000, 0012))
+                    .RuleFor(x => x.Date, y => y.Date.Recent())
+                    .RuleFor(x => x.Approved, y => y.Random.Bool())
+                    .RuleFor(x => x.GuildId, y => y.PickRandom(guilds).GuildId)
+                    .RuleFor(x => x.VolunteerId, y => y.PickRandom(volunteers).VolunteerId)
+                    .RuleFor(x => x.DateTimeRegistered, y => y.Date.Recent())
+                    .Generate();
+
+                _dbCtx.Registration.Add(fakeRegistration);
+                _dbCtx.SaveChanges();
+            }
         }
     }
 }

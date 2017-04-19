@@ -33,6 +33,9 @@ namespace RSMuseum.MVC
                         .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             // Instantiere vores DI container
             new DI();
+
+            //Dont uncomment and run please
+            //var generateFakeData = DI.Container.GetInstance<GenerateFakeData>();
             // DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(DI.Container));
         }
     }

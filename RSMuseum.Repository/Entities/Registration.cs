@@ -31,5 +31,8 @@ namespace RSMuseum.Repository.Entities
         public int VolunteerId { get; set; }
 
         public virtual Volunteer Volunteer { get; set; }
+
+        [Required]
+        public DateTime DateTimeRegistered { get; set; }
     }
 }
