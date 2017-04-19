@@ -12,7 +12,9 @@ namespace RSMuseum.Repository.Entities
     {
         public int VolunteerId { get; set; }
 
+        [Required]
         public int MembershipNumber { get; set; }
+
         public bool IsActive { get; set; }
 
         public virtual IList<Registration> Registrations { get; set; }

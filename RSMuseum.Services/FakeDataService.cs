@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Bogus;
-using RSMuseum.ClassLibrary.Entities;
-using RSMuseum.Repository;
 using RSMuseum.Repository.Entities;
 
 namespace RSMuseum.Services

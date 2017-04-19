@@ -2,11 +2,11 @@
 using System.Data.Entity;
 using System.Linq;
 using Moq;
-using RSMuseum.ClassLibrary.Entities;
+using RSMuseum.Repository.Entities;
 using RSMuseum.Repository.Entities;
 using Xunit;
 
-namespace RSMuseum.ClassLibrary.Tests
+namespace RSMuseum.Repository.Tests
 {
     public class EntityFrameworkRepositoryTests
     {

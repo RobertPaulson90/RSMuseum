@@ -1,4 +1,4 @@
-using RSMuseum.ClassLibrary.Entities;
+using RSMuseum.Repository.Entities;
 
 namespace RSMuseum.Repository.Migrations
 {
