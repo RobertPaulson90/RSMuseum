@@ -37,7 +37,7 @@ namespace RSMuseum.MVC.Controllers.api
             var succeeded = registationService.AddRegistration(registration);
             if (succeeded)
             {
-                return Ok();
+                return Ok(succeeded);
             }
             else
             {
