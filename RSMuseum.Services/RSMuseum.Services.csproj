@@ -65,7 +65,9 @@
     <Compile Include="DI.cs" />
     <Compile Include="DTOs\GuildDTO.cs" />
     <Compile Include="DTOs\IGuildDTO.cs" />
+    <Compile Include="DTOs\IRegistrationDTO.cs" />
     <Compile Include="DTOs\IVolunteerViewDTO.cs" />
+    <Compile Include="DTOs\RegistrationDTO.cs" />
     <Compile Include="DTOs\VolunteerViewDTO.cs" />
     <Compile Include="FakeDataService.cs" />
     <Compile Include="GuildService.cs" />
