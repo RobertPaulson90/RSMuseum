@@ -45,6 +45,7 @@
             </div>
 
             <p>{{Json}}</p>
+            <p>{{GuildID}}</p>
         </div>
 
     </div>
@@ -54,16 +55,17 @@
     <script>
 
         class Registration {
-            constructor(VolunteerId, Hours, Date, GuildName) {
+            constructor(VolunteerId, Hours, Date, GuildId) {
                 this.VolunteerId = VolunteerId;
                 this.Hours = Hours;
                 this.Date = Date;
-                this.GuildName = GuildName;
+                this.GuildId = GuildId;
             }
         }
 
         class Guild {
-            constructor(Name) {
+            constructor(Id, Name) {
+                this.Id = Id;
                 this.Name = Name;
             }
         }
@@ -75,6 +77,7 @@
                 Hours: '',
                 Date: '',
                 Guild: 'Laug',
+                GuildID: '',
                 Json: '',
                 guildList: []
             },
@@ -82,20 +85,19 @@
                 GetGuilds: function (event) {
                     $.get('/api/GetGuilds', (data) => {
                         for (index in data) {
-                            this.guildList.push(new Guild(data[index].GuildName));
-
+                            this.guildList.push(new Guild(data[index].GuildId,data[index].GuildName));
                         }
                     })
                 },
                 ConvertToJson: function (event) {
+                    vue.GetGuildID()
                     var tempDato = $("#datetimepicker").val();
                     this.Date = tempDato; // Kan ikke lide den måde vi får dato værdi på
-
                     var test = new Registration();
                     test.VolunteerId = this.VolunteerId;
                     test.Hours = this.Hours;
                     test.Date = this.Date;
-                    test.GuildName = this.Guild
+                    test.GuildId = this.GuildID
 
                     this.Json = JSON.stringify(test);
 
@@ -107,6 +109,14 @@
                         contentType: "application/json",
                         dataType: 'json'
                     });
+                },
+                GetGuildID: function (event) {
+                    for (index in this.guildList) {
+                        if (this.guildList[index].Name == this.Guild) {
+                            this.GuildID = this.guildList[index].Id
+                            alert(this.GuildID);
+                        }
+                    }
                 }
             }
 
