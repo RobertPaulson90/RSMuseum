@@ -21,13 +21,18 @@ namespace RSMuseum.Services
 
         public bool AddRegistration(Registration registration)
         {
-            
+            try
+            {
+                registration.DateTimeRegistered = DateTime.Now;
+
                 _dbRepo.AddTimeRegistration(registration);
                 return true;
-            
-            
-               // return false;
-            
+            }
+            catch (Exception)
+            {
+                return false;
+
+            }
         }
 
         //_________________________________________________________________--

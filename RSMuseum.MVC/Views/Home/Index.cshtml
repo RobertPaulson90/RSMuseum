@@ -43,9 +43,9 @@
             <div class="button-wrapper input-group">
                 <button v-on:click="ConvertToJson" type="button" class="btn btn-primary">Submit</button>
             </div>
-
-            <p>{{Json}}</p>
-            <p>{{GuildID}}</p>
+            <transition name="fade">
+                <h3 v-if="show">{{Message}}</h3>
+            </transition>
         </div>
 
     </div>
@@ -76,9 +76,11 @@
                 VolunteerId: '',
                 Hours: '',
                 Date: '',
-                Guild: 'Laug',
+                Guild: '',
                 GuildID: '',
-                Json: '',
+                Json: '2321321312',
+                Message: '',
+                show: false,
                 guildList: []
             },
             methods: {
@@ -93,19 +95,29 @@
                     vue.GetGuildID()
                     var tempDato = $("#datetimepicker").val();
                     this.Date = tempDato; // Kan ikke lide den måde vi får dato værdi på
-                    var test = new Registration();
-                    test.VolunteerId = this.VolunteerId;
-                    test.Hours = this.Hours;
-                    test.Date = this.Date;
-                    test.GuildId = this.GuildID
+                    var _registration = new Registration();
+                    _registration.VolunteerId = this.VolunteerId;
+                    _registration.Hours = this.Hours;
+                    _registration.Date = this.Date;
+                    _registration.GuildId = this.GuildID
 
-                    this.Json = JSON.stringify(test);
-
+                    
                     $.ajax({
                         type: 'POST',
                         url: '/api/AddRegistration',
-                        data: JSON.stringify(test),
-                        success: function (data) { alert('data: ' + data); },
+                        data: JSON.stringify(_registration),
+                        success: function (data) {
+                            vue.Message = "Din registrering er behandlet, tak for dit arbejde!"
+                            vue.show = true
+                            setTimeout(function () { vue.show = false}, 5000);
+  
+                        },
+                        error: function (data) {
+                            vue.Message = "Hov, noget gik galt"
+                            vue.show = true
+                            setTimeout(function () { vue.show = false }, 5000);
+                            
+                        },
                         contentType: "application/json",
                         dataType: 'json'
                     });
@@ -114,7 +126,6 @@
                     for (index in this.guildList) {
                         if (this.guildList[index].Name == this.Guild) {
                             this.GuildID = this.guildList[index].Id
-                            alert(this.GuildID);
                         }
                     }
                 }
@@ -122,6 +133,5 @@
 
         })
         vue.GetGuilds();
-
     </script>
 </body>
