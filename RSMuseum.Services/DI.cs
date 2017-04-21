@@ -13,20 +13,16 @@ namespace RSMuseum.Services
 
         public DI()
         {
-            //new AutoMapperConfiguration();
+            new AutoMapperConfiguration();
 
             Container = new Container();
             Container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
 
-            Container.Register<IMapper, Mapper>(Lifestyle.Singleton);
             Container.Register<RSM_EF_DbCtx.RSMContext>(Lifestyle.Scoped);
             Container.Register<IDbRepository, EntityFrameworkRepository>();
             Container.Register<VolunteerService>();
 
             Container.Verify();
-
-            var mapper = DI.Container.GetInstance<IMapper>();
-            //Confi
         }
     }
 }

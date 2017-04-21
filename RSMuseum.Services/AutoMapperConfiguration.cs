@@ -9,9 +9,11 @@ using RSMuseum.Services.DTOs;
 
 namespace RSMuseum.Services
 {
-    public static class AutoMapperConfiguration
+    public class AutoMapperConfiguration
     {
-        public static void Configure()
+        public static IMapper Mapper { get; set; }
+
+        public AutoMapperConfiguration()
         {
             var config = new MapperConfiguration(cfg => {
                 cfg.CreateMap<Volunteer, IVolunteerViewDTO>()
@@ -23,7 +25,7 @@ namespace RSMuseum.Services
                opts => opts.MapFrom(src => src.Person.LastName));
             });
 
-           config.CreateMapper();
+            AutoMapperConfiguration.Mapper = config.CreateMapper();            
         }
     }
 }

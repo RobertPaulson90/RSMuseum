@@ -16,11 +16,11 @@ namespace RSMuseum.Services
             _dbRepo = volunteerRepository;
         }
 
-        public IList<IVolunteerViewDTO> GetVolunteersViewDTO(Mapper mapper) //Bliver kaldt fra vores RESTful API
+        public IList<IVolunteerViewDTO> GetVolunteersViewDTO() //Bliver kaldt fra vores RESTful API
         {
             var allVolunteers = _dbRepo.GetAllVolunteersAndGuilds(); //Går ned i vores DAL for at hente vores frivillige
-            var volunteersDTO = 
-                AutoMapperConfiguration.Mapper.Map<IList<Volunteer>, IList<IVolunteerViewDTO>>(allVolunteers);
+
+            var volunteersDTO = AutoMapperConfiguration.Mapper.Map<IList<Volunteer>, IList<IVolunteerViewDTO>>(allVolunteers);
 
             return volunteersDTO;
         }
