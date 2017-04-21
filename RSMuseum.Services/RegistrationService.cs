@@ -54,7 +54,8 @@ namespace RSMuseum.Services
                     Processed = item.Processed,
                     RegistrationId = item.RegistrationId,
                     Volunteer = new VolunteerViewDTO {
-                        Name = item.Volunteer.Person.FirstName + " " + item.Volunteer.Person.LastName,
+                        FirstName = item.Volunteer.Person.FirstName,
+                        LastName = item.Volunteer.Person.LastName,
                         MembershipNumber = item.Volunteer.MembershipNumber }
                 };
                 registrationsDTO.Add(registrationDTO);
