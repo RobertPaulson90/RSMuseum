@@ -13,6 +13,7 @@ namespace RSMuseum.Repository
 
         IList<Guild> GetAllGuilds();
 
+        IList<Registration> GetAllRegistrationsUnprocessed();
 
         void AddTimeRegistration(Registration registration);
     }

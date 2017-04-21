@@ -52,5 +52,17 @@ namespace RSMuseum.MVC.Controllers.api
             var allGuilds = guildService.GetAllGuilds();
             return Ok(allGuilds);
         }
+
+
+        [Route("api/GetRegistrations/{unprocessedOnly}")]
+        public IHttpActionResult GetRegistrations(bool unprocessedOnly = false)
+        {
+            var registationService = DI.Container.GetInstance<RegistrationService>();
+            if (unprocessedOnly) { 
+            var allRegistrations = registationService.GetAllRegistrationsUnprocessed();
+            return Ok(allRegistrations);
+            }
+            return InternalServerError();
+        }
     }
 }
