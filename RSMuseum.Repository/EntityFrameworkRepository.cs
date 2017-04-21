@@ -52,5 +52,17 @@ namespace RSMuseum.Repository
 
             return query;
         }
+
+        public IList<Registration> GetAllRegistrationsUnprocessed()
+        {
+            var query = dbctx.Registration
+            .Include(x => x.Volunteer)
+            .Include(x => x.Volunteer.Person)
+            .Include(x => x.Guild)
+            .Where(x => x.Processed == false)
+            .ToList();
+
+            return query;
+        }
     }
 }
