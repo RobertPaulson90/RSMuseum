@@ -19,8 +19,10 @@ namespace RSMuseum.Repository.Entities
         [Required]
         public DateTime Date { get; set; }
 
-        [Required]
         public bool Approved { get; set; }
+
+        [Required]
+        public bool Processed { get; set; }
 
         [Required]
         public int GuildId { get; set; }

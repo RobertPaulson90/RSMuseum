@@ -21,6 +21,9 @@ namespace RSMuseum.Services
             Container.Register<RSM_EF_DbCtx.RSMContext>(Lifestyle.Scoped);
             Container.Register<IDbRepository, EntityFrameworkRepository>();
             Container.Register<VolunteerService>();
+            Container.Register<GuildService>();
+            Container.Register<RegistrationService>();
+
 
             Container.Verify();
         }

@@ -19,7 +19,14 @@ namespace RSMuseum.Repository
 
         public void AddTimeRegistration(Registration registration)
         {
-            throw new NotImplementedException();
+            dbctx.Registration.Add(registration);
+            dbctx.SaveChanges();
+        }
+
+        public IList<Guild> GetAllGuilds()
+        {
+            var query = dbctx.Guild.ToList();
+            return query;
         }
 
         public IList<object> GetAllNotConfirmedRegistrations()
@@ -42,6 +49,18 @@ namespace RSMuseum.Repository
                 .Include(x => x.Person)
                 .Include(x => x.Guilds)
                 .ToList();
+
+            return query;
+        }
+
+        public IList<Registration> GetAllRegistrationsUnprocessed()
+        {
+            var query = dbctx.Registration
+            .Include(x => x.Volunteer)
+            .Include(x => x.Volunteer.Person)
+            .Include(x => x.Guild)
+            .Where(x => x.Processed == false)
+            .ToList();
 
             return query;
         }
