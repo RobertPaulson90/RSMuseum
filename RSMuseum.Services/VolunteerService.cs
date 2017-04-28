@@ -2,38 +2,27 @@
 using System.Diagnostics;
 using RSMuseum.Repository;
 using RSMuseum.Services.DTOs;
+using AutoMapper;
+using RSMuseum.Repository.Entities;
 
 namespace RSMuseum.Services
 {
     public class VolunteerService
     {
         private static IDbRepository _dbRepo;
+        private IMapper _mapper;
 
-        public VolunteerService(IDbRepository dbRepo) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
+        public VolunteerService(IDbRepository dbRepo, IMapper mapper) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
         {
             _dbRepo = dbRepo;
+            _mapper = mapper;
         }
 
         public IList<IVolunteerViewDTO> GetVolunteersViewDTO() //Bliver kaldt fra vores RESTful API
         {
-            var volunteersDTO = new List<IVolunteerViewDTO>(); //Instancisere en liste med de volunteer properties som vores View har brug for.
-
             var allVolunteers = _dbRepo.GetAllVolunteersAndGuilds(); //Går ned i vores DAL for at hente vores frivillige
 
-            foreach (var item in allVolunteers) //Smider data i vores VolunteerListe.
-            {
-                IVolunteerViewDTO volunteerDTO = new VolunteerViewDTO()
-                {
-                    Name = item.Person.FirstName + " " + item.Person.LastName,
-                    MembershipNumber = item.MembershipNumber
-                };
-                volunteerDTO.GuildName = new List<string>();
-                foreach (var guild in item.Guilds)
-                {
-                    volunteerDTO.GuildName.Add(guild.GuildName);
-                }
-                volunteersDTO.Add(volunteerDTO);
-            }
+            var volunteersDTO = _mapper.Map<IList<Volunteer>, IList<IVolunteerViewDTO>>(allVolunteers);
 
             return volunteersDTO;
         }

@@ -20,7 +20,7 @@ namespace RSMuseum.Services.Tests
             var volunteerFake = new Volunteer { Person = personFake, Guilds = new List<Guild>() };
             var fakeVolunteerList = new List<Volunteer> { volunteerFake };
 
-            var expected = new List<IVolunteerViewDTO>() { new VolunteerViewDTO { Name = volunteerFake.Person.FirstName + " " + volunteerFake.Person.LastName, GuildName = new List<string>() } };
+            var expected = new List<IVolunteerViewDTO>() { new VolunteerViewDTO { FirstName = volunteerFake.Person.FirstName + " " + volunteerFake.Person.LastName, GuildName = new List<string>() } };
 
             var fakeVRepo = new Mock<IDbRepository>();
             fakeVRepo.Setup(m => m.GetAllVolunteersAndGuilds()).Returns(fakeVolunteerList);
@@ -30,9 +30,7 @@ namespace RSMuseum.Services.Tests
             var result = volunteerService.GetVolunteersViewDTO();
 
             // Assert
-            Assert.Equal(expected.First().Name, result.First().Name);
-
-
+            Assert.Equal(expected.First().FirstName, result.First().FirstName);
         }
     }
 }

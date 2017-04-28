@@ -9,7 +9,7 @@ namespace RSMuseum.Services.DTOs
     public interface IRegistrationDTO
     {
         int RegistrationId { get; set; }
-     
+
         int Hours { get; set; }
 
         DateTime Date { get; set; }
