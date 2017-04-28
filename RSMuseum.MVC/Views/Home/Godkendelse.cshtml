@@ -28,7 +28,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="entry in filteredList">
-                        <td>{{entry.Volunteer.Name}}</td>
+                        <td>{{entry.Volunteer.FirstName}} {{entry.Volunteer.LastName}}</td>
                         <td>{{entry.Date}}</td>
                         <td>{{entry.Hours}}</td>
                         <td>{{entry.Guild.GuildName}}</td>
@@ -59,10 +59,11 @@
             }
          }
         class Volunteer {
-            constructor(Name, MembershipNumber) {
-                    this.Name = Name;
+            constructor(FirstName, LastName, MembershipNumber) {
+                    this.FirstName = FirstName;
                     this.MembershipNumber = MembershipNumber;
-             }
+                    this.LastName = LastName;
+            }
         }
       var vue =  new Vue({
             el: '#app',
@@ -95,7 +96,7 @@
             computed: {
                 filteredList() {
                     return this.registrationList.filter((Registration) => {
-                        return Registration.Volunteer.Name.toLowerCase().includes(this.keyword.toLowerCase());
+                        return Registration.Volunteer.FirstName.toLowerCase().includes(this.keyword.toLowerCase());
                     })
                 }
             },

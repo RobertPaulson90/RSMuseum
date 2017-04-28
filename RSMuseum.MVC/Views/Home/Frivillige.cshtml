@@ -16,7 +16,7 @@
                     </span>
                 </div>
             </div>
-        @*Tabel*@
+            @*Tabel*@
             <table class="table">
                 <thead>
                     <tr>
@@ -45,7 +45,7 @@
                 this.Laug = Laug;
             }
         }
-      var vue =  new Vue({
+        var vue = new Vue({
             el: '#app',
             data: {
                 keyword: '',
@@ -103,15 +103,13 @@
             methods: {
                 getVolunteer() {
                     $.get('/api/GetVolunteers', (data) => {
-                        for (index in data)
-                        {
+                        for (index in data) {
                             this.guildName = ''
-                            for (item in data[index].GuildName)
-                            {
-                                this.guildName = this.guildName + " " +  data[index].GuildName[item]
+                            for (item in data[index].GuildName) {
+                                this.guildName = this.guildName + " " + data[index].GuildName[item]
                             }
-                            this.frivilligeList.push(new Frivillige(data[index].Name, data[index].MembershipNumber, this.guildName));
-                            
+                            this.frivilligeList.push(new Frivillige(data[index].FirstName + ' ' + data[index].LastName, data[index].MembershipNumber, this.guildName));
+
                         }
 
                     })
@@ -129,6 +127,3 @@
         vue.getVolunteer();
     </script>
 </body>
-
-
-
