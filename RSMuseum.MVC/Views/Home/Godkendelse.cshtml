@@ -1,21 +1,108 @@
-﻿
-<head>
+﻿<head>
     <script src="https://unpkg.com/vue"></script>
 </head>
 <body>
-        <div class="container">
-            <h2>Liste med frivillige som skal have godkendt timer</h2>
-            <div class="list-group">
-                <a href="#" class="list-group-item">Peter Hansen, Laug 1, 02/03/2017, 3 timer</a>
-                <a href="#" class="list-group-item">Søren Petersen, Laug 5, 01/03/2017, 7 timer</a>
-                <a href="#" class="list-group-item">Sanne Sørensen, Laug 3, 01/03/2017, 4 timer</a>
+    <div class="container">
+        <h2>Ubehandlede registreringer</h2>
+        @*Søgefelt*@
+        <div id="app">
+            <div id="custom-search-input">
+                <div class="input-group col-md-3">
+                    <input type="text" v-model="keyword" class="form-control input-lg" placeholder="Søg" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
             </div>
-         </div>
+            @*Tabel*@
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Navn</th>
+                        <th>Dato</th>
+                        <th>Timer</th>
+                        <th>Laug</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="entry in filteredList">
+                        <td>{{entry.Volunteer.Name}}</td>
+                        <td>{{entry.Date}}</td>
+                        <td>{{entry.Hours}}</td>
+                        <td>{{entry.Guild.GuildName}}</td>
+                        <td><p data-placement="top" data-toggle="tooltip" title="Godkend"><button v-on:click="approveRegistration" class="btn btn-success btn-xs" data-title="Godkend" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-ok"></span></button></p></td>
+                        <td><p data-placement="top" data-toggle="tooltip" title="Afvis"><button v-on:click="rejectRegistration"class="btn btn-danger btn-xs" data-title="Afvis" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-remove"></span></button></p></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-       
-        <script>
-
-        </script>
+    <script>
+        class Registration {
+            constructor(RegistrationId, Hours, Date, Approved, Processed, Guild, Volunteer) {
+                this.RegistrationId = RegistrationId;
+                this.Hours = Hours;
+                this.Date = Date;
+                this.Approved = Approved;
+                this.Processed = Processed;
+                this.Guild = Guild;
+                this.Volunteer = Volunteer;
+            }
+        }
+        class Guild {
+            constructor(GuildId, GuildName) {
+                    this.GuildId = GuildId;
+                    this.GuildName = GuildName;
+            }
+         }
+        class Volunteer {
+            constructor(Name, MembershipNumber) {
+                    this.Name = Name;
+                    this.MembershipNumber = MembershipNumber;
+             }
+        }
+      var vue =  new Vue({
+            el: '#app',
+            data: {
+                keyword: '',
+                registrationList:[]
+            },
+            methods: {
+                getRegistrations() {
+                    $.get('/api/GetRegistrations/true', (data) => {
+                        for (index in data) {                       
+                            this.registrationList.push(new Registration(
+                                data[index].RegistrationId,
+                                data[index].Hours,
+                                new Date(data[index].Date).toDateString(),
+                                data[index].Approved,
+                                data[index].Processed,
+                                data[index].Guild,
+                                data[index].Volunteer));
+                        }
+                    })
+                },
+                approveRegistration() {
+                    alert("approved")
+                },
+                rejectRegistration() {
+                    alert("approved...NOT")
+                }
+            },
+            computed: {
+                filteredList() {
+                    return this.registrationList.filter((Registration) => {
+                        return Registration.Volunteer.Name.toLowerCase().includes(this.keyword.toLowerCase());
+                    })
+                }
+            },
+        })
+      vue.getRegistrations();
+    </script>
 </body>
+
 
 
