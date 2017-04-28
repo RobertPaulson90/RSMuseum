@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RSMuseum.Services.DTOs
 {
-    class RegistrationDTO : IRegistrationDTO
+    internal class RegistrationDTO : IRegistrationDTO
     {
         public int RegistrationId { get; set; }
 

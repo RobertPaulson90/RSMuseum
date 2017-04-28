@@ -7,16 +7,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Newtonsoft.Json;
 
 namespace RSMuseum.Services
 {
-   public class RegistrationService
+    public class RegistrationService
     {
         private static IDbRepository _dbRepo;
-        public RegistrationService(IDbRepository dbRepo) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
+        private IMapper _mapper;
+
+        public RegistrationService(IDbRepository dbRepo, IMapper mapper) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
         {
             _dbRepo = dbRepo;
+            _mapper = mapper;
         }
 
         public bool AddRegistration(Registration registration)
@@ -31,41 +35,42 @@ namespace RSMuseum.Services
             catch (Exception)
             {
                 return false;
-
             }
         }
 
         //_________________________________________________________________--
 
-
         public IList<IRegistrationDTO> GetAllRegistrationsUnprocessed()
         {
-            var registrationsDTO = new List<IRegistrationDTO>(); //Instancisere en liste med de volunteer properties som vores View har brug for.
             var allRegistrationsUnprocessed = _dbRepo.GetAllRegistrationsUnprocessed(); //Går ned i vores DAL for at hente vores frivillige
+            var registrationsDTO = _mapper.Map<IList<Registration>, IList<IRegistrationDTO>>(allRegistrationsUnprocessed); //Instancisere en liste med de volunteer properties som vores View har brug for.
 
-            foreach (var item in allRegistrationsUnprocessed) //Smider data i vores VolunteerListe.
-            {
-                var volunteer = item.Volunteer;
-                var registrationDTO = new RegistrationDTO()
-                {
-                    Approved = item.Approved,
-                    Date = item.Date,
-                    DateTimeRegistered = item.DateTimeRegistered,
-                    Guild = new GuildDTO {
-                        GuildName = item.Guild.GuildName,
-                        GuildId = item.Guild.GuildId,
-                    },
-                    Hours = item.Hours,
-                    Processed = item.Processed,
-                    RegistrationId = item.RegistrationId,
-                    Volunteer = new VolunteerViewDTO {
-                        Name = item.Volunteer.Person.FirstName + " " + item.Volunteer.Person.LastName,
-                        MembershipNumber = item.Volunteer.MembershipNumber }
-                };
-                registrationsDTO.Add(registrationDTO);
-            }
+            //foreach (var item in allRegistrationsUnprocessed) //Smider data i vores VolunteerListe.
+            //{
+            //    var volunteer = item.Volunteer;
+            //    var registrationDTO = new RegistrationDTO()
+            //    {
+            //        Approved = item.Approved,
+            //        Date = item.Date,
+            //        DateTimeRegistered = item.DateTimeRegistered,
+            //        Guild = new GuildDTO
+            //        {
+            //            GuildName = item.Guild.GuildName,
+            //            GuildId = item.Guild.GuildId,
+            //        },
+            //        Hours = item.Hours,
+            //        Processed = item.Processed,
+            //        RegistrationId = item.RegistrationId,
+            //        Volunteer = new VolunteerViewDTO
+            //        {
+            //            FirstName = item.Volunteer.Person.FirstName,
+            //            LastName = item.Volunteer.Person.LastName,
+            //            MembershipNumber = item.Volunteer.MembershipNumber
+            //        }
+            //    };
+            //    registrationsDTO.Add(registrationDTO);
+            //}
             return registrationsDTO;
         }
-
     }
 }
