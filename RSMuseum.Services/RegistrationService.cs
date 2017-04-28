@@ -38,38 +38,40 @@ namespace RSMuseum.Services
             }
         }
 
-        //_________________________________________________________________--
-
         public IList<IRegistrationDTO> GetAllRegistrationsUnprocessed()
         {
             var allRegistrationsUnprocessed = _dbRepo.GetAllRegistrationsUnprocessed(); //Går ned i vores DAL for at hente vores frivillige
-            var registrationsDTO = _mapper.Map<IList<Registration>, IList<IRegistrationDTO>>(allRegistrationsUnprocessed); //Instancisere en liste med de volunteer properties som vores View har brug for.
 
-            //foreach (var item in allRegistrationsUnprocessed) //Smider data i vores VolunteerListe.
-            //{
-            //    var volunteer = item.Volunteer;
-            //    var registrationDTO = new RegistrationDTO()
-            //    {
-            //        Approved = item.Approved,
-            //        Date = item.Date,
-            //        DateTimeRegistered = item.DateTimeRegistered,
-            //        Guild = new GuildDTO
-            //        {
-            //            GuildName = item.Guild.GuildName,
-            //            GuildId = item.Guild.GuildId,
-            //        },
-            //        Hours = item.Hours,
-            //        Processed = item.Processed,
-            //        RegistrationId = item.RegistrationId,
-            //        Volunteer = new VolunteerViewDTO
-            //        {
-            //            FirstName = item.Volunteer.Person.FirstName,
-            //            LastName = item.Volunteer.Person.LastName,
-            //            MembershipNumber = item.Volunteer.MembershipNumber
-            //        }
-            //    };
-            //    registrationsDTO.Add(registrationDTO);
-            //}
+            // Broken for now... Until fixed, we do manual mapping.
+            // var registrationsDTO = _mapper.Map<IList<Registration>, IList<IRegistrationDTO>>(allRegistrationsUnprocessed);
+
+            var registrationsDTO = new List<IRegistrationDTO>(); //Instancisere en liste med de volunteer properties som vores View har brug for.
+
+            foreach (var item in allRegistrationsUnprocessed) //Smider data i vores VolunteerListe.
+            {
+                var volunteer = item.Volunteer;
+                var registrationDTO = new RegistrationDTO()
+                {
+                    Approved = item.Approved,
+                    Date = item.Date,
+                    DateTimeRegistered = item.DateTimeRegistered,
+                    Guild = new GuildDTO
+                    {
+                        GuildName = item.Guild.GuildName,
+                        GuildId = item.Guild.GuildId,
+                    },
+                    Hours = item.Hours,
+                    Processed = item.Processed,
+                    RegistrationId = item.RegistrationId,
+                    Volunteer = new VolunteerViewDTO
+                    {
+                        FirstName = item.Volunteer.Person.FirstName,
+                        LastName = item.Volunteer.Person.LastName,
+                        MembershipNumber = item.Volunteer.MembershipNumber
+                    }
+                };
+                registrationsDTO.Add(registrationDTO);
+            }
             return registrationsDTO;
         }
     }

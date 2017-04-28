@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.Configuration;
+﻿using AutoMapper;
 using RSMuseum.Repository.Entities;
 using RSMuseum.Services.DTOs;
 using SimpleInjector;
+using System.Linq;
 
 namespace RSMuseum.Services
 {
+    // This class provides AutoMapper (including its configuration) to our DI Container.
+    // Used for easily & cleanly mapping database entities with DTO's
+
     public class MapperProvider
     {
         private readonly Container _container;
@@ -22,31 +20,34 @@ namespace RSMuseum.Services
 
         public IMapper GetMapper()
         {
-            var mc = new MapperConfiguration(cfg =>
+            var mapperCfg = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Volunteer, IVolunteerViewDTO>()
-                  .ForMember(dest => dest.GuildName,
-                 opts => opts.MapFrom(src => src.Guilds.Select(x => x.GuildName)))
-                 .ForMember(dest => dest.FirstName,
-                 opts => opts.MapFrom(src => src.Person.FirstName))
-                  .ForMember(dest => dest.LastName,
-                 opts => opts.MapFrom(src => src.Person.LastName));
+                cfg.CreateMap<Guild, IGuildDTO>(); // Sometimes mapping is super easy, like this, when property names match
 
-                cfg.CreateMap<Guild, IGuildDTO>();
+                cfg.CreateMap<Volunteer, IVolunteerViewDTO>()
+                    .ForMember(
+                        dest => dest.GuildName,
+                        opts => opts.MapFrom(src => src.Guilds.Select(x => x.GuildName))) // Must manually find all the GuildName's
+                    .ForMember( // Must manually bind First and Last name, since it is deeper in the Person object; not the Volunteer
+                       dest => dest.FirstName,
+                       opts => opts.MapFrom(src => src.Person.FirstName))
+                     .ForMember(
+                       dest => dest.LastName,
+                       opts => opts.MapFrom(src => src.Person.LastName));
 
                 cfg.CreateMap<Repository.Entities.Registration, IRegistrationDTO>()
-                    .ForMember(dest => dest.Guild,
+                    .ForMember(
+                        dest => dest.Guild,
                         opts => opts.MapFrom(src => src.Guild))
-                //.ForMember(dest => dest.Volunteer,
-                //    opts => opts.MapFrom(src => src.Volunteer))
-                ;
+                    .ForMember( /* There is an issue here for some reason :( Working on it: http://stackoverflow.com/questions/43676771/how-to-perform-map-when-mapping-relies-on-previous-map-config
+                                   For now, we must manually map Registration <--> IRegistrationDTO, until there is a solution */
+                        dest => dest.Volunteer,
+                        opts => opts.MapFrom(src => src.Volunteer));
             });
 
-            mc.AssertConfigurationIsValid();
-
-            IMapper m = new Mapper(mc, t => _container.GetInstance(t));
-
-            return m;
+            mapperCfg.AssertConfigurationIsValid();
+            IMapper mapper = new Mapper(mapperCfg, t => _container.GetInstance(t));
+            return mapper;
         }
     }
 }
