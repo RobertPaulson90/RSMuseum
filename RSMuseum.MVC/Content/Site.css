@@ -8,6 +8,13 @@
     padding-bottom: 10px;
 }
 
+h1 {
+    padding-bottom: 5px;
+}
+
+hr {
+    border-top: 1px solid #968d81;
+}
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -45,7 +52,7 @@ textarea {
 }
 
 #custom-margin-from-top {
-    padding-top: 50px;
+    padding-top: 5px;
     padding-bottom: 5px;
 }
 
@@ -56,6 +63,28 @@ textarea {
 
 .fade-enter-active, .fade-leave-active {
     transition: opacity .9s
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+    opacity: 0
+}
+
+.list-item {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.list-enter-active, .list-leave-active {
+    transition: all 1s;
+}
+
+.list-enter, .list-leave-to /* .list-leave-active for <2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
 }
 
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {

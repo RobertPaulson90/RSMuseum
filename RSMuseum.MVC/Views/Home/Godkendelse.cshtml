@@ -19,24 +19,35 @@
             @*Tabel*@
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>Navn</th>
-                        <th>Dato</th>
-                        <th>Timer</th>
-                        <th>Laug</th>
-                    </tr>
+                <tr>
+                    <th>Navn</th>
+                    <th>Dato</th>
+                    <th>Timer</th>
+                    <th>Laug</th>
+                </tr>
                 </thead>
-                <tbody>
-                    <tr v-for="entry in filteredList">
-                        <td>{{entry.Volunteer.FirstName}} {{entry.Volunteer.LastName}}</td>
-                        <td>{{entry.Date}}</td>
-                        <td>{{entry.Hours}}</td>
-                        <td>{{entry.Guild.GuildName}}</td>
-                        <td><p data-placement="top" data-toggle="tooltip" title="Godkend"><button v-on:click="approveRegistration(entry)"class="btn btn-success btn-xs" data-title="Godkend" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-ok"></span></button></p></td>
-                        <td><p data-placement="top" data-toggle="tooltip" title="Afvis"><button v-on:click="rejectRegistration(entry)"class="btn btn-danger btn-xs" data-title="Afvis" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-remove"></span></button></p></td>
-                    </tr>
-                </tbody>
-            </table>
+                <transition-group name="list" tag="tbody">
+                    <tbody name="table-row">
+                        <tr v-for="entry in filteredList" :key="entry.RegistrationId">
+                            <td>{{entry.Volunteer.FirstName}} {{entry.Volunteer.LastName}}</td>
+                            <td>{{entry.Date}}</td>
+                            <td>{{entry.Hours}}</td>
+                            <td>{{entry.Guild.GuildName}}</td>
+                            <td>
+                                <p data-placement="top" data-toggle="tooltip" title="Godkend">
+                                    <button v-on:click="approveRegistration(entry)" class="btn btn-success btn-xs" data-title="Godkend" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-ok"></span></button>
+                                </p>
+                            </td>
+                            <td>
+                                <p data-placement="top" data-toggle="tooltip" title="Afvis">
+                                    <button v-on:click="rejectRegistration(entry)" class="btn btn-danger btn-xs" data-title="Afvis" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-remove"></span></button>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </transition-group>
+
+</table>
         </div>
     </div>
 

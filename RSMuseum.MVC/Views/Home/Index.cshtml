@@ -4,50 +4,56 @@
 
 </head>
 <body>
-    <div class="container col-md-12 button-wrapper page-content">
-        <div id="Index">
-            <h2>TidsRegistrering</h2>
-            @* MedlemsNummer input *@
-            <div id="custom-margin-from-top">
-                <div class="form-group input-group">
-                    <label for="VolNum">Medlems Nr.:</label>
-                    <input v-model="VolunteerId" type="text" class="form-control" id="VolNum">
+    <div class="container">
+        <div class="col-md-7 button-wrapper">
+            <h1>Velkommen! Kort Introduktion</h1>
+            <p>Lorem ipsum dolor sit amet, morbi justo eu, pulvinar neque id ut non nibh, erat nec nullam nec dui mollis. Congue pellentesque aliquam, risus sed tellus orci diam, dolor aliquam tortor eu ipsum consequat, egestas aliquam accumsan maecenas eget ac nunc. Eros diam arcu egestas placerat, fusce sapien bibendum fermentum interdum, magna etiam phasellus ullamcorper metus montes, elit erat vivamus ut, a fusce.</p> Curabitur elit pellentesque inceptos quis lacus congue, et commodo metus, auctor risus ipsum, sed sed suspendisse sem tincidunt sed. Congue aliquet gravida, duis dui dolor fusce lacus est. Nisl aliquam molestie sed amet bibendum tempus. Curabitur ac, molestie diam quis. Ornare feugiat non vitae, molestie eros turpis in in quam id, lacinia nunc dignissim metus vestibulum, cursus sed at id ultricies penatibus ut, odio ligula non sed potenti curabitur. Ut rhoncus molestie vel sed eu, nibh ullam mattis ligula donec commodo est, ut sed amet pede natoque volutpat. Vestibulum urna, enim aliquam vivamus enim hendrerit a torquent. Integer arcu conubia ut libero lacus orci. Odio in libero ut sed quaerat.
+        </div>
+        <div class="col-md-5 button-wrapper">
+            <div id="Index" class="container">
+                <h3>Frivillig Registrering</h3>
+                @* MedlemsNummer input *@
+                <div id="custom-margin-from-top">
+                    <div class="form-group input-group">
+                        <label for="VolNum">Medlems Nr.:</label>
+                        <input v-model="VolunteerId" type="text" class="form-control" id="VolNum">
 
-                </div>
-                @* Antal timer input *@
-                <div class="form-group input-group">
-                    <label for="Time">Antal Timer:</label>
-                    <input v-model="Hours" type="text" class="form-control" id="Time">
-                </div>
-            </div>
-
-            @*Laug input*@
-            <div class="form-group input-group">
-                <label for="test">Laug:</label>
-                <select v-model="Guild" class="form-control">
-                    <option v-for="entry in guildList">{{entry.Name}}</option>
-                </select>
-            </div>
-
-            @* Dato input *@
-            <label for="Timer">Dato:</label>
-            <div class="iform-group input-group">
-                <div class="input-group date" data-provide="datepicker">
-                    <input v-model="Date" type="text" class="form-control" id="datetimepicker">
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                    @* Antal timer input *@
+                    <div class="form-group input-group">
+                        <label for="Time">Antal Timer:</label>
+                        <input v-model="Hours" type="text" class="form-control" id="Time">
                     </div>
                 </div>
+
+                @*Laug input*@
+                <div class="form-group input-group">
+                    <label for="test">Laug:</label>
+                    <select v-model="Guild" class="form-control" >
+                        <option v-for="entry in guildList">{{entry.Name}}</option>
+                    </select>
+                </div>
+
+                @* Dato input *@
+                <label for="Timer">Dato:</label>
+                <div class="iform-group input-group">
+                    <div class="input-group date" data-provide="datepicker">
+                        <input v-model="Date" type="text" class="form-control" id="datetimepicker">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-wrapper input-group">
+                    <button v-on:click="ConvertToJson" type="button" class="btn btn-primary">Submit</button>
+                </div>
+                <transition name="fade">
+                    <h3 v-if="show">{{Message}}</h3>
+                </transition>
             </div>
 
-            <div class="button-wrapper input-group">
-                <button v-on:click="ConvertToJson" type="button" class="btn btn-primary">Submit</button>
-            </div>
-            <transition name="fade">
-                <h3 v-if="show">{{Message}}</h3>
-            </transition>
         </div>
-
     </div>
 
 
