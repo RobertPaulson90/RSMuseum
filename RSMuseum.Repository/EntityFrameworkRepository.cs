@@ -64,5 +64,15 @@ namespace RSMuseum.Repository
 
             return query;
         }
+
+        public void ChangeRegistrationStatus(int registrationId, bool status)
+        {
+            var registration = dbctx.Registration
+           .Where(x => x.RegistrationId == registrationId).FirstOrDefault();
+
+            registration.Processed = true;
+            registration.Approved = status;
+            dbctx.SaveChanges();
+        }
     }
 }

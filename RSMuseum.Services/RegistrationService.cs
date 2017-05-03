@@ -74,5 +74,18 @@ namespace RSMuseum.Services
             }
             return registrationsDTO;
         }
+
+        public bool ChangeRegistrationStatus(int registrationId, bool status)
+        {
+            try
+            {
+                _dbRepo.ChangeRegistrationStatus(registrationId, status);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

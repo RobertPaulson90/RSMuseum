@@ -64,5 +64,23 @@ namespace RSMuseum.MVC.Controllers.api
             }
             return InternalServerError();
         }
+
+        [HttpGet]
+        [Route("api/HandleRegistrations/{registrationId}/{process}")]
+        public IHttpActionResult HandleRegistrations(int registrationId,bool process)
+        {
+            var registationService = DI.Container.GetInstance<RegistrationService>();
+            bool changeRegistrationCheck = registationService.ChangeRegistrationStatus(registrationId, process);
+            if (changeRegistrationCheck)
+            {
+                return Ok();
+            }
+            else
+            {
+                return InternalServerError();
+            }
+                
+                
+        }
     }
 }

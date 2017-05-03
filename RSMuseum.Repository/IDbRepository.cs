@@ -16,5 +16,7 @@ namespace RSMuseum.Repository
         IList<Registration> GetAllRegistrationsUnprocessed();
 
         void AddTimeRegistration(Registration registration);
+
+        void ChangeRegistrationStatus(int registrationId, bool status);
     }
 }
