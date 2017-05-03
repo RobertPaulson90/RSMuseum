@@ -26,7 +26,7 @@
                 <img src="http://www.levendehistorie.dk/Files/Templates/Designs/Soegaard_Bootstrap_r_s_m/images/logo.png" class="img-responsive navbarLogo" />
                 @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse" style="margin-top:5px">
                 <ul class="nav navbar-nav">
                     <li><a href="@Url.Action("Index", "Home")">Home <span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
                     <li><a href="@Url.Action("Frivillige", "Home")">Frivillige <span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
