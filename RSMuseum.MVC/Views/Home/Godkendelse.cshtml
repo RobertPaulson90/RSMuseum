@@ -3,53 +3,51 @@
 </head>
 <body>
     <div class="container">
+        <h2>Ubehandlede registreringer</h2>
+        @*Søgefelt*@
         <div id="app">
-            <template v-if="loading">
-                <div class="spinner">
-                    <div class="rect1"></div>
-                    <div class="rect2"></div>
-                    <div class="rect3"></div>
-                    <div class="rect4"></div>
-                    <div class="rect5"></div>
+            <div id="custom-search-input">
+                <div class="input-group col-md-3">
+                    <input type="text" v-model="keyword" class="form-control input-lg" placeholder="Søg" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
                 </div>
-            </template>
-            <template v-else>
-                <h2>Ubehandlede registreringer</h2>
-                @*Søgefelt*@
-
-                <div id="custom-search-input">
-                    <div class="input-group col-md-3">
-                        <input type="text" v-model="keyword" class="form-control input-lg" placeholder="Søg" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-info btn-lg" type="button">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                </div>
-                @*Tabel*@
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Navn</th>
-                            <th>Dato</th>
-                            <th>Timer</th>
-                            <th>Laug</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="entry in filteredList">
+            </div>
+            @*Tabel*@
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Navn</th>
+                    <th>Dato</th>
+                    <th>Timer</th>
+                    <th>Laug</th>
+                </tr>
+                </thead>
+                <transition-group name="list" tag="tbody">
+                    <tbody name="table-row">
+                        <tr v-for="entry in filteredList" :key="entry.RegistrationId">
                             <td>{{entry.Volunteer.FirstName}} {{entry.Volunteer.LastName}}</td>
                             <td>{{entry.Date}}</td>
                             <td>{{entry.Hours}}</td>
                             <td>{{entry.Guild.GuildName}}</td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Godkend"><button v-on:click="approveRegistration(entry)" class="btn btn-success btn-xs" data-title="Godkend" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-ok"></span></button></p></td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Afvis"><button v-on:click="rejectRegistration(entry)" class="btn btn-danger btn-xs" data-title="Afvis" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-remove"></span></button></p></td>
+                            <td>
+                                <p data-placement="top" data-toggle="tooltip" title="Godkend">
+                                    <button v-on:click="approveRegistration(entry)" class="btn btn-success btn-xs" data-title="Godkend" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-ok"></span></button>
+                                </p>
+                            </td>
+                            <td>
+                                <p data-placement="top" data-toggle="tooltip" title="Afvis">
+                                    <button v-on:click="rejectRegistration(entry)" class="btn btn-danger btn-xs" data-title="Afvis" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-remove"></span></button>
+                                </p>
+                            </td>
                         </tr>
                     </tbody>
-                </table>
-            </template>
-            
+                </transition-group>
+
+</table>
         </div>
     </div>
 
@@ -82,12 +80,10 @@
             el: '#app',
             data: {
                 keyword: '',
-                registrationList: [],
-                loading: true
+                registrationList:[]
             },
             methods: {
                 getRegistrations() {
-                    this.loading = true;
                     $.get('/api/GetRegistrations/true', (data) => {
                         for (index in data) {                       
                             this.registrationList.push(new Registration(
@@ -99,7 +95,6 @@
                                 data[index].Guild,
                                 data[index].Volunteer));
                         }
-                        this.loading = false;
                     })
                 },
                
