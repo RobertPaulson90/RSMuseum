@@ -4,58 +4,50 @@
 <body>
     <div class="container">
         <div id="app">
-
-            @*<transition name="fade">
-                    <h3 v-if="ok">{{Message}}</h3>
-                </transition>*@
-
-            <template v-if="ok">
-                <div class="spinner">
-                    <div class="rect1"></div>
-                    <div class="rect2"></div>
-                    <div class="rect3"></div>
-                    <div class="rect4"></div>
-                    <div class="rect5"></div>
-                </div>
-            </template>
-            <template v-else>
-                <h2>Liste med frivillige</h2>
-
-                @*Søgefelt*@
-
-                <div id="custom-search-input">
-                    <div class="input-group col-md-3">
-                        <input type="text" v-model="keyword" class="form-control input-lg" placeholder="Søg" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-info btn-lg" type="button">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </span>
+                <template v-if="loading">
+                    <div class="spinner">
+                        <div class="rect1"></div>
+                        <div class="rect2"></div>
+                        <div class="rect3"></div>
+                        <div class="rect4"></div>
+                        <div class="rect5"></div>
                     </div>
-                </div>
-                @*Tabel*@
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Navn</th>
-                            <th>ID</th>
-                            <th>Laug</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="entry in filteredList">
-                            <td>{{entry.Navn}}</td>
-                            <td>{{entry.Id}}</td>
-                            <td>{{entry.Laug}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <h3>{{ test }}</h3>
+                </template>
+                <template v-else>
+                    <h2>Liste med frivillige</h2>
 
+                    @*Søgefelt*@
 
-            </template>
-
-        </div>
+                    <div id="custom-search-input">
+                        <div class="input-group col-md-3">
+                            <input type="text" v-model="keyword" class="form-control input-lg" placeholder="Søg" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-info btn-lg" type="button">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    @*Tabel*@
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Navn</th>
+                                <th>ID</th>
+                                <th>Laug</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="entry in filteredList">
+                                <td>{{entry.Navn}}</td>
+                                <td>{{entry.Id}}</td>
+                                <td>{{entry.Laug}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3>{{ test }}</h3>
+                </template>  
+</div>
     </div>
 
     <script>
@@ -73,12 +65,12 @@
                 frivilligeList: [],
                 guildName: '',
                 test: '',
-                ok: false,
+                loading: false,
                 Message: 'Loading...'
             },
             methods: {
                 getVolunteer() {
-                    this.ok = true;
+                    this.loading = true;
                     $.get('/api/GetVolunteers', (data) => {
                         for (index in data) {
                             this.guildName = ''
@@ -88,7 +80,7 @@
                             this.frivilligeList.push(new Frivillige(data[index].FirstName + ' ' + data[index].LastName, data[index].MembershipNumber, this.guildName));
 
                         }
-                        this.ok = false;
+                        this.loading = false;
                     })
                 }
             },
