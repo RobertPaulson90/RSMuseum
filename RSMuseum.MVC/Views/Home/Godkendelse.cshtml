@@ -26,8 +26,7 @@
                     <th>Laug</th>
                 </tr>
                 </thead>
-                <transition-group name="list" tag="tbody">
-                    <tbody name="table-row">
+                    <tbody name="list" is="transition-group">
                         <tr v-for="entry in filteredList" :key="entry.RegistrationId">
                             <td>{{entry.Volunteer.FirstName}} {{entry.Volunteer.LastName}}</td>
                             <td>{{entry.Date}}</td>
@@ -45,7 +44,6 @@
                             </td>
                         </tr>
                     </tbody>
-                </transition-group>
 
 </table>
         </div>

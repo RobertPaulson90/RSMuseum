@@ -22,8 +22,8 @@ hr {
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
+/* Override the default bootstrap behavior where horizontal description lists
+   will truncate terms that are too long to fit in the left column
 */
 .dl-horizontal dt {
     white-space: normal;
@@ -56,7 +56,6 @@ textarea {
     padding-bottom: 5px;
 }
 
-
 .button-wrapper {
     margin-top: 20px;
 }
@@ -80,15 +79,21 @@ textarea {
 
 .list-enter, .list-leave-to /* .list-leave-active for <2.1.8 */ {
     opacity: 0;
-    transform: translateY(30px);
+    transition: all 1s;
+    transform: translateX(30px);
 }
 
-.fade-enter-active, .fade-leave-active {
-    transition: opacity .5s
+.list-complete-item {
+    transition: all 1s;
 }
 
-.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-    opacity: 0
+.list-complete-enter, .list-complete-leave-active {
+    opacity: 0;
+    height: 0px;
+    margin-top: 0px;
+    padding: 0px;
+    border: solid 0px;
+    transition: all 1s;
 }
 
 /*Spinner*/
