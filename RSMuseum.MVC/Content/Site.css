@@ -1,7 +1,13 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #f2f2f2;
 }
+
+.page-content {
+    padding-bottom: 10px;
+}
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -23,9 +29,19 @@ textarea {
     max-width: 280px;
 }
 
-#custom-search-input {
+.navbar-inverse .navbar-nav > li > a {
+    color: black;
+}
+
+.navbar {
+    background-color: #e6e6e6;
+    border-color: #968d81;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.navbarLogo {
+    padding-right: 20px;
 }
 
 #custom-margin-from-top {
