@@ -1,4 +1,5 @@
-﻿import Vue from 'vue'
+﻿import * as Vue from 'vue'
+
 import { Guild, Registration } from "./models/project.models";
 import * as $ from "jquery";
 
@@ -9,7 +10,7 @@ export default class IndexComponent extends Vue {
     Date: string;
     selectedGuild: string;
     GuildId: number;
-    Json: '2321321312';
+    Json: '2321321313';
     Message: string;
     show: false;
     guildList: Guild[];

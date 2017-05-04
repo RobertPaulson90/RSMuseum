@@ -4,12 +4,11 @@
   "compilerOptions": {
     // ... other options omitted
     "sourceMap": true,
+    "module": "amd",
+    "moduleResolution": "node",
+    "target": "es5",
     "allowSyntheticDefaultImports": true,
-    "lib": [
-      "dom",
-      "es5",
-      "es2015.promise"
-    ],
+    "lib": [ "dom", "es5", "scripthost", "es2015.promise" ],
     "typeRoots": [
       "node_modules/vue/types/",
       "node_modules/@types"
@@ -19,6 +18,9 @@
     "Scripts/vue/**/*",
     "Scripts/vue/*.ts"
   ],
-  "exclude": [ "node_modules" ],
+  "exclude": [
+    "node_modules",
+    "d.ts"
+  ],
   "files": [ "Scripts/vue/index.component.ts" ]
 }
