@@ -1,7 +1,5 @@
 ﻿<head>
     <script src="https://unpkg.com/vue"></script>
-    
-
 </head>
 <body>
     <div class="container">
@@ -17,7 +15,6 @@
                     <div class="form-group input-group">
                         <label for="VolNum">Medlems Nr.:</label>
                         <input v-model="VolunteerId" type="text" class="form-control" id="VolNum">
-
                     </div>
                     @* Antal timer input *@
                     <div class="form-group input-group">
@@ -29,7 +26,7 @@
                 @*Laug input*@
                 <div class="form-group input-group">
                     <label for="test">Laug:</label>
-                    <select v-model="Guild" class="form-control" >
+                    <select v-model="selectedGuild" class="form-control">
                         <option v-for="entry in guildList">{{entry.Name}}</option>
                     </select>
                 </div>
@@ -46,98 +43,94 @@
                 </div>
 
                 <div class="button-wrapper input-group">
-                    <button v-on:click="ConvertToJson" type="button" class="btn btn-primary">Submit</button>
+                    <button v-on:click="submitRegistration" type="button" class="btn btn-primary">Submit</button>
                 </div>
                 <transition name="fade">
                     <h3 v-if="show">{{Message}}</h3>
                 </transition>
             </div>
-
         </div>
     </div>
+    <script type="text/javascript" src="@Url.Content("/Scripts/vue/index.component.js")"></script>
 
+    @*<script>
+            //class Registration {
+            //    constructor(VolunteerId, Hours, Date, GuildId) {
+            //        this.VolunteerId = VolunteerId;
+            //        this.Hours = Hours;
+            //        this.Date = Date;
+            //        this.GuildId = GuildId;
+            //    }
+            //}
 
+            //class Guild {
+            //    constructor(Id, Name) {
+            //        this.Id = Id;
+            //        this.Name = Name;
+            //    }
+            //}
 
-    <script>
+            //var vue = new Vue({
+            //    el: '#Index',
+            //    data: {
+            //        VolunteerId: '',
+            //        Hours: '',
+            //        Date: '',
+            //        Guild: '',
+            //        GuildID: '',
+            //        Json: '2321321312',
+            //        Message: '',
+            //        show: false,
+            //        guildList: []
+            //    },
+            //    methods: {
+            //        GetGuilds: function (event) {
+            //            $.get('/api/GetGuilds', (data) => {
+            //                for (index in data) {
+            //                    this.guildList.push(new Guild(data[index].GuildId,data[index].GuildName));
+            //                }
+            //            })
+            //        },
+            //        ConvertToJson: function (event) {
+            //            vue.GetGuildID()
+            //            var tempDato = $("#datetimepicker").val();
+            //            this.Date = tempDato; // Kan ikke lide den måde vi får dato værdi på
+            //            var _registration = new Registration();
+            //            _registration.VolunteerId = this.VolunteerId;
+            //            _registration.Hours = this.Hours;
+            //            _registration.Date = this.Date;
+            //            _registration.GuildId = this.GuildID
 
-        class Registration {
-            constructor(VolunteerId, Hours, Date, GuildId) {
-                this.VolunteerId = VolunteerId;
-                this.Hours = Hours;
-                this.Date = Date;
-                this.GuildId = GuildId;
-            }
-        }
+            //            $.ajax({
+            //                type: 'POST',
+            //                url: '/api/AddRegistration',
+            //                data: JSON.stringify(_registration),
+            //                success: function (data) {
+            //                    vue.Message = "Din registrering er behandlet, tak for dit arbejde!"
+            //                    vue.show = true
+            //                    setTimeout(function () { vue.show = false}, 5000);
 
-        class Guild {
-            constructor(Id, Name) {
-                this.Id = Id;
-                this.Name = Name;
-            }
-        }
+            //                },
+            //                error: function (data) {
+            //                    vue.Message = "Hov, noget gik galt"
+            //                    vue.show = true
+            //                    setTimeout(function () { vue.show = false }, 5000);
 
-        var vue = new Vue({
-            el: '#Index',
-            data: {
-                VolunteerId: '',
-                Hours: '',
-                Date: '',
-                Guild: '',
-                GuildID: '',
-                Json: '2321321312',
-                Message: '',
-                show: false,
-                guildList: []
-            },
-            methods: {
-                GetGuilds: function (event) {
-                    $.get('/api/GetGuilds', (data) => {
-                        for (index in data) {
-                            this.guildList.push(new Guild(data[index].GuildId,data[index].GuildName));
-                        }
-                    })
-                },
-                ConvertToJson: function (event) {
-                    vue.GetGuildID()
-                    var tempDato = $("#datetimepicker").val();
-                    this.Date = tempDato; // Kan ikke lide den måde vi får dato værdi på
-                    var _registration = new Registration();
-                    _registration.VolunteerId = this.VolunteerId;
-                    _registration.Hours = this.Hours;
-                    _registration.Date = this.Date;
-                    _registration.GuildId = this.GuildID
+            //                },
+            //                contentType: "application/json",
+            //                dataType: 'json'
+            //            });
+            //        },
+            //        GetGuildID: function (event) {
+            //            for (index in this.guildList) {
+            //                if (this.guildList[index].Name == this.Guild) {
+            //                    this.GuildID = this.guildList[index].Id
+            //                }
+            //            }
+            //        }
+            //    }
 
-                    
-                    $.ajax({
-                        type: 'POST',
-                        url: '/api/AddRegistration',
-                        data: JSON.stringify(_registration),
-                        success: function (data) {
-                            vue.Message = "Din registrering er behandlet, tak for dit arbejde!"
-                            vue.show = true
-                            setTimeout(function () { vue.show = false}, 5000);
-  
-                        },
-                        error: function (data) {
-                            vue.Message = "Hov, noget gik galt"
-                            vue.show = true
-                            setTimeout(function () { vue.show = false }, 5000);
-                            
-                        },
-                        contentType: "application/json",
-                        dataType: 'json'
-                    });
-                },
-                GetGuildID: function (event) {
-                    for (index in this.guildList) {
-                        if (this.guildList[index].Name == this.Guild) {
-                            this.GuildID = this.guildList[index].Id
-                        }
-                    }
-                }
-            }
-
-        })
-        vue.GetGuilds();
-    </script>
+            //})
+            //vue.GetGuilds();
+        //</script>*@
 </body>

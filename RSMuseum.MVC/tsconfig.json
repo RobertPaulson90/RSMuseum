@@ -1,0 +1,24 @@
+// tsconfig.json
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    // ... other options omitted
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "dom",
+      "es5",
+      "es2015.promise"
+    ],
+    "typeRoots": [
+      "node_modules/vue/types/",
+      "node_modules/@types"
+    ]
+  },
+  "include": [
+    "Scripts/vue/**/*",
+    "Scripts/vue/*.ts"
+  ],
+  "exclude": [ "node_modules" ],
+  "files": [ "Scripts/vue/index.component.ts" ]
+}
