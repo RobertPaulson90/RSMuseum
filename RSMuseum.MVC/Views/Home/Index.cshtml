@@ -1,13 +1,13 @@
 ﻿@*<head>
-    <script src="https://unpkg.com/vue"></script>
-</head>*@
+        <script src="https://unpkg.com/vue"></script>
+    </head>*@
 <div class="container">
     <div class="col-md-7 button-wrapper">
         <h1>Velkommen! Kort Introduktion</h1>
         <p>Lorem ipsum dolor sit amet, morbi justo eu, pulvinar neque id ut non nibh, erat nec nullam nec dui mollis. Congue pellentesque aliquam, risus sed tellus orci diam, dolor aliquam tortor eu ipsum consequat, egestas aliquam accumsan maecenas eget ac nunc. Eros diam arcu egestas placerat, fusce sapien bibendum fermentum interdum, magna etiam phasellus ullamcorper metus montes, elit erat vivamus ut, a fusce.</p> Curabitur elit pellentesque inceptos quis lacus congue, et commodo metus, auctor risus ipsum, sed sed suspendisse sem tincidunt sed. Congue aliquet gravida, duis dui dolor fusce lacus est. Nisl aliquam molestie sed amet bibendum tempus. Curabitur ac, molestie diam quis. Ornare feugiat non vitae, molestie eros turpis in in quam id, lacinia nunc dignissim metus vestibulum, cursus sed at id ultricies penatibus ut, odio ligula non sed potenti curabitur. Ut rhoncus molestie vel sed eu, nibh ullam mattis ligula donec commodo est, ut sed amet pede natoque volutpat. Vestibulum urna, enim aliquam vivamus enim hendrerit a torquent. Integer arcu conubia ut libero lacus orci. Odio in libero ut sed quaerat.
     </div>
     <div class="col-md-5 button-wrapper">
-        <div id="app-index" class="container">
+        <div id="appIndex" class="container">
             <h3>Frivillig Registrering</h3>
             @* MedlemsNummer input *@
             <div id="custom-margin-from-top">
@@ -50,98 +50,99 @@
         </div>
     </div>
 </div>
-    <script>
-        require.config({
-            shim: {
-                "bootstrap": { "deps": ['jquery'] },
-            },
-            paths: {
-                "vue": "//cdnjs.cloudflare.com/ajax/libs/vue/2.3.2/vue",
-                "jquery": "//code.jquery.com/jquery-3.2.1.min",
-                "bootstrap": "//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min"
-            }
-        });
-        require(["Scripts/vue/index.component", "jquery"]);
+<script>
+    require.config({
+        shim: {
+            "bootstrap": { "deps": ['jquery'] }
+
+        },
+        paths: {
+            "vue": "//cdnjs.cloudflare.com/ajax/libs/vue/2.3.2/vue",
+            "jquery": "//code.jquery.com/jquery-3.2.1.min",
+            "bootstrap": "//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min",
+        }
+    });
+    require(["Scripts/vue/models/project.models", "Scripts/vue/index.component", "jquery"]);
 </script>
-    @*<script type="text/javascript" src="@Url.Content("/Scripts/vue/index.component.js")"></script>*@
+@*<script type="text/javascript" src="@Url.Content("/Scripts/vue/index.component.js")"></script>*@
 
-    @*<script>
-            //class Registration {
-            //    constructor(VolunteerId, Hours, Date, GuildId) {
-            //        this.VolunteerId = VolunteerId;
-            //        this.Hours = Hours;
-            //        this.Date = Date;
-            //        this.GuildId = GuildId;
-            //    }
-            //}
+@*<script>
+        //class Registration {
+        //    constructor(VolunteerId, Hours, Date, GuildId) {
+        //        this.VolunteerId = VolunteerId;
+        //        this.Hours = Hours;
+        //        this.Date = Date;
+        //        this.GuildId = GuildId;
+        //    }
+        //}
 
-            //class Guild {
-            //    constructor(Id, Name) {
-            //        this.Id = Id;
-            //        this.Name = Name;
-            //    }
-            //}
+        //class Guild {
+        //    constructor(Id, Name) {
+        //        this.Id = Id;
+        //        this.Name = Name;
+        //    }
+        //}
 
-            //var vue = new Vue({
-            //    el: '#Index',
-            //    data: {
-            //        VolunteerId: '',
-            //        Hours: '',
-            //        Date: '',
-            //        Guild: '',
-            //        GuildID: '',
-            //        Json: '2321321312',
-            //        Message: '',
-            //        show: false,
-            //        guildList: []
-            //    },
-            //    methods: {
-            //        GetGuilds: function (event) {
-            //            $.get('/api/GetGuilds', (data) => {
-            //                for (index in data) {
-            //                    this.guildList.push(new Guild(data[index].GuildId,data[index].GuildName));
-            //                }
-            //            })
-            //        },
-            //        ConvertToJson: function (event) {
-            //            vue.GetGuildID()
-            //            var tempDato = $("#datetimepicker").val();
-            //            this.Date = tempDato; // Kan ikke lide den måde vi får dato værdi på
-            //            var _registration = new Registration();
-            //            _registration.VolunteerId = this.VolunteerId;
-            //            _registration.Hours = this.Hours;
-            //            _registration.Date = this.Date;
-            //            _registration.GuildId = this.GuildID
+        //var vue = new Vue({
+        //    el: '#Index',
+        //    data: {
+        //        VolunteerId: '',
+        //        Hours: '',
+        //        Date: '',
+        //        Guild: '',
+        //        GuildID: '',
+        //        Json: '2321321312',
+        //        Message: '',
+        //        show: false,
+        //        guildList: []
+        //    },
+        //    methods: {
+        //        GetGuilds: function (event) {
+        //            $.get('/api/GetGuilds', (data) => {
+        //                for (index in data) {
+        //                    this.guildList.push(new Guild(data[index].GuildId,data[index].GuildName));
+        //                }
+        //            })
+        //        },
+        //        ConvertToJson: function (event) {
+        //            vue.GetGuildID()
+        //            var tempDato = $("#datetimepicker").val();
+        //            this.Date = tempDato; // Kan ikke lide den måde vi får dato værdi på
+        //            var _registration = new Registration();
+        //            _registration.VolunteerId = this.VolunteerId;
+        //            _registration.Hours = this.Hours;
+        //            _registration.Date = this.Date;
+        //            _registration.GuildId = this.GuildID
 
-            //            $.ajax({
-            //                type: 'POST',
-            //                url: '/api/AddRegistration',
-            //                data: JSON.stringify(_registration),
-            //                success: function (data) {
-            //                    vue.Message = "Din registrering er behandlet, tak for dit arbejde!"
-            //                    vue.show = true
-            //                    setTimeout(function () { vue.show = false}, 5000);
+        //            $.ajax({
+        //                type: 'POST',
+        //                url: '/api/AddRegistration',
+        //                data: JSON.stringify(_registration),
+        //                success: function (data) {
+        //                    vue.Message = "Din registrering er behandlet, tak for dit arbejde!"
+        //                    vue.show = true
+        //                    setTimeout(function () { vue.show = false}, 5000);
 
-            //                },
-            //                error: function (data) {
-            //                    vue.Message = "Hov, noget gik galt"
-            //                    vue.show = true
-            //                    setTimeout(function () { vue.show = false }, 5000);
+        //                },
+        //                error: function (data) {
+        //                    vue.Message = "Hov, noget gik galt"
+        //                    vue.show = true
+        //                    setTimeout(function () { vue.show = false }, 5000);
 
-            //                },
-            //                contentType: "application/json",
-            //                dataType: 'json'
-            //            });
-            //        },
-            //        GetGuildID: function (event) {
-            //            for (index in this.guildList) {
-            //                if (this.guildList[index].Name == this.Guild) {
-            //                    this.GuildID = this.guildList[index].Id
-            //                }
-            //            }
-            //        }
-            //    }
+        //                },
+        //                contentType: "application/json",
+        //                dataType: 'json'
+        //            });
+        //        },
+        //        GetGuildID: function (event) {
+        //            for (index in this.guildList) {
+        //                if (this.guildList[index].Name == this.Guild) {
+        //                    this.GuildID = this.guildList[index].Id
+        //                }
+        //            }
+        //        }
+        //    }
 
-            //})
-            //vue.GetGuilds();
-        //</script>*@
+        //})
+        //vue.GetGuilds();
+    //</script>*@

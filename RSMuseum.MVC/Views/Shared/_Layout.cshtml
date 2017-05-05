@@ -8,7 +8,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.js"></script>
 
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
+    @*@Scripts.Render("~/bundles/modernizr")*@
 
     @*@Scripts.Render("~/bundles/jquery")*@
     @*@Scripts.Render("~/bundles/bootstrap")*@
@@ -47,6 +48,6 @@
             <p>&copy; @DateTime.Now.Year - RSMuseum</p>
         </footer>
     </div>
-    @RenderSection("scripts", required: false)
+    @*@RenderSection("scripts", required: false)*@
 </body>
 </html>
