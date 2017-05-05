@@ -2,7 +2,7 @@
     <script src="https://unpkg.com/vue"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container margin-fromtop">
         <div id="app">
                 <template v-if="loading">
                     <div class="spinner">
@@ -22,14 +22,14 @@
                         <div class="input-group col-md-3">
                             <input type="text" v-model="keyword" class="form-control input-lg" placeholder="Søg" />
                             <span class="input-group-btn">
-                                <button class="btn btn-info btn-lg" type="button">
+                                <button class="btn btn-warning btn-lg" type="button">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>
                             </span>
                         </div>
                     </div>
                     @*Tabel*@
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Navn</th>

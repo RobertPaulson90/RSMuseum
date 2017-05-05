@@ -2,7 +2,7 @@
     <script src="https://unpkg.com/vue"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container margin-fromtop">
         <div id="app">
             <template v-if="loading">
                 <div class="spinner">
@@ -14,29 +14,30 @@
                 </div>
             </template>
             <template v-else>
-                <h2>Ubehandlede registreringer</h2>
-                @*Søgefelt*@
-
-                <div id="custom-search-input">
-                    <div class="input-group col-md-3">
-                        <input type="text" v-model="keyword" class="form-control input-lg" placeholder="Søg" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-info btn-lg" type="button">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </span>
-                    </div>
+                <div class="margin-fromtop">
+                    <h2>Ubehandlede registreringer</h2>
                 </div>
-                @*Tabel*@
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Navn</th>
-                            <th>Dato</th>
-                            <th>Timer</th>
-                            <th>Laug</th>
-                        </tr>
-                    </thead>
+                    @*Søgefelt*@
+                    <div id="custom-search-input">
+                        <div class="input-group col-md-3">
+                            <input type="text" v-model="keyword" class="form-control input-lg" placeholder="Søg" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-warning btn-lg" type="button">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    @*Tabel*@
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Navn</th>
+                                <th>Dato</th>
+                                <th>Timer</th>
+                                <th>Laug</th>
+                            </tr>
+                        </thead>
                         <tbody name="list" is="transition-group">
                             <tr v-for="entry in filteredList" :key="entry.RegistrationId">
                                 <td>{{entry.Volunteer.FirstName}} {{entry.Volunteer.LastName}}</td>
@@ -55,7 +56,8 @@
                                 </td>
                             </tr>
                         </tbody>
-                </table>
+                    </table>
+                
                 </template>
                 
 </div>

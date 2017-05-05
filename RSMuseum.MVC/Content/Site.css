@@ -56,7 +56,7 @@ textarea {
     padding-bottom: 5px;
 }
 
-.button-wrapper {
+.margin-fromtop {
     margin-top: 20px;
 }
 
@@ -94,6 +94,10 @@ textarea {
     padding: 0px;
     border: solid 0px;
     transition: all 1s;
+}
+
+.alert {
+    width: 40%;
 }
 
 /*Spinner*/
