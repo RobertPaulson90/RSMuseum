@@ -2,9 +2,9 @@
 <html lang="da" xml:lang="da" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Language" content="da">
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>R-S Museum - Volunteer Participation Program</title> @*@ViewBag.Title*@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -12,7 +12,7 @@
     @Scripts.Render("~/bundles/bootstrap")
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.css" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -24,9 +24,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="/">
-                    <img src="http://www.levendehistorie.dk/Files/Templates/Designs/Soegaard_Bootstrap_r_s_m/images/logo.png" class="img-responsive navbarLogo" /></a>
-                    @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-</div>
+                    <img src="http://www.levendehistorie.dk/Files/Templates/Designs/Soegaard_Bootstrap_r_s_m/images/logo.png" class="img-responsive navbarLogo" />
+                </a>
+                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
             <div class="navbar-collapse collapse" style="margin-top:5px">
                 <ul class="nav navbar-nav">
                     <li><a href="@Url.Action("Index", "Home")">Home <span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
