@@ -9,6 +9,9 @@
     "target": "es5",
     "allowSyntheticDefaultImports": true,
     "lib": [ "dom", "es5", "scripthost", "es2015.promise" ],
+    "types": [
+      "requirejs"
+    ],
     "typeRoots": [
       "node_modules/vue/types/",
       "node_modules/@types"
@@ -16,7 +19,8 @@
   },
   "include": [
     "Scripts/vue/**/*",
-    "Scripts/vue/*.ts"
+    "Scripts/vue/*.ts",
+    "Scripts/vue"
   ],
   "exclude": [
     "node_modules",
