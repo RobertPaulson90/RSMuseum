@@ -1,39 +1,22 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var Vue = require("vue");
-var project_models_1 = require("./models/project.models");
-var $ = require("jquery");
-var IndexComponent = (function (_super) {
-    __extends(IndexComponent, _super);
-    function IndexComponent() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    IndexComponent.prototype.mounted = function () {
+const Vue = require("vue");
+const project_models_1 = require("./models/project.models");
+const $ = require("jquery");
+class IndexComponent extends Vue {
+    mounted() {
         this.getGuilds();
-    };
+    }
     ;
-    IndexComponent.prototype.getGuilds = function () {
-        var _this = this;
-        $.get('/api/GetGuilds', function () {
-            for (var _i = 0, _a = _this.guildList; _i < _a.length; _i++) {
-                var item = _a[_i];
-                _this.guildList.push(new project_models_1.Guild(item.id, item.name));
+    getGuilds() {
+        $.get('/api/GetGuilds', () => {
+            for (let item of this.guildList) {
+                this.guildList.push(new project_models_1.Guild(item.id, item.name));
             }
         });
-    };
+    }
     ;
-    IndexComponent.prototype.submitRegistration = function () {
+    submitRegistration() {
         this.getGuildId();
         var tempDato = $("#datetimepicker").val();
         this.Date = tempDato; // Kan ikke lide den måde vi får dato værdi på
@@ -55,52 +38,112 @@ var IndexComponent = (function (_super) {
             contentType: "application/json",
             dataType: 'json'
         });
-    };
+    }
     ;
-    IndexComponent.prototype.getGuildId = function () {
-        for (var _i = 0, _a = this.guildList; _i < _a.length; _i++) {
-            var item = _a[_i];
+    getGuildId() {
+        for (let item of this.guildList) {
             if (item.name === this.selectedGuild) {
                 this.GuildId = item.id;
             }
         }
-    };
-    return IndexComponent;
-}(Vue));
+    }
+}
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = IndexComponent;
 //# sourceMappingURL=index.component.js.map
-},{"./models/project.models":2,"jquery":3,"vue":5}],2:[function(require,module,exports){
+},{"./models/project.models":2,"jquery":4,"vue":5}],2:[function(require,module,exports){
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var Guild = (function () {
-    function Guild(id, name) {
+class Guild {
+    constructor(id, name) {
         this.id = id;
         this.name = name;
     }
-    return Guild;
-}());
+}
 exports.Guild = Guild;
-var Registration = (function () {
-    function Registration(volunteerId, hours, date, guildId) {
+class Registration {
+    constructor(volunteerId, hours, date, guildId) {
         this.volunteerId = volunteerId;
         this.hours = hours;
         this.date = date;
         this.guildId = guildId;
     }
-    return Registration;
-}());
+}
 exports.Registration = Registration;
-var Volunteer = (function () {
-    function Volunteer(navn, id, laug) {
+class Volunteer {
+    constructor(navn, id, laug) {
         this.navn = navn;
         this.id = id;
         this.laug = laug;
     }
-    return Volunteer;
-}());
+}
 exports.Volunteer = Volunteer;
 //# sourceMappingURL=project.models.js.map
 },{}],3:[function(require,module,exports){
+// shim for using process in browser
+
+var process = module.exports = {};
+
+process.nextTick = (function () {
+    var canSetImmediate = typeof window !== 'undefined'
+    && window.setImmediate;
+    var canPost = typeof window !== 'undefined'
+    && window.postMessage && window.addEventListener
+    ;
+
+    if (canSetImmediate) {
+        return function (f) { return window.setImmediate(f) };
+    }
+
+    if (canPost) {
+        var queue = [];
+        window.addEventListener('message', function (ev) {
+            var source = ev.source;
+            if ((source === window || source === null) && ev.data === 'process-tick') {
+                ev.stopPropagation();
+                if (queue.length > 0) {
+                    var fn = queue.shift();
+                    fn();
+                }
+            }
+        }, true);
+
+        return function nextTick(fn) {
+            queue.push(fn);
+            window.postMessage('process-tick', '*');
+        };
+    }
+
+    return function nextTick(fn) {
+        setTimeout(fn, 0);
+    };
+})();
+
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+}
+
+// TODO(shtylman)
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+
+},{}],4:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.2.1
  * https://jquery.com/
@@ -10355,71 +10398,6 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],4:[function(require,module,exports){
-// shim for using process in browser
-
-var process = module.exports = {};
-
-process.nextTick = (function () {
-    var canSetImmediate = typeof window !== 'undefined'
-    && window.setImmediate;
-    var canPost = typeof window !== 'undefined'
-    && window.postMessage && window.addEventListener
-    ;
-
-    if (canSetImmediate) {
-        return function (f) { return window.setImmediate(f) };
-    }
-
-    if (canPost) {
-        var queue = [];
-        window.addEventListener('message', function (ev) {
-            var source = ev.source;
-            if ((source === window || source === null) && ev.data === 'process-tick') {
-                ev.stopPropagation();
-                if (queue.length > 0) {
-                    var fn = queue.shift();
-                    fn();
-                }
-            }
-        }, true);
-
-        return function nextTick(fn) {
-            queue.push(fn);
-            window.postMessage('process-tick', '*');
-        };
-    }
-
-    return function nextTick(fn) {
-        setTimeout(fn, 0);
-    };
-})();
-
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-}
-
-// TODO(shtylman)
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-
 },{}],5:[function(require,module,exports){
 (function (process,global){
 /*!
@@ -17518,5 +17496,5 @@ setTimeout(function () {
 
 module.exports = Vue$3;
 
-}).call(this,require("e/U+97"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"e/U+97":4}]},{},[1])
+}).call(this,require("XJF/FV"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"XJF/FV":3}]},{},[1])

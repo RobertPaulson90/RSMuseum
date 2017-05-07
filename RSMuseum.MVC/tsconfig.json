@@ -4,12 +4,13 @@
   "compilerOptions": {
     // ... other options omitted
     "sourceMap": true,
-    "module": "amd",
+    "module": "commonjs",
     "moduleResolution": "node",
+    "target": "es5",
     "allowSyntheticDefaultImports": true,
-    "lib": [ "dom", "es5", "scripthost", "es2015.promise" ],
+    "lib": [ "dom", "es5", "es2015.promise", "es2015" ],
     "types": [
-      "requirejs"
+      "core-js"
     ],
     "typeRoots": [
       "node_modules/vue/types/",
