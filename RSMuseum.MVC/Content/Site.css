@@ -12,8 +12,8 @@ h1 {
     padding-bottom: 5px;
 }
 
-hr {
-    border-top: 1px solid #968d81;
+.table-hover > tbody > tr:hover {
+    background-color: blanchedalmond;
 }
 
 /* Set padding to keep content from hitting the edges */
