@@ -6,11 +6,16 @@ using System.Web;
 using System.Web.Http;
 using RSMuseum.Services;
 using RSMuseum.Repository.Entities;
+using Microsoft.Practices.Unity;
 
 namespace RSMuseum.MVC.Controllers.api
 {
     public class ApiController : System.Web.Http.ApiController
     {
+        [Dependency]
+        public IGuildService _guildService { get; set; }
+
+
         [Route("api/GetVolunteers")] // Så url'en er /api/GetVolunteers
         public IHttpActionResult GetVolunteers() // Denne REST-api er for at hente samtlige frivillige
         {
@@ -48,8 +53,8 @@ namespace RSMuseum.MVC.Controllers.api
         [Route("api/GetGuilds")] 
         public IHttpActionResult GetGuilds()
         {
-            var guildService = DI.Container.GetInstance<GuildService>();
-            var allGuilds = guildService.GetAllGuilds();
+
+            var allGuilds = _guildService.GetAllGuilds();
             return Ok(allGuilds);
         }
 

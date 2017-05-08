@@ -20,8 +20,14 @@ namespace RSMuseum.MVC
     {
         protected void Application_Start()
         {
+            UnityConfig.RegisterComponents();
             AreaRegistration.RegisterAllAreas();
+
+
+            UnityServicesSetup.RegisterComponents();
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
@@ -32,11 +38,15 @@ namespace RSMuseum.MVC
                         .SerializerSettings
                         .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             // Instantiere vores DI container
-            new DI();
+            // new DI();
+
+
 
             //Dont uncomment and run please
             //var generateFakeData = DI.Container.GetInstance<GenerateFakeData>();
             // DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(DI.Container));
+
+            UnityConfig.RegisterComponents();
         }
     }
 }

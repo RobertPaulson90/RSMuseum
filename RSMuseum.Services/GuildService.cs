@@ -10,13 +10,9 @@ using System.Threading.Tasks;
 
 namespace RSMuseum.Services
 {
-    public class GuildService
+    public class GuildService : IGuildService
     {
         private static IDbRepository _dbRepo;
-        public GuildService(IDbRepository dbRepo) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
-        {
-            _dbRepo = dbRepo;
-        }
 
         public IList<IGuildDTO> GetAllGuilds()
         {
