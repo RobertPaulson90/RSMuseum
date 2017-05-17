@@ -52,7 +52,13 @@ namespace RSMuseum.MVC.Controllers.api
             var allGuilds = guildService.GetAllGuilds();
             return Ok(allGuilds);
         }
-
+        [Route("api/GetVolunteerById/{Id}")]
+        public IHttpActionResult GetVolunteerById(int Id)
+        {
+            var volunteerService = DI.Container.GetInstance<VolunteerService>();
+            var volunteer = volunteerService.GetVolunteerByID(Id);
+            return Ok(volunteer);
+        }
 
         [Route("api/GetRegistrations/{unprocessedOnly}")]
         public IHttpActionResult GetRegistrations(bool unprocessedOnly = false)

@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using RSMuseum.Repository.Entities;
 using RSMuseum.Repository;
-using RSMuseum.Repository.Entities;
 
 namespace RSMuseum.Repository
 {
@@ -37,6 +36,12 @@ namespace RSMuseum.Repository
         public IList<Volunteer> GetAllVolunteers()
         {
             return dbctx.Volunteer.ToList();
+        }
+
+        public Volunteer GetVolunteerById(int volunteerId)
+        {
+            //return dbctx.Database.ExecuteSqlCommand("exec dbo.sp_Get_Vol_ID @ID", volunteerId);
+            return dbctx.Database.SqlQuery<Volunteer>("dbo.sp_Get_Vol_ID @ID ={0}", volunteerId).First();
         }
 
         public IList<Volunteer> GetAllVolunteersAndGuilds()
