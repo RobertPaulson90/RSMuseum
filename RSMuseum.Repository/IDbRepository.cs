@@ -13,6 +13,8 @@ namespace RSMuseum.Repository
 
         IList<Guild> GetAllGuilds();
 
+        Volunteer GetVolunteerById(int volunteerId);
+
         IList<Registration> GetAllRegistrationsUnprocessed();
 
         void AddTimeRegistration(Registration registration);
