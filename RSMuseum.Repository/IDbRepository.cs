@@ -20,5 +20,7 @@ namespace RSMuseum.Repository
         void AddTimeRegistration(Registration registration);
 
         void ChangeRegistrationStatus(int registrationId, bool status);
+
+        int GetMembershippnrFromVoluneerID(int membershipNumber);
     }
 }

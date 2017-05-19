@@ -7,8 +7,10 @@ using System.Web.Http.Cors;
 namespace RSMuseum.MVC.Controllers.api
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+   
     public class ApiController : System.Web.Http.ApiController
     {
+        [HttpGet]
         [Route("api/GetVolunteers")] // Så url'en er /api/GetVolunteers
         public IHttpActionResult GetVolunteers() // Denne REST-api er for at hente samtlige frivillige
         {
@@ -28,6 +30,7 @@ namespace RSMuseum.MVC.Controllers.api
             //}
         }
 
+        [HttpPost]
         [Route("api/AddRegistration")] // Så url'en er /api/AddRegistration
         public IHttpActionResult AddRegistrations([FromBody] Registration registration) // Denne REST-api er for at hente samtlige frivillige
         {
@@ -43,6 +46,7 @@ namespace RSMuseum.MVC.Controllers.api
             }
         }
 
+        [HttpGet]
         [Route("api/GetGuilds")] 
         public IHttpActionResult GetGuilds()
         {

@@ -79,5 +79,12 @@ namespace RSMuseum.Repository
             registration.Approved = status;
             dbctx.SaveChanges();
         }
+
+        public int GetMembershippnrFromVoluneerID(int membershipNumber)
+        {
+            var volunteer = dbctx.Volunteer.Where(x => x.MembershipNumber == membershipNumber).FirstOrDefault();
+
+            return volunteer.VolunteerId;
+        }
     }
 }
