@@ -38,6 +38,15 @@ namespace RSMuseum.Services
             }
         }
 
+        public IList<RegistrationDTO> GetRegistrations(bool unprocessedOnly, DateTime dateFrom, DateTime? dateTo)
+        {
+            var registrations = new List<RegistrationDTO>();
+            //if (dateTo)
+
+
+                return registrations;
+        }
+
         public IList<IRegistrationDTO> GetAllRegistrationsUnprocessed()
         {
             var allRegistrationsUnprocessed = _dbRepo.GetAllRegistrationsUnprocessed(); //Går ned i vores DAL for at hente vores frivillige

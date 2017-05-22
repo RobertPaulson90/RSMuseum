@@ -6,9 +6,11 @@ using System.Web;
 using System.Web.Http;
 using RSMuseum.Services;
 using RSMuseum.Repository.Entities;
+using System.Web.Http.Cors;
 
 namespace RSMuseum.MVC.Controllers.api
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ApiController : System.Web.Http.ApiController
     {
         [Route("api/GetVolunteers")] // Så url'en er /api/GetVolunteers
@@ -54,16 +56,41 @@ namespace RSMuseum.MVC.Controllers.api
         }
 
 
-        [Route("api/GetRegistrations/{unprocessedOnly}")]
-        public IHttpActionResult GetRegistrations(bool unprocessedOnly = false)
+        [Route("api/GetRegistrations/{unprocessedOnly?}/{dateFrom?}/{dateTo?}")]
+        public IHttpActionResult GetRegistrations(bool unprocessedOnly = false, DateTime? dateFrom = null, DateTime? dateTo = null)
         {
             var registationService = DI.Container.GetInstance<RegistrationService>();
+
+
+            if (dateFrom != null)
+            {
+                var newDateFrom = dateFrom ?? DateTime.Now;
+                var newDateTo = dateTo ?? DateTime.Now;
+
+                registationService.GetRegistrations(unprocessedOnly, newDateFrom, newDateTo);
+            }
+
+
             if (unprocessedOnly) { 
             var allRegistrations = registationService.GetAllRegistrationsUnprocessed();
             return Ok(allRegistrations);
             }
             return InternalServerError();
         }
+
+        [Route("api/GetRegistrations/{unprocessedOnly?}")]
+        public IHttpActionResult GetRegistrations(bool unprocessedOnly = false)
+        {
+            var registationService = DI.Container.GetInstance<RegistrationService>();
+            if (unprocessedOnly)
+            {
+                var allRegistrations = registationService.GetAllRegistrationsUnprocessed();
+                return Ok(allRegistrations);
+            }
+            return InternalServerError();
+        }
+
+
 
         [HttpGet]
         [Route("api/HandleRegistrations/{registrationId}/{process}")]

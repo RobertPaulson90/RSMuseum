@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RSMuseum.Repository.Entities;
 
 namespace RSMuseum.Repository
@@ -18,5 +19,6 @@ namespace RSMuseum.Repository
         void AddTimeRegistration(Registration registration);
 
         void ChangeRegistrationStatus(int registrationId, bool status);
+        object GetRegistrations(bool unprocessedOnly, DateTime dateFrom, DateTime dateTo);
     }
 }
