@@ -21,7 +21,7 @@ namespace RSMuseum.Repository
         void AddTimeRegistration(Registration registration);
 
         void ChangeRegistrationStatus(int registrationId, bool status);
-        object GetRegistrations(bool unprocessedOnly, DateTime dateFrom, DateTime dateTo);
+        IList<Registration> GetRegistrations(bool unprocessedOnly, DateTime dateFrom, DateTime dateTo);
 
         int GetMembershippnrFromVoluneerID(int membershipNumber);
     }

@@ -26,9 +26,10 @@ namespace RSMuseum.Services
 
             return volunteersDTO;
         }
-        public Volunteer GetVolunteerByID(int id)
+        public int GetVolunteerByID(int id)
         {
-            var Volunteer = _dbRepo.GetVolunteerById(id);
+            //var Volunteer = _dbRepo.GetVolunteerById(id);
+            var Volunteer = _dbRepo.GetMembershippnrFromVoluneerID(id);
 
             //var volunteersDTO = _mapper.Map<IList<Volunteer>, IList<IVolunteerViewDTO>>(Volunteer);
 

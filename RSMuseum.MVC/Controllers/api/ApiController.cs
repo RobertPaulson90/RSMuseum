@@ -2,7 +2,7 @@
 using RSMuseum.Services;
 using RSMuseum.Repository.Entities;
 using System.Web.Http.Cors;
-
+using System;
 
 namespace RSMuseum.MVC.Controllers.api
 {
@@ -74,7 +74,7 @@ namespace RSMuseum.MVC.Controllers.api
                 var newDateFrom = dateFrom ?? DateTime.Now;
                 var newDateTo = dateTo ?? DateTime.Now;
 
-                registationService.GetRegistrations(unprocessedOnly, newDateFrom, newDateTo);
+                return Ok(registationService.GetRegistrations(unprocessedOnly, newDateFrom, newDateTo));
             }
 
 

@@ -40,13 +40,10 @@ namespace RSMuseum.Services
             }
         }
 
-        public IList<RegistrationDTO> GetRegistrations(bool unprocessedOnly, DateTime dateFrom, DateTime? dateTo)
+        public IList<Registration> GetRegistrations(bool unprocessedOnly, DateTime dateFrom, DateTime? dateTo)
         {
-            var registrations = new List<RegistrationDTO>();
-            //if (dateTo)
-
-
-                return registrations;
+            var newDateTo = dateTo ?? DateTime.Now;
+            return _dbRepo.GetRegistrations(unprocessedOnly, dateFrom, newDateTo);
         }
 
         public IList<IRegistrationDTO> GetAllRegistrationsUnprocessed()
