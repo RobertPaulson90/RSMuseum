@@ -29,6 +29,8 @@ namespace RSMuseum.Services
             {
                 registration.DateTimeRegistered = DateTime.Now;
 
+                registration.VolunteerId = _dbRepo.GetMembershippnrFromVoluneerID(registration.VolunteerId);
+
                 _dbRepo.AddTimeRegistration(registration);
                 return true;
             }

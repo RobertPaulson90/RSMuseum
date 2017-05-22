@@ -3,7 +3,6 @@ using System.Data.Entity;
 using System.Linq;
 using Moq;
 using RSMuseum.Repository.Entities;
-using RSMuseum.Repository.Entities;
 using Xunit;
 
 namespace RSMuseum.Repository.Tests

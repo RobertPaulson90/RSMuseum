@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 using RSMuseum.Services;
 using RSMuseum.Repository.Entities;
 using System.Web.Http.Cors;
 
+
 namespace RSMuseum.MVC.Controllers.api
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+   
     public class ApiController : System.Web.Http.ApiController
     {
+        [HttpGet]
         [Route("api/GetVolunteers")] // Så url'en er /api/GetVolunteers
         public IHttpActionResult GetVolunteers() // Denne REST-api er for at hente samtlige frivillige
         {
@@ -32,6 +30,7 @@ namespace RSMuseum.MVC.Controllers.api
             //}
         }
 
+        [HttpPost]
         [Route("api/AddRegistration")] // Så url'en er /api/AddRegistration
         public IHttpActionResult AddRegistrations([FromBody] Registration registration) // Denne REST-api er for at hente samtlige frivillige
         {
@@ -47,12 +46,20 @@ namespace RSMuseum.MVC.Controllers.api
             }
         }
 
+        [HttpGet]
         [Route("api/GetGuilds")] 
         public IHttpActionResult GetGuilds()
         {
             var guildService = DI.Container.GetInstance<GuildService>();
             var allGuilds = guildService.GetAllGuilds();
             return Ok(allGuilds);
+        }
+        [Route("api/GetVolunteerById/{Id}")]
+        public IHttpActionResult GetVolunteerById(int Id)
+        {
+            var volunteerService = DI.Container.GetInstance<VolunteerService>();
+            var volunteer = volunteerService.GetVolunteerByID(Id);
+            return Ok(volunteer);
         }
 
 

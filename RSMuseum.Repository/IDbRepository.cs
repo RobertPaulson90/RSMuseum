@@ -14,11 +14,15 @@ namespace RSMuseum.Repository
 
         IList<Guild> GetAllGuilds();
 
+        Volunteer GetVolunteerById(int volunteerId);
+
         IList<Registration> GetAllRegistrationsUnprocessed();
 
         void AddTimeRegistration(Registration registration);
 
         void ChangeRegistrationStatus(int registrationId, bool status);
         object GetRegistrations(bool unprocessedOnly, DateTime dateFrom, DateTime dateTo);
+
+        int GetMembershippnrFromVoluneerID(int membershipNumber);
     }
 }
