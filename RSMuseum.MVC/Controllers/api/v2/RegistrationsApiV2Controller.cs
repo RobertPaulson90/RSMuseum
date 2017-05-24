@@ -5,7 +5,7 @@ using System.Web.Http;
 
 namespace RSMuseum.MVC.Controllers.api.v2
 {
-    public class RegistrationApiController : ApiController
+    public class RegistrationsApiController : ApiController
     {
         [HttpPost]
         [Route("api/v2/Registrations")] // Så url'en er /api/AddRegistration

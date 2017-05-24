@@ -7,7 +7,7 @@ using RSMuseum.Services;
 
 namespace RSMuseum.MVC.Controllers.api.v2
 {
-    public class VolunteerApiV2Controller : ApiController
+    public class VolunteersApiV2Controller : ApiController
     {
         [HttpGet]
         [Route("api/v2/Volunteer/{id}")]

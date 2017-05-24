@@ -4,7 +4,7 @@ using RSMuseum.Services;
 
 namespace RSMuseum.MVC.Controllers.api.v2
 {
-    public class StatisticApiV2Controller : ApiController
+    public class StatisticsApiV2Controller : ApiController
     {
         [HttpGet]
         [Route("api/v2/Statistics/{dateFrom}/{dateTo?}")]
