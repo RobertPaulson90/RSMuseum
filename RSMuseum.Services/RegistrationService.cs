@@ -40,6 +40,11 @@ namespace RSMuseum.Services
             }
         }
 
+        public IList<Registration> GetStatisticsDTO(DateTime dateFrom, DateTime dateTo)
+        {
+            return _dbRepo.GetStatistics(dateFrom, newDateTo);
+        }
+
         public IList<Registration> GetRegistrations(bool unprocessedOnly, DateTime dateFrom, DateTime? dateTo)
         {
             var newDateTo = dateTo ?? DateTime.Now;

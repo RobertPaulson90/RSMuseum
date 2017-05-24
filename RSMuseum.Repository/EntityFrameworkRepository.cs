@@ -98,5 +98,29 @@ namespace RSMuseum.Repository
 
             return query;
         }
+
+        public IList<int> GetDailyStatistics(DateTime dateFrom, DateTime dateTo, Guild guild)
+        {
+            foreach (DateTime day in EachDay(dateFrom, dateTo))
+            {
+                var list = new List<int>();
+
+                var dailyResults = dbctx.Registration
+                    .Include(x => x.Guild)
+                    .Where(x => x.Date == day && x.Processed && x.Guild == guild);
+                foreach (var result in dailyResults)
+                {
+                    list.Add(result.Hours);
+                }
+            }
+
+            return list;
+        }
+
+        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        {
+            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+                yield return day;
+        }
     }
 }

@@ -71,6 +71,7 @@
     <Compile Include="DTOs\IRegistrationDTO.cs" />
     <Compile Include="DTOs\IVolunteerViewDTO.cs" />
     <Compile Include="DTOs\RegistrationDTO.cs" />
+    <Compile Include="DTOs\StatisticsDTO.cs" />
     <Compile Include="DTOs\VolunteerViewDTO.cs" />
     <Compile Include="FakeDataService.cs" />
     <Compile Include="GuildService.cs" />

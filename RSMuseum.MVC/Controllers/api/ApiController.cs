@@ -7,7 +7,6 @@ using System;
 namespace RSMuseum.MVC.Controllers.api
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-   
     public class ApiController : System.Web.Http.ApiController
     {
         [HttpGet]
@@ -47,13 +46,14 @@ namespace RSMuseum.MVC.Controllers.api
         }
 
         [HttpGet]
-        [Route("api/GetGuilds")] 
+        [Route("api/GetGuilds")]
         public IHttpActionResult GetGuilds()
         {
             var guildService = DI.Container.GetInstance<GuildService>();
             var allGuilds = guildService.GetAllGuilds();
             return Ok(allGuilds);
         }
+
         [Route("api/GetVolunteerById/{Id}")]
         public IHttpActionResult GetVolunteerById(int Id)
         {
@@ -62,12 +62,10 @@ namespace RSMuseum.MVC.Controllers.api
             return Ok(volunteer);
         }
 
-
         [Route("api/GetRegistrations/{unprocessedOnly?}/{dateFrom?}/{dateTo?}")]
         public IHttpActionResult GetRegistrations(bool unprocessedOnly = false, DateTime? dateFrom = null, DateTime? dateTo = null)
         {
             var registationService = DI.Container.GetInstance<RegistrationService>();
-
 
             if (dateFrom != null)
             {
@@ -77,10 +75,10 @@ namespace RSMuseum.MVC.Controllers.api
                 return Ok(registationService.GetRegistrations(unprocessedOnly, newDateFrom, newDateTo));
             }
 
-
-            if (unprocessedOnly) { 
-            var allRegistrations = registationService.GetAllRegistrationsUnprocessed();
-            return Ok(allRegistrations);
+            if (unprocessedOnly)
+            {
+                var allRegistrations = registationService.GetAllRegistrationsUnprocessed();
+                return Ok(allRegistrations);
             }
             return InternalServerError();
         }
@@ -97,11 +95,25 @@ namespace RSMuseum.MVC.Controllers.api
             return InternalServerError();
         }
 
-
+        [HttpGet]
+        [Route("api/Statistics/{dateFrom}/{dateTo?}")]
+        public IHttpActionResult GetStatistics(DateTime dateFrom, DateTime? dateTo)
+        {
+            try
+            {
+                var registationService = DI.Container.GetInstance<RegistrationService>();
+                var newDateTo = dateTo ?? DateTime.Now;
+                return Ok(registationService.GetStatisticsDTO(dateFrom, newDateTo));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
 
         [HttpGet]
         [Route("api/HandleRegistrations/{registrationId}/{process}")]
-        public IHttpActionResult HandleRegistrations(int registrationId,bool process)
+        public IHttpActionResult HandleRegistrations(int registrationId, bool process)
         {
             var registationService = DI.Container.GetInstance<RegistrationService>();
             bool changeRegistrationCheck = registationService.ChangeRegistrationStatus(registrationId, process);
@@ -113,8 +125,6 @@ namespace RSMuseum.MVC.Controllers.api
             {
                 return InternalServerError();
             }
-                
-                
         }
     }
 }
