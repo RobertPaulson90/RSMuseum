@@ -1,11 +1,17 @@
-﻿using System.Web.Http;
+﻿using RSMuseum.Repository.Entities;
 using RSMuseum.Services;
-using RSMuseum.Repository.Entities;
-using System.Web.Http.Cors;
 using System;
+using System.Web.Http;
+using System.Web.Http.Cors;
+using System.Xml.Serialization;
 
 namespace RSMuseum.MVC.Controllers.api
 {
+    /* !!! WARNING !!!
+     * !!! WARNING !!!
+     * THIS CLASS IS OUTDATED.
+     * USE LATEST ApiV2Controller instead */
+
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ApiController : System.Web.Http.ApiController
     {
@@ -35,61 +41,34 @@ namespace RSMuseum.MVC.Controllers.api
         {
             var registationService = DI.Container.GetInstance<RegistrationService>();
             var succeeded = registationService.AddRegistration(registration);
-            if (succeeded)
-            {
+            if (succeeded) {
                 return Ok(succeeded);
             }
-            else
-            {
+            else {
                 return InternalServerError();
             }
         }
 
         [HttpGet]
         [Route("api/GetGuilds")]
-        public IHttpActionResult GetGuilds()
-        {
+        public IHttpActionResult GetGuilds() {
             var guildService = DI.Container.GetInstance<GuildService>();
             var allGuilds = guildService.GetAllGuilds();
             return Ok(allGuilds);
         }
 
         [Route("api/GetVolunteerById/{Id}")]
-        public IHttpActionResult GetVolunteerById(int Id)
-        {
+        public IHttpActionResult GetVolunteerById(int Id) {
             var volunteerService = DI.Container.GetInstance<VolunteerService>();
             var volunteer = volunteerService.GetVolunteerByID(Id);
             return Ok(volunteer);
         }
 
-        [Route("api/GetRegistrations/{unprocessedOnly?}/{dateFrom?}/{dateTo?}")]
-        public IHttpActionResult GetRegistrations(bool unprocessedOnly = false, DateTime? dateFrom = null, DateTime? dateTo = null)
-        {
+        [Route("api/GetRegistrations/{unprocessed?}")]
+        public IHttpActionResult GetRegistrations(bool? unprocessed = null) {
             var registationService = DI.Container.GetInstance<RegistrationService>();
-
-            if (dateFrom != null)
-            {
-                var newDateFrom = dateFrom ?? DateTime.Now;
-                var newDateTo = dateTo ?? DateTime.Now;
-
-                return Ok(registationService.GetRegistrations(unprocessedOnly, newDateFrom, newDateTo));
-            }
-
-            if (unprocessedOnly)
-            {
-                var allRegistrations = registationService.GetAllRegistrationsUnprocessed();
-                return Ok(allRegistrations);
-            }
-            return InternalServerError();
-        }
-
-        [Route("api/GetRegistrations/{unprocessedOnly?}")]
-        public IHttpActionResult GetRegistrations(bool unprocessedOnly = false)
-        {
-            var registationService = DI.Container.GetInstance<RegistrationService>();
-            if (unprocessedOnly)
-            {
-                var allRegistrations = registationService.GetAllRegistrationsUnprocessed();
+            if (unprocessed == true) {
+                var allRegistrations = registationService.GetRegistrations(processed: false);
                 return Ok(allRegistrations);
             }
             return InternalServerError();
@@ -97,11 +76,9 @@ namespace RSMuseum.MVC.Controllers.api
 
         [HttpGet]
         [Route("api/Statistics/{dateFrom?}/{dateTo?}")]
-        public IHttpActionResult GetStatistics(DateTime? dateFrom = null, DateTime? dateTo = null)
-        {
+        public IHttpActionResult GetStatistics(DateTime? dateFrom = null, DateTime? dateTo = null) {
             var statisticsService = DI.Container.GetInstance<StatisticsService>();
-            if (dateFrom == null)
-            {
+            if (dateFrom == null) {
                 return BadRequest();
             }
             var newDateTo = dateTo ?? DateTime.Now;
@@ -111,16 +88,13 @@ namespace RSMuseum.MVC.Controllers.api
 
         [HttpGet]
         [Route("api/HandleRegistrations/{registrationId}/{process}")]
-        public IHttpActionResult HandleRegistrations(int registrationId, bool process)
-        {
+        public IHttpActionResult HandleRegistrations(int registrationId, bool process) {
             var registationService = DI.Container.GetInstance<RegistrationService>();
             bool changeRegistrationCheck = registationService.ChangeRegistrationStatus(registrationId, process);
-            if (changeRegistrationCheck)
-            {
+            if (changeRegistrationCheck) {
                 return Ok();
             }
-            else
-            {
+            else {
                 return InternalServerError();
             }
         }

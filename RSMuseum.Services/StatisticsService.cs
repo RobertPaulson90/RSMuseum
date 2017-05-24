@@ -37,7 +37,7 @@ namespace RSMuseum.Services
                     var dailyGuildStat = new StatDTO
                     {
                         Date = day,
-                        TotalHours = _dbRepo.GetStatisticsGuildDailyHours(day, guild),
+                        TotalHours = _dbRepo.GetStatisticsGuildDailyTotalHours(day, guild),
                         // TotalPeople = _dbRepo.GetStatisticsGuildDailyHours(day, guild)
                     };
 

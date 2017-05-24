@@ -6,8 +6,6 @@ namespace RSMuseum.Repository
 {
     public interface IDbRepository // Vores main repository, alle andre repositories skal nedarve denne
     {
-        IList<object> GetAllNotConfirmedRegistrations();
-
         IList<Volunteer> GetAllVolunteers();
 
         IList<Volunteer> GetAllVolunteersAndGuilds();
@@ -16,20 +14,16 @@ namespace RSMuseum.Repository
 
         Volunteer GetVolunteerById(int volunteerId);
 
-        IList<Registration> GetAllRegistrationsUnprocessed();
-
         void AddTimeRegistration(Registration registration);
 
         void ChangeRegistrationStatus(int registrationId, bool status);
-        IList<Registration> GetRegistrations(bool unprocessedOnly, DateTime dateFrom, DateTime dateTo);
 
-        int GetMembershippnrFromVoluneerID(int membershipNumber);
+        IList<Registration> GetRegistrations(bool? processed = null);
 
-        int GetStatisticsGuildDailyHours(DateTime date, Guild guild);
+        int GetMembershipNumberFromVolunteerId(int membershipNumber);
 
-        int GetStatisticsGuildDailyPeople(DateTime date, Guild guild);
+        int GetStatisticsGuildDailyTotalHours(DateTime date, Guild guild);
 
-
-
+        int GetStatisticsGuildDailyUniquePeople(DateTime date, Guild guild);
     }
 }

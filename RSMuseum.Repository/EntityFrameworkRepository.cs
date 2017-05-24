@@ -9,117 +9,79 @@ namespace RSMuseum.Repository
 {
     public class EntityFrameworkRepository : IDbRepository
     {
-        private RSMContext dbctx;
+        private readonly RSMContext _dbCtx;
 
-        public EntityFrameworkRepository(RSMContext dbctx) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
+        public EntityFrameworkRepository(RSMContext dbCtx) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
         {
-            this.dbctx = dbctx;
+            _dbCtx = dbCtx;
         }
 
-        public void AddTimeRegistration(Registration registration)
-        {
-            dbctx.Registration.Add(registration);
-            dbctx.SaveChanges();
+        public void AddTimeRegistration(Registration registration) {
+            _dbCtx.Registration.Add(registration);
+            _dbCtx.SaveChanges();
         }
 
-        public IList<Guild> GetAllGuilds()
-        {
-            var query = dbctx.Guild.ToList();
+        public IList<Guild> GetAllGuilds() {
+            var query = _dbCtx.Guild.ToList();
             return query;
         }
 
-        public IList<object> GetAllNotConfirmedRegistrations()
-        {
-            throw new NotImplementedException();
+        public IList<Volunteer> GetAllVolunteers() {
+            return _dbCtx.Volunteer.ToList();
         }
 
-        public IList<Volunteer> GetAllVolunteers()
-        {
-            return dbctx.Volunteer.ToList();
+        public Volunteer GetVolunteerById(int volunteerId) {
+            return _dbCtx.Database.SqlQuery<Volunteer>("dbo.sp_Get_Vol_ID @ID ={0}", volunteerId).First();
         }
 
-        public Volunteer GetVolunteerById(int volunteerId)
-        {
-            //return dbctx.Database.ExecuteSqlCommand("exec dbo.sp_Get_Vol_ID @ID", volunteerId);
-            return dbctx.Database.SqlQuery<Volunteer>("dbo.sp_Get_Vol_ID @ID ={0}", volunteerId).First();
-        }
-
-        public IList<Volunteer> GetAllVolunteersAndGuilds()
-        {
-            //dbctx.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            //dbctx.Configuration.ProxyCreationEnabled = false;
-            //dbctx.Configuration.LazyLoadingEnabled = false;
-
-            var query = dbctx.Volunteer
+        public IList<Volunteer> GetAllVolunteersAndGuilds() {
+            return _dbCtx.Volunteer
                 .Include(x => x.Person)
                 .Include(x => x.Guilds)
                 .ToList();
-
-            return query;
         }
 
-        public IList<Registration> GetAllRegistrationsUnprocessed()
-        {
-            var query = dbctx.Registration
-            .Include(x => x.Volunteer)
-            .Include(x => x.Volunteer.Person)
-            .Include(x => x.Guild)
-            .Where(x => x.Processed == false)
-            .ToList();
-
-            return query;
-        }
-
-        public void ChangeRegistrationStatus(int registrationId, bool status)
-        {
-            var registration = dbctx.Registration
-           .Where(x => x.RegistrationId == registrationId).FirstOrDefault();
-
+        public void ChangeRegistrationStatus(int registrationId, bool status) {
+            var registration = _dbCtx.Registration.FirstOrDefault(x => x.RegistrationId == registrationId);
             registration.Processed = true;
             registration.Approved = status;
-            dbctx.SaveChanges();
+            _dbCtx.SaveChanges();
         }
 
-        public int GetMembershippnrFromVoluneerID(int membershipNumber)
-        {
-            var volunteer = dbctx.Volunteer.Where(x => x.MembershipNumber == membershipNumber).FirstOrDefault();
-
-            return volunteer.VolunteerId;
+        public int GetMembershipNumberFromVolunteerId(int membershipNumber) {
+            return _dbCtx.Volunteer.FirstOrDefault(x => x.MembershipNumber == membershipNumber).VolunteerId;
         }
 
-        public IList<Registration> GetRegistrations(bool unprocessedOnly, DateTime dateFrom, DateTime dateTo)
-        {
-            var query = dbctx.Registration
-            .Include(x => x.Volunteer)
-            .Include(x => x.Volunteer.Person)
-            .Include(x => x.Guild)
-            .Where(x => x.Date >= dateFrom && x.Date <= dateTo && x.Processed == !unprocessedOnly)
-            .ToList();
+        public IList<Registration> GetRegistrations(bool? processed = null) {
+            var query = _dbCtx.Registration
+                .Include(x => x.Volunteer)
+                .Include(x => x.Volunteer.Person)
+                .Include(x => x.Guild);
 
-            return query;
+            if (processed == null) {
+                return query.ToList();
+            }
+            else {
+                query = query.Where(x => x.Processed == processed);
+            }
+            return query.ToList();
         }
 
-        public int GetStatisticsGuildDailyHours(DateTime date, Guild guild)
-        {
-
-            return dbctx.Registration
-                             .Where(x => x.Date.Day == date.Date.Day && 
-                                x.Date.Month == date.Date.Month && 
-                                x.Date.Year == date.Date.Year && 
+        public int GetStatisticsGuildDailyTotalHours(DateTime date, Guild guild) {
+            return _dbCtx.Registration
+                             .Where(x => x.Date.Day == date.Date.Day &&
+                                x.Date.Month == date.Date.Month &&
+                                x.Date.Year == date.Date.Year &&
                                 x.GuildId == guild.GuildId)
                              .Sum(x => (int?)x.Hours) ?? 0;
         }
 
-        public int GetStatisticsGuildDailyPeople(DateTime date, Guild guild)
-        {
-            return dbctx.Registration
+        public int GetStatisticsGuildDailyUniquePeople(DateTime date, Guild guild) {
+            return _dbCtx.Registration
                 .Include(x => x.Guild)
-                .Where(x => x.Guild == guild)                
+                .Where(x => x.Guild == guild)
                 .GroupBy(x => x.VolunteerId)
                 .Count();
         }
-
-
-
     }
 }

@@ -239,7 +239,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\api\ApiController.cs" />
+    <Compile Include="Controllers\api\v1 legacy\ApiController.cs" />
+    <Compile Include="Controllers\api\v2\GuildApiV2Controller.cs" />
+    <Compile Include="Controllers\api\v2\RegistrationApiV2Controller.cs" />
+    <Compile Include="Controllers\api\v2\StatisticApiV2Controller.cs" />
+    <Compile Include="Controllers\api\v2\VolunteerApiV2Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">

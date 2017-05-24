@@ -23,32 +23,32 @@ namespace RSMuseum.Services
             _mapper = mapper;
         }
 
-        public bool AddRegistration(Registration registration)
-        {
-            try
-            {
+        public bool AddRegistration(Registration registration) {
+            try {
                 registration.DateTimeRegistered = DateTime.Now;
 
-                registration.VolunteerId = _dbRepo.GetMembershippnrFromVoluneerID(registration.VolunteerId);
+                registration.VolunteerId = _dbRepo.GetMembershipNumberFromVolunteerId(registration.VolunteerId);
 
                 _dbRepo.AddTimeRegistration(registration);
                 return true;
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 return false;
             }
         }
 
-        public IList<Registration> GetRegistrations(bool unprocessedOnly, DateTime dateFrom, DateTime? dateTo)
-        {
-            var newDateTo = dateTo ?? DateTime.Now;
-            return _dbRepo.GetRegistrations(unprocessedOnly, dateFrom, newDateTo);
+        public IList<Registration> GetRegistrations(bool? processed) {
+            return _dbRepo.GetRegistrations(processed);
         }
 
-        public IList<IRegistrationDTO> GetAllRegistrationsUnprocessed()
-        {
-            var allRegistrationsUnprocessed = _dbRepo.GetAllRegistrationsUnprocessed(); //Går ned i vores DAL for at hente vores frivillige
+        public IList<IRegistrationDTO> GetRegistrationsDTO(bool? processed = null) {
+            IList<Registration> allRegistrationsUnprocessed;
+            if (processed == null) {
+                allRegistrationsUnprocessed = _dbRepo.GetRegistrations(); //Går ned i vores DAL for at hente vores frivillige
+            }
+            else {
+                allRegistrationsUnprocessed = _dbRepo.GetRegistrations(processed); //Går ned i vores DAL for at hente vores frivillige
+            }
 
             // Broken for now... Until fixed, we do manual mapping.
             // var registrationsDTO = _mapper.Map<IList<Registration>, IList<IRegistrationDTO>>(allRegistrationsUnprocessed);
@@ -83,15 +83,12 @@ namespace RSMuseum.Services
             return registrationsDTO;
         }
 
-        public bool ChangeRegistrationStatus(int registrationId, bool status)
-        {
-            try
-            {
+        public bool ChangeRegistrationStatus(int registrationId, bool status) {
+            try {
                 _dbRepo.ChangeRegistrationStatus(registrationId, status);
                 return true;
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 return false;
             }
         }
