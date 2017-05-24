@@ -8,12 +8,12 @@ namespace RSMuseum.Services
 {
     public class GenerateFakeData
     {
-        private RSM_EF_DbCtx.RSMContext _dbCtx;
+        private RSMContext _dbCtx;
 
         // This class should rarely be used. Customize constructor before running via. DI-container
         // Acts as a type of "Seed" for generating random believable fake data for testing environment
 
-        public GenerateFakeData(RSM_EF_DbCtx.RSMContext dbCtx)
+        public GenerateFakeData(RSMContext dbCtx)
         {
             _dbCtx = dbCtx;
 

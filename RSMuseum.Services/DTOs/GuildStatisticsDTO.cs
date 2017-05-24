@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace RSMuseum.Services.DTOs
 {
-    public class StatisticsDTO
+    public class GuildStatisticsDTO // 1 GuildStatisticsDTO per. guild
     {
         public string GuildName { get; set; }
         public int GuildId { get; set; }
-        public List<GuildStatDTO> Data { get; set; }
+        public List<StatDTO> Stats { get; set; }
     }
 
-    public class GuildStatDTO
+    public class StatDTO
     {
         public DateTime Date { get; set; }
         public int TotalHours { get; set; }
+        public int TotalPeople { get; set; }
     }
 }

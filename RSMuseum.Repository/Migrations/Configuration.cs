@@ -9,14 +9,14 @@ namespace RSMuseum.Repository.Migrations
     using Entities;
     using System.Collections.Generic;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<RSM_EF_DbCtx.RSMContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<RSMContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(RSM_EF_DbCtx.RSMContext context)
+        protected override void Seed(RSMContext context)
         {
             //  This method will be called after migrating to the latest version.
 

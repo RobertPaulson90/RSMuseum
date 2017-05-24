@@ -71,13 +71,14 @@
     <Compile Include="DTOs\IRegistrationDTO.cs" />
     <Compile Include="DTOs\IVolunteerViewDTO.cs" />
     <Compile Include="DTOs\RegistrationDTO.cs" />
-    <Compile Include="DTOs\StatisticsDTO.cs" />
+    <Compile Include="DTOs\GuildStatisticsDTO.cs" />
     <Compile Include="DTOs\VolunteerViewDTO.cs" />
     <Compile Include="FakeDataService.cs" />
     <Compile Include="GuildService.cs" />
     <Compile Include="MapperProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistrationService.cs" />
+    <Compile Include="StatisticsService.cs" />
     <Compile Include="VolunteerService.cs" />
   </ItemGroup>
   <ItemGroup>

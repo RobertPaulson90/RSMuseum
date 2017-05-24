@@ -20,7 +20,7 @@ namespace RSMuseum.Repository.Tests
             mockedDbCtxVolunteer.As<IQueryable<Volunteer>>().Setup(m => m.GetEnumerator()).Returns(expectedData.GetEnumerator());
             // Ovenstående linje er det essentielle, da vi snyder .ToList() på entiteten
 
-            var mockedCtx = new Mock<RSM_EF_DbCtx.RSMContext>(); // Mock hele RSMContext, da det jo selvfølgelig er en dependency til EntityFrameworkRepository
+            var mockedCtx = new Mock<RSMContext>(); // Mock hele RSMContext, da det jo selvfølgelig er en dependency til EntityFrameworkRepository
             mockedCtx.Setup(m => m.Volunteer).Returns(mockedDbCtxVolunteer.Object); // Og så skal mockedCtx.Volunteer være tilknyttet til mockedCtx før vi går videre
 
             // Act

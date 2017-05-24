@@ -18,7 +18,7 @@ namespace RSMuseum.Services
             Container = new Container();
             Container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
 
-            Container.Register<RSM_EF_DbCtx.RSMContext>(Lifestyle.Scoped);
+            Container.Register<RSMContext>(Lifestyle.Scoped);
             Container.Register<IDbRepository, EntityFrameworkRepository>();
             Container.Register<VolunteerService>();
             Container.Register<GuildService>();

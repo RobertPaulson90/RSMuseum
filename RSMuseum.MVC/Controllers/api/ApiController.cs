@@ -96,19 +96,17 @@ namespace RSMuseum.MVC.Controllers.api
         }
 
         [HttpGet]
-        [Route("api/Statistics/{dateFrom}/{dateTo?}")]
-        public IHttpActionResult GetStatistics(DateTime dateFrom, DateTime? dateTo)
+        [Route("api/Statistics/{dateFrom?}/{dateTo?}")]
+        public IHttpActionResult GetStatistics(DateTime? dateFrom = null, DateTime? dateTo = null)
         {
-            try
-            {
-                var registationService = DI.Container.GetInstance<RegistrationService>();
-                var newDateTo = dateTo ?? DateTime.Now;
-                return Ok(registationService.GetStatisticsDTO(dateFrom, newDateTo));
-            }
-            catch (Exception)
+            var statisticsService = DI.Container.GetInstance<StatisticsService>();
+            if (dateFrom == null)
             {
                 return BadRequest();
             }
+            var newDateTo = dateTo ?? DateTime.Now;
+            var newDateFrom = dateFrom ?? DateTime.Now;
+            return Ok(statisticsService.GetGuildStatisticsDTOs(newDateFrom, newDateTo));
         }
 
         [HttpGet]

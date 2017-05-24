@@ -24,5 +24,12 @@ namespace RSMuseum.Repository
         IList<Registration> GetRegistrations(bool unprocessedOnly, DateTime dateFrom, DateTime dateTo);
 
         int GetMembershippnrFromVoluneerID(int membershipNumber);
+
+        int GetStatisticsGuildDailyHours(DateTime date, Guild guild);
+
+        int GetStatisticsGuildDailyPeople(DateTime date, Guild guild);
+
+
+
     }
 }

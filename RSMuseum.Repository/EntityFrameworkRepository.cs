@@ -9,9 +9,9 @@ namespace RSMuseum.Repository
 {
     public class EntityFrameworkRepository : IDbRepository
     {
-        private RSM_EF_DbCtx.RSMContext dbctx;
+        private RSMContext dbctx;
 
-        public EntityFrameworkRepository(RSM_EF_DbCtx.RSMContext dbctx) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
+        public EntityFrameworkRepository(RSMContext dbctx) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
         {
             this.dbctx = dbctx;
         }
@@ -99,28 +99,27 @@ namespace RSMuseum.Repository
             return query;
         }
 
-        public IList<int> GetDailyStatistics(DateTime dateFrom, DateTime dateTo, Guild guild)
+        public int GetStatisticsGuildDailyHours(DateTime date, Guild guild)
         {
-            foreach (DateTime day in EachDay(dateFrom, dateTo))
-            {
-                var list = new List<int>();
 
-                var dailyResults = dbctx.Registration
-                    .Include(x => x.Guild)
-                    .Where(x => x.Date == day && x.Processed && x.Guild == guild);
-                foreach (var result in dailyResults)
-                {
-                    list.Add(result.Hours);
-                }
-            }
-
-            return list;
+            return dbctx.Registration
+                             .Where(x => x.Date.Day == date.Date.Day && 
+                                x.Date.Month == date.Date.Month && 
+                                x.Date.Year == date.Date.Year && 
+                                x.GuildId == guild.GuildId)
+                             .Sum(x => (int?)x.Hours) ?? 0;
         }
 
-        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        public int GetStatisticsGuildDailyPeople(DateTime date, Guild guild)
         {
-            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
-                yield return day;
+            return dbctx.Registration
+                .Include(x => x.Guild)
+                .Where(x => x.Guild == guild)                
+                .GroupBy(x => x.VolunteerId)
+                .Count();
         }
+
+
+
     }
 }
