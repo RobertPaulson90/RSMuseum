@@ -30,7 +30,7 @@ namespace RSMuseum.MVC.Controllers.api
         [Route("api/GetVolunteers")] // Så url'en er /api/GetVolunteers
         public IHttpActionResult GetVolunteers() // Denne REST-api er for at hente samtlige frivillige
         {
-            var volunteers = _volunteerService.GetVolunteersViewDTO(); // Forretningslogikken sættes igang! For det må vi jo ikke i controlleren :-)
+            var volunteers = _volunteerService.GetVolunteersDTO(); // Forretningslogikken sættes igang! For det må vi jo ikke i controlleren :-)
             //if (volunteers != null)
             //{
             return Ok(volunteers); // Retunere alle frivillige ud til browseren i JSON med HTTP-OK besked
@@ -57,7 +57,7 @@ namespace RSMuseum.MVC.Controllers.api
         [HttpGet]
         [Route("api/GetGuilds")]
         public IHttpActionResult GetGuilds() {
-            var allGuilds = _guildService.GetAllGuilds();
+            var allGuilds = _guildService.GetGuildsDTO();
             return Ok(allGuilds);
         }
 

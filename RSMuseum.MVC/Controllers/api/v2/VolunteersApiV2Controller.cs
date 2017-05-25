@@ -17,24 +17,18 @@ namespace RSMuseum.MVC.Controllers.api.v2
 
         [HttpGet]
         [Route("api/v2/volunteers/{id}")]
-        public IHttpActionResult GetVolunteersById(int id) {
-            try {
-                var volunteer = _volunteerService.GetVolunteerByID(id);
-                return Ok(volunteer);
-            }
-            catch (Exception e) {
-                return InternalServerError(e);
-            }
+        public IHttpActionResult GetVolunteer(int id) {
+            throw new NotImplementedException();
         }
 
         [HttpGet]
         [Route("api/v2/volunteers")] // Så url'en er /api/GetVolunteers
-        public IHttpActionResult GetVolunteers() // Denne REST-api er for at hente samtlige frivillige
+        public IHttpActionResult ListVolunteers() // Denne REST-api er for at hente samtlige frivillige
         {
             try {
                 /*  Beder vores DI container om instans af VolunteerService
                  Vi injecter ikke VolunteerService i parametrene (endnu), fordi det kræver integrering af di-container i MVC. Store problemer */
-                var volunteers = _volunteerService.GetVolunteersViewDTO(); // Forretningslogikken sættes igang! For det må vi jo ikke i controlleren :-)
+                var volunteers = _volunteerService.GetVolunteersDTO(); // Forretningslogikken sættes igang! For det må vi jo ikke i controlleren :-)
                 return Ok(volunteers); // Retunere alle frivillige ud til browseren i JSON med HTTP-OK besked
             }
             catch (Exception e) {

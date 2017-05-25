@@ -14,7 +14,7 @@ namespace RSMuseum.MVC.Controllers.api.v2
 
         [HttpPost]
         [Route("api/v2/registrations")] // Så url'en er /api/AddRegistration
-        public IHttpActionResult AddRegistration([FromBody] Registration registration) // Denne REST-api er for at hente samtlige frivillige
+        public IHttpActionResult CreateRegistration([FromBody] Registration registration) // Denne REST-api er for at hente samtlige frivillige
         {
             var succeeded = _registrationService.AddRegistration(registration);
             if (succeeded) {
@@ -26,13 +26,13 @@ namespace RSMuseum.MVC.Controllers.api.v2
         }
 
         [Route("api/v2/registrations/{unprocessedOnly?}")]
-        public IHttpActionResult GetRegistrations(bool? processed = null) {
-            if (processed == null) {
+        public IHttpActionResult ListRegistrations(bool? unprocessedOnly = null) {
+            if (unprocessedOnly == null) {
                 var allRegistrations = _registrationService.GetRegistrationsDTO();
                 return Ok(allRegistrations);
             }
             else {
-                return Ok(_registrationService.GetRegistrationsDTO(processed));
+                return Ok(_registrationService.GetRegistrationsDTO(!unprocessedOnly));
             }
             return InternalServerError();
         }

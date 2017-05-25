@@ -13,8 +13,8 @@ namespace RSMuseum.MVC.Controllers.api.v2
 
         [HttpGet]
         [Route("api/v2/guilds")]
-        public IHttpActionResult GetGuilds() {
-            var allGuilds = _guildService.GetAllGuilds();
+        public IHttpActionResult ListGuilds() {
+            var allGuilds = _guildService.GetGuildsDTO();
             return Ok(allGuilds);
         }
     }

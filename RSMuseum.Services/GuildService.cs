@@ -13,13 +13,13 @@ namespace RSMuseum.Services
     public class GuildService
     {
         private static IDbRepository _dbRepo;
+
         public GuildService(IDbRepository dbRepo) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
         {
             _dbRepo = dbRepo;
         }
 
-        public IList<IGuildDTO> GetAllGuilds()
-        {
+        public IList<IGuildDTO> GetGuildsDTO() {
             var guildsDTO = new List<IGuildDTO>(); //Instancisere en liste med de volunteer properties som vores View har brug for.
 
             var allGuilds = _dbRepo.GetAllGuilds(); //Går ned i vores DAL for at hente vores frivillige
