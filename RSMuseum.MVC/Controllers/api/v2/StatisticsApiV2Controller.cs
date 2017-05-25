@@ -7,7 +7,7 @@ namespace RSMuseum.MVC.Controllers.api.v2
     public class StatisticsApiV2Controller : ApiController
     {
         [HttpGet]
-        [Route("api/v2/Statistics/{dateFrom}/{dateTo?}")]
+        [Route("api/v2/statistics/{dateFrom}/{dateTo?}")]
         public IHttpActionResult GetStatistics(DateTime dateFrom, DateTime? dateTo = null) {
             try {
                 var statisticsService = DI.Container.GetInstance<StatisticsService>();

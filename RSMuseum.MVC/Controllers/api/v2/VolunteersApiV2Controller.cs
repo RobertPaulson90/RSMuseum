@@ -10,7 +10,7 @@ namespace RSMuseum.MVC.Controllers.api.v2
     public class VolunteersApiV2Controller : ApiController
     {
         [HttpGet]
-        [Route("api/v2/Volunteer/{id}")]
+        [Route("api/v2/volunteers/{id}")]
         public IHttpActionResult GetVolunteersById(int id) {
             try {
                 var volunteerService = DI.Container.GetInstance<VolunteerService>();
@@ -23,7 +23,7 @@ namespace RSMuseum.MVC.Controllers.api.v2
         }
 
         [HttpGet]
-        [Route("api/v2/Volunteer")] // Så url'en er /api/GetVolunteers
+        [Route("api/v2/volunteers")] // Så url'en er /api/GetVolunteers
         public IHttpActionResult GetVolunteers() // Denne REST-api er for at hente samtlige frivillige
         {
             try {
