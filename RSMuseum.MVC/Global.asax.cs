@@ -1,9 +1,9 @@
-﻿using RSMuseum.MVC.App_Start;
-using RSMuseum.Services;
+﻿using RSMuseum.Services;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using SimpleInjector.Integration.WebApi;
 
 namespace RSMuseum.MVC
 {
@@ -23,11 +23,12 @@ namespace RSMuseum.MVC
                         .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             // Instantiere vores DI container
             new DI();
-            SimpleInjectorWebApiInitializer.Initialize();
 
-            //Dont uncomment and run please
+            // Konfigurerer ASP.NET til at bruge vores container
+            GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(DI.Container);
+
+            //D ont uncomment and run please
             //var generateFakeData = DI.Container.GetInstance<GenerateFakeData>();
-            // DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(DI.Container));
         }
     }
 }
