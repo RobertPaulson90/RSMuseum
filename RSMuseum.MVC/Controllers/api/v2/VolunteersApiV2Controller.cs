@@ -9,12 +9,17 @@ namespace RSMuseum.MVC.Controllers.api.v2
 {
     public class VolunteersApiV2Controller : ApiController
     {
+        private readonly VolunteerService _volunteerService;
+
+        public VolunteersApiV2Controller(VolunteerService volunteerService) {
+            _volunteerService = volunteerService;
+        }
+
         [HttpGet]
         [Route("api/v2/volunteers/{id}")]
         public IHttpActionResult GetVolunteersById(int id) {
             try {
-                var volunteerService = DI.Container.GetInstance<VolunteerService>();
-                var volunteer = volunteerService.GetVolunteerByID(id);
+                var volunteer = _volunteerService.GetVolunteerByID(id);
                 return Ok(volunteer);
             }
             catch (Exception e) {
@@ -27,10 +32,9 @@ namespace RSMuseum.MVC.Controllers.api.v2
         public IHttpActionResult GetVolunteers() // Denne REST-api er for at hente samtlige frivillige
         {
             try {
-                var volunteerService = DI.Container.GetInstance<VolunteerService>();
                 /*  Beder vores DI container om instans af VolunteerService
                  Vi injecter ikke VolunteerService i parametrene (endnu), fordi det kræver integrering af di-container i MVC. Store problemer */
-                var volunteers = volunteerService.GetVolunteersViewDTO(); // Forretningslogikken sættes igang! For det må vi jo ikke i controlleren :-)
+                var volunteers = _volunteerService.GetVolunteersViewDTO(); // Forretningslogikken sættes igang! For det må vi jo ikke i controlleren :-)
                 return Ok(volunteers); // Retunere alle frivillige ud til browseren i JSON med HTTP-OK besked
             }
             catch (Exception e) {

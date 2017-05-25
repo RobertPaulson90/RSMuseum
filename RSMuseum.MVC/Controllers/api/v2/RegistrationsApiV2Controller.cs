@@ -1,18 +1,22 @@
 ﻿using RSMuseum.Repository.Entities;
 using RSMuseum.Services;
-using System;
 using System.Web.Http;
 
 namespace RSMuseum.MVC.Controllers.api.v2
 {
     public class RegistrationsApiController : ApiController
     {
+        private readonly RegistrationService _registrationService;
+
+        public RegistrationsApiController(RegistrationService registrationService) {
+            _registrationService = registrationService;
+        }
+
         [HttpPost]
         [Route("api/v2/registrations")] // Så url'en er /api/AddRegistration
         public IHttpActionResult AddRegistration([FromBody] Registration registration) // Denne REST-api er for at hente samtlige frivillige
         {
-            var registationService = DI.Container.GetInstance<RegistrationService>();
-            var succeeded = registationService.AddRegistration(registration);
+            var succeeded = _registrationService.AddRegistration(registration);
             if (succeeded) {
                 return Ok(succeeded);
             }
@@ -23,13 +27,12 @@ namespace RSMuseum.MVC.Controllers.api.v2
 
         [Route("api/v2/registrations/{unprocessedOnly?}")]
         public IHttpActionResult GetRegistrations(bool? processed = null) {
-            var registationService = DI.Container.GetInstance<RegistrationService>();
             if (processed == null) {
-                var allRegistrations = registationService.GetRegistrationsDTO();
+                var allRegistrations = _registrationService.GetRegistrationsDTO();
                 return Ok(allRegistrations);
             }
             else {
-                return Ok(registationService.GetRegistrationsDTO(processed));
+                return Ok(_registrationService.GetRegistrationsDTO(processed));
             }
             return InternalServerError();
         }
@@ -37,8 +40,7 @@ namespace RSMuseum.MVC.Controllers.api.v2
         [HttpPut]
         [Route("api/v2/registrations/{registrationId}/{accepted}")]
         public IHttpActionResult UpdateRegistration(int registrationId, bool approved) {
-            var registationService = DI.Container.GetInstance<RegistrationService>();
-            bool result = registationService.ChangeRegistrationStatus(registrationId, approved);
+            bool result = _registrationService.ChangeRegistrationStatus(registrationId, approved);
             if (result) {
                 return Ok();
             }

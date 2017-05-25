@@ -3,28 +3,34 @@ using RSMuseum.Services;
 using System;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Xml.Serialization;
 
 namespace RSMuseum.MVC.Controllers.api
 {
     /* !!! WARNING !!!
      * !!! WARNING !!!
-     * THIS CLASS IS OUTDATED.
-     * USE LATEST ApiV2Controller instead */
+     * THIS CLASS IS DEPRECATED.
+     * USE LATEST V2 API Controllers instead */
 
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class ApiController : System.Web.Http.ApiController
+    public class ApiV1Controller : ApiController
     {
+        private readonly RegistrationService _registrationService;
+        private readonly GuildService _guildService;
+        private readonly StatisticsService _statisticsService;
+        private readonly VolunteerService _volunteerService;
+
+        public ApiV1Controller(RegistrationService registrationService, GuildService guildService, StatisticsService statisticsService, VolunteerService volunteerService) {
+            _registrationService = registrationService;
+            _guildService = guildService;
+            _statisticsService = statisticsService;
+            _volunteerService = volunteerService;
+        }
+
         [HttpGet]
         [Route("api/GetVolunteers")] // Så url'en er /api/GetVolunteers
         public IHttpActionResult GetVolunteers() // Denne REST-api er for at hente samtlige frivillige
         {
-            var volunteerService = DI.Container.GetInstance<VolunteerService>(); // Beder vores DI container om instans af VolunteerService
-
-            // Vi injecter ikke VolunteerService i parametrene (endnu), fordi det kræver integrering af SimpleInjector i MVC (umiddelbart lidt tricky...)
-
-            var volunteers = volunteerService.GetVolunteersViewDTO(); // Forretningslogikken sættes igang! For det må vi jo ikke i controlleren :-)
-
+            var volunteers = _volunteerService.GetVolunteersViewDTO(); // Forretningslogikken sættes igang! For det må vi jo ikke i controlleren :-)
             //if (volunteers != null)
             //{
             return Ok(volunteers); // Retunere alle frivillige ud til browseren i JSON med HTTP-OK besked
@@ -39,8 +45,7 @@ namespace RSMuseum.MVC.Controllers.api
         [Route("api/AddRegistration")] // Så url'en er /api/AddRegistration
         public IHttpActionResult AddRegistrations([FromBody] Registration registration) // Denne REST-api er for at hente samtlige frivillige
         {
-            var registationService = DI.Container.GetInstance<RegistrationService>();
-            var succeeded = registationService.AddRegistration(registration);
+            var succeeded = _registrationService.AddRegistration(registration);
             if (succeeded) {
                 return Ok(succeeded);
             }
@@ -52,23 +57,20 @@ namespace RSMuseum.MVC.Controllers.api
         [HttpGet]
         [Route("api/GetGuilds")]
         public IHttpActionResult GetGuilds() {
-            var guildService = DI.Container.GetInstance<GuildService>();
-            var allGuilds = guildService.GetAllGuilds();
+            var allGuilds = _guildService.GetAllGuilds();
             return Ok(allGuilds);
         }
 
         [Route("api/GetVolunteerById/{Id}")]
         public IHttpActionResult GetVolunteerById(int Id) {
-            var volunteerService = DI.Container.GetInstance<VolunteerService>();
-            var volunteer = volunteerService.GetVolunteerByID(Id);
+            var volunteer = _volunteerService.GetVolunteerByID(Id);
             return Ok(volunteer);
         }
 
         [Route("api/GetRegistrations/{unprocessed?}")]
         public IHttpActionResult GetRegistrations(bool? unprocessed = null) {
-            var registationService = DI.Container.GetInstance<RegistrationService>();
             if (unprocessed == true) {
-                var allRegistrations = registationService.GetRegistrationsDTO(processed: false);
+                var allRegistrations = _registrationService.GetRegistrationsDTO(processed: false);
                 return Ok(allRegistrations);
             }
             return InternalServerError();
@@ -77,20 +79,18 @@ namespace RSMuseum.MVC.Controllers.api
         [HttpGet]
         [Route("api/Statistics/{dateFrom?}/{dateTo?}")]
         public IHttpActionResult GetStatistics(DateTime? dateFrom = null, DateTime? dateTo = null) {
-            var statisticsService = DI.Container.GetInstance<StatisticsService>();
             if (dateFrom == null) {
                 return BadRequest();
             }
             var newDateTo = dateTo ?? DateTime.Now;
             var newDateFrom = dateFrom ?? DateTime.Now;
-            return Ok(statisticsService.GetGuildStatisticsDTOs(newDateFrom, newDateTo));
+            return Ok(_statisticsService.GetGuildStatisticsDTOs(newDateFrom, newDateTo));
         }
 
         [HttpGet]
         [Route("api/HandleRegistrations/{registrationId}/{process}")]
         public IHttpActionResult HandleRegistrations(int registrationId, bool process) {
-            var registationService = DI.Container.GetInstance<RegistrationService>();
-            bool changeRegistrationCheck = registationService.ChangeRegistrationStatus(registrationId, process);
+            bool changeRegistrationCheck = _registrationService.ChangeRegistrationStatus(registrationId, process);
             if (changeRegistrationCheck) {
                 return Ok();
             }

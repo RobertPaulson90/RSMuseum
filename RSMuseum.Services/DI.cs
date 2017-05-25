@@ -13,10 +13,9 @@ namespace RSMuseum.Services
         // Access the container in other classes with DI.Container.
         public static Container Container { get; set; }
 
-        public DI()
-        {
+        public DI() {
             Container = new Container();
-            Container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
+            Container.Options.DefaultScopedLifestyle = new SimpleInjector.Lifestyles.AsyncScopedLifestyle();
 
             Container.Register<RSMContext>(Lifestyle.Scoped);
             Container.Register<IDbRepository, EntityFrameworkRepository>();
@@ -29,8 +28,7 @@ namespace RSMuseum.Services
             Container.Verify();
         }
 
-        private IMapper GetMapper(Container container)
-        {
+        private IMapper GetMapper(Container container) {
             var mp = container.GetInstance<MapperProvider>();
             return mp.GetMapper();
         }
