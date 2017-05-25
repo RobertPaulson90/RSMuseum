@@ -37,10 +37,6 @@ namespace RSMuseum.Services
             }
         }
 
-        public IList<Registration> GetRegistrations(bool? processed) {
-            return _dbRepo.GetRegistrations(processed);
-        }
-
         public IList<IRegistrationDTO> GetRegistrationsDTO(bool? processed = null) {
             IList<Registration> allRegistrationsUnprocessed;
             if (processed == null) {

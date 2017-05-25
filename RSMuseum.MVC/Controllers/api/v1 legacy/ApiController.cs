@@ -68,7 +68,7 @@ namespace RSMuseum.MVC.Controllers.api
         public IHttpActionResult GetRegistrations(bool? unprocessed = null) {
             var registationService = DI.Container.GetInstance<RegistrationService>();
             if (unprocessed == true) {
-                var allRegistrations = registationService.GetRegistrations(processed: false);
+                var allRegistrations = registationService.GetRegistrationsDTO(processed: false);
                 return Ok(allRegistrations);
             }
             return InternalServerError();
