@@ -1,29 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using RSMuseum.Repository.Entities;
 
 namespace RSMuseum.Repository
 {
     public interface IDbRepository // Vores main repository, alle andre repositories skal nedarve denne
     {
-        IList<Volunteer> GetAllVolunteers();
+        Task<IList<Volunteer>> GetAllVolunteers();
 
-        IList<Volunteer> GetAllVolunteersAndGuilds();
+        Task<IList<Volunteer>> GetAllVolunteersAndGuilds();
 
-        IList<Guild> GetAllGuilds();
+        Task<IList<Guild>> GetAllGuildsAsync();
 
-        Volunteer GetVolunteerById(int volunteerId);
+        Task<Volunteer> GetVolunteerById(int volunteerId);
 
-        void AddTimeRegistration(Registration registration);
+        Task AddTimeRegistration(Registration registration);
 
-        void ChangeRegistrationStatus(int registrationId, bool status);
+        Task RegistrationSetStatus(int registrationId, bool status);
 
-        IList<Registration> GetRegistrations(bool? processed = null);
+        Task<IList<Registration>> GetRegistrationsAsync(bool? processed = null);
 
-        int GetMembershipNumberFromVolunteerId(int membershipNumber);
+        Task<int> GetMembershipNumberFromVolunteerIdAsync(int membershipNumber);
 
-        int GetStatisticsGuildDailyTotalHours(DateTime date, Guild guild);
+        Task<int> GetStatisticsGuildDailyTotalHours(DateTime date, Guild guild);
 
-        int GetStatisticsGuildDailyUniquePeople(DateTime date, Guild guild);
+        Task<int> GetStatisticsGuildDailyUniquePeople(DateTime date, Guild guild);
     }
 }

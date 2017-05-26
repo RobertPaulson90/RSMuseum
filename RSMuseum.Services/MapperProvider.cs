@@ -35,7 +35,7 @@ namespace RSMuseum.Services
                        dest => dest.LastName,
                        opts => opts.MapFrom(src => src.Person.LastName));
 
-                cfg.CreateMap<Repository.Entities.Registration, IRegistrationDTO>()
+                cfg.CreateMap<Repository.Entities.Registration, IRegistrationDto>()
                     .ForMember(
                         dest => dest.Guild,
                         opts => opts.MapFrom(src => src.Guild))

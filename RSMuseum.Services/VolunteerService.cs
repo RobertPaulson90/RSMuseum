@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using RSMuseum.Repository;
 using RSMuseum.Services.DTOs;
 using AutoMapper;
@@ -18,19 +19,15 @@ namespace RSMuseum.Services
             _mapper = mapper;
         }
 
-        public IList<IVolunteerViewDTO> GetVolunteersDTO() //Bliver kaldt fra vores RESTful API
+        public async Task<IList<IVolunteerViewDTO>> GetVolunteersDtoAsync() //Bliver kaldt fra vores RESTful API
         {
-            var allVolunteers = _dbRepo.GetAllVolunteersAndGuilds(); //Går ned i vores DAL for at hente vores frivillige
+            var allVolunteers = await _dbRepo.GetAllVolunteersAndGuilds(); //Går ned i vores DAL for at hente vores frivillige
             return _mapper.Map<IList<Volunteer>, IList<IVolunteerViewDTO>>(allVolunteers);
         }
 
-        public int GetVolunteerByID(int id) {
-            //var Volunteer = _dbRepo.GetVolunteerById(id);
-            var Volunteer = _dbRepo.GetMembershipNumberFromVolunteerId(id);
-
-            //var volunteersDTO = _mapper.Map<IList<Volunteer>, IList<IVolunteerViewDTO>>(Volunteer);
-
-            return Volunteer;
+        public async Task<int> GetVolunteerByIdAsync(int id) {
+            var volunteer = await _dbRepo.GetMembershipNumberFromVolunteerIdAsync(id);
+            return volunteer;
         }
     }
 }

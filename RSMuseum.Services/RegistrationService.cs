@@ -2,13 +2,9 @@
 using RSMuseum.Repository.Entities;
 using RSMuseum.Services.DTOs;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Newtonsoft.Json;
 
 namespace RSMuseum.Services
 {
@@ -23,38 +19,30 @@ namespace RSMuseum.Services
             _mapper = mapper;
         }
 
-        public bool AddRegistration(Registration registration) {
-            try {
-                registration.DateTimeRegistered = DateTime.Now;
-
-                registration.VolunteerId = _dbRepo.GetMembershipNumberFromVolunteerId(registration.VolunteerId);
-
-                _dbRepo.AddTimeRegistration(registration);
-                return true;
-            }
-            catch (Exception) {
-                return false;
-            }
+        public async Task Add(Registration registration) {
+            registration.DateTimeRegistered = DateTime.Now;
+            registration.VolunteerId = await _dbRepo.GetMembershipNumberFromVolunteerIdAsync(registration.VolunteerId);
+            await _dbRepo.AddTimeRegistration(registration);
         }
 
-        public IList<IRegistrationDTO> GetRegistrationsDTO(bool? processed = null) {
+        public async Task<IList<IRegistrationDto>> GetRegistrationsDtoAsync(bool? processed = null) {
             IList<Registration> allRegistrationsUnprocessed;
             if (processed == null) {
-                allRegistrationsUnprocessed = _dbRepo.GetRegistrations(); //Går ned i vores DAL for at hente vores frivillige
+                allRegistrationsUnprocessed = await _dbRepo.GetRegistrationsAsync(); //Går ned i vores DAL for at hente vores frivillige
             }
             else {
-                allRegistrationsUnprocessed = _dbRepo.GetRegistrations(processed); //Går ned i vores DAL for at hente vores frivillige
+                allRegistrationsUnprocessed = await _dbRepo.GetRegistrationsAsync(processed); //Går ned i vores DAL for at hente vores frivillige
             }
 
             // Broken for now... Until fixed, we do manual mapping.
             // var registrationsDTO = _mapper.Map<IList<Registration>, IList<IRegistrationDTO>>(allRegistrationsUnprocessed);
 
-            var registrationsDTO = new List<IRegistrationDTO>(); //Instancisere en liste med de volunteer properties som vores View har brug for.
+            var registrationsDto = new List<IRegistrationDto>(); //Instancisere en liste med de volunteer properties som vores View har brug for.
 
             foreach (var item in allRegistrationsUnprocessed) //Smider data i vores VolunteerListe.
             {
                 var volunteer = item.Volunteer;
-                var registrationDTO = new RegistrationDTO()
+                var registrationDto = new RegistrationDto()
                 {
                     Approved = item.Approved,
                     Date = item.Date,
@@ -74,19 +62,13 @@ namespace RSMuseum.Services
                         MembershipNumber = item.Volunteer.MembershipNumber
                     }
                 };
-                registrationsDTO.Add(registrationDTO);
+                registrationsDto.Add(registrationDto);
             }
-            return registrationsDTO;
+            return registrationsDto;
         }
 
-        public bool ChangeRegistrationStatus(int registrationId, bool status) {
-            try {
-                _dbRepo.ChangeRegistrationStatus(registrationId, status);
-                return true;
-            }
-            catch (Exception) {
-                return false;
-            }
+        public async Task SetStatusAsync(int registrationId, bool status) {
+            await _dbRepo.RegistrationSetStatus(registrationId, status);
         }
     }
 }

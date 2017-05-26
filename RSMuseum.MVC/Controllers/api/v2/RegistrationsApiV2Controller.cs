@@ -1,4 +1,6 @@
-﻿using RSMuseum.Repository.Entities;
+﻿using System;
+using System.Threading.Tasks;
+using RSMuseum.Repository.Entities;
 using RSMuseum.Services;
 using System.Web.Http;
 
@@ -14,37 +16,38 @@ namespace RSMuseum.MVC.Controllers.api.v2
 
         [HttpPost]
         [Route("api/v2/registrations")] // Så url'en er /api/AddRegistration
-        public IHttpActionResult CreateRegistration([FromBody] Registration registration) // Denne REST-api er for at hente samtlige frivillige
+        public async Task<IHttpActionResult> CreateRegistration([FromBody] Registration registration) // Denne REST-api er for at hente samtlige frivillige
         {
-            var succeeded = _registrationService.AddRegistration(registration);
-            if (succeeded) {
-                return Ok(succeeded);
+            try {
+                await _registrationService.Add(registration);
+                return Ok();
             }
-            else {
-                return InternalServerError();
+            catch (Exception e) {
+                return InternalServerError(e);
             }
         }
 
         [Route("api/v2/registrations/{unprocessedOnly?}")]
-        public IHttpActionResult ListRegistrations(bool? unprocessedOnly = null) {
+        public async Task<IHttpActionResult> ListRegistrations(bool? unprocessedOnly = null) {
             if (unprocessedOnly == null) {
-                var allRegistrations = _registrationService.GetRegistrationsDTO();
+                var allRegistrations = await _registrationService.GetRegistrationsDtoAsync();
                 return Ok(allRegistrations);
             }
             else {
-                return Ok(_registrationService.GetRegistrationsDTO(!unprocessedOnly));
+                return Ok(_registrationService.GetRegistrationsDtoAsync(!unprocessedOnly));
             }
-            return InternalServerError();
         }
 
         [HttpPut]
         [Route("api/v2/registrations/{registrationId}/{accepted}")]
-        public IHttpActionResult UpdateRegistration(int registrationId, bool approved) {
-            bool result = _registrationService.ChangeRegistrationStatus(registrationId, approved);
-            if (result) {
+        public async Task<IHttpActionResult> UpdateRegistration(int registrationId, bool approved) {
+            try {
+                await _registrationService.SetStatusAsync(registrationId, approved);
                 return Ok();
             }
-            return InternalServerError();
+            catch (Exception e) {
+                return InternalServerError(e);
+            }
         }
     }
 }

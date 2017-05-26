@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Threading.Tasks;
+using System.Web.Http;
 using RSMuseum.Services;
 
 namespace RSMuseum.MVC.Controllers.api.v2
@@ -13,8 +14,8 @@ namespace RSMuseum.MVC.Controllers.api.v2
 
         [HttpGet]
         [Route("api/v2/guilds")]
-        public IHttpActionResult ListGuilds() {
-            var allGuilds = _guildService.GetGuildsDTO();
+        public async Task<IHttpActionResult> ListGuilds() {
+            var allGuilds = await _guildService.GetGuildsDtoAsync();
             return Ok(allGuilds);
         }
     }

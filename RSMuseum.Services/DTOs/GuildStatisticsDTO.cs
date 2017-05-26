@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RSMuseum.Services.DTOs
 {
-    public class GuildStatisticsDTO // 1 GuildStatisticsDTO per. guild
+    public class GuildStatisticsDto // 1 GuildStatisticsDTO per. guild
     {
         public string GuildName { get; set; }
         public int GuildId { get; set; }

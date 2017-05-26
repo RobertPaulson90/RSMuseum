@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Http;
 using RSMuseum.Services;
 
@@ -14,10 +15,10 @@ namespace RSMuseum.MVC.Controllers.api.v2
 
         [HttpGet]
         [Route("api/v2/statistics/{dateFrom}/{dateTo?}")]
-        public IHttpActionResult GetStatistics(DateTime dateFrom, DateTime? dateTo = null) {
+        public async Task<IHttpActionResult> GetStatistics(DateTime dateFrom, DateTime? dateTo = null) {
             try {
                 dateTo = dateTo ?? DateTime.Now;
-                return Ok(_statisticsService.GetGuildStatisticsDTOs(dateFrom, (DateTime)dateTo));
+                return Ok(await _statisticsService.GetGuildsStatisticsDtosAsync(dateFrom, (DateTime)dateTo));
             }
             catch (Exception e) {
                 return InternalServerError(e);

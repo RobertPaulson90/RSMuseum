@@ -14,44 +14,55 @@ namespace RSMuseum.Services
     {
         private readonly IDbRepository _dbRepo;
 
-        public StatisticsService(IDbRepository dbRepo)
-        {
+        public StatisticsService(IDbRepository dbRepo) {
             this._dbRepo = dbRepo;
         }
 
-        public List<GuildStatisticsDTO> GetGuildStatisticsDTOs(DateTime dateFrom, DateTime dateTo)
-        {
-            var guildStatsDTOs = new List<GuildStatisticsDTO>();
-            var guilds = _dbRepo.GetAllGuilds();
-            foreach (var guild in guilds)
-            {
-                var guildStatDTO = new GuildStatisticsDTO
+        public async Task<List<GuildStatisticsDto>> GetGuildsStatisticsDtosAsync(DateTime dateFrom, DateTime dateTo) {
+            var guildStatisticsDtos = new List<GuildStatisticsDto>();
+            var guilds = await _dbRepo.GetAllGuildsAsync();
+            foreach (var guild in guilds) {
+                var guildStatDto = new GuildStatisticsDto
                 {
                     GuildId = guild.GuildId,
                     GuildName = guild.GuildName,
                     Stats = new List<StatDTO>()
                 };
 
-                foreach (var day in EachDay(dateFrom, dateTo))
-                {
+                var days = EachDay(dateFrom, dateTo).ToList();
+
+                List<Task<int>> tasks = new List<Task<int>>();
+                foreach (var day in EachDay(dateFrom, dateTo)) {
+                    tasks.Add(_dbRepo.GetStatisticsGuildDailyTotalHours(day, guild));
+                }
+                await Task.WhenAll(tasks);
+                for (int i = 0; i < tasks.Count; i++) {
                     var dailyGuildStat = new StatDTO
                     {
-                        Date = day,
-                        TotalHours = _dbRepo.GetStatisticsGuildDailyTotalHours(day, guild),
-                        // TotalPeople = _dbRepo.GetStatisticsGuildDailyHours(day, guild)
+                        Date = days[i],
+                        TotalHours = tasks[i].Result
                     };
-
-                    guildStatDTO.Stats.Add(dailyGuildStat);
+                    guildStatDto.Stats.Add(dailyGuildStat);
                 }
 
-                guildStatsDTOs.Add(guildStatDTO);
+                //foreach (var day in EachDay(dateFrom, dateTo)) {
+                //    var dailyGuildStat = new StatDTO
+                //    {
+                //        Date = day,
+                //        TotalHours = await _dbRepo.GetStatisticsGuildDailyTotalHours(day, guild),
+                //        // TODO: Optimize this foreach into an async process
+                //    };
+
+                //    //guildStatDto.Stats.Add(dailyGuildStat);
+                //}
+
+                guildStatisticsDtos.Add(guildStatDto);
             }
 
-            return guildStatsDTOs;
+            return guildStatisticsDtos;
         }
 
-        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
-        {
+        private IEnumerable<DateTime> EachDay(DateTime from, DateTime thru) {
             for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
                 yield return day;
         }
