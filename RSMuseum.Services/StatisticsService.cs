@@ -29,13 +29,13 @@ namespace RSMuseum.Services
                     Stats = new List<StatDTO>()
                 };
 
-                var days = EachDay(dateFrom, dateTo).ToList();
-
                 List<Task<int>> tasks = new List<Task<int>>();
                 foreach (var day in EachDay(dateFrom, dateTo)) {
                     tasks.Add(_dbRepo.GetStatisticsGuildDailyTotalHours(day, guild));
                 }
                 await Task.WhenAll(tasks);
+
+                var days = EachDay(dateFrom, dateTo).ToList();
                 for (int i = 0; i < tasks.Count; i++) {
                     var dailyGuildStat = new StatDTO
                     {
@@ -45,24 +45,13 @@ namespace RSMuseum.Services
                     guildStatDto.Stats.Add(dailyGuildStat);
                 }
 
-                //foreach (var day in EachDay(dateFrom, dateTo)) {
-                //    var dailyGuildStat = new StatDTO
-                //    {
-                //        Date = day,
-                //        TotalHours = await _dbRepo.GetStatisticsGuildDailyTotalHours(day, guild),
-                //        // TODO: Optimize this foreach into an async process
-                //    };
-
-                //    //guildStatDto.Stats.Add(dailyGuildStat);
-                //}
-
                 guildStatisticsDtos.Add(guildStatDto);
             }
 
             return guildStatisticsDtos;
         }
 
-        private IEnumerable<DateTime> EachDay(DateTime from, DateTime thru) {
+        private static IEnumerable<DateTime> EachDay(DateTime from, DateTime thru) {
             for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
                 yield return day;
         }
