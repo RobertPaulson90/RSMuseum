@@ -39,7 +39,7 @@ namespace RSMuseum.MVC.Controllers.api.v2
         }
 
         [HttpPut]
-        [Route("api/v2/registrations/{registrationId}/{accepted}")]
+        [Route("api/v2/registrations/{registrationId}/{approved}")]
         public async Task<IHttpActionResult> UpdateRegistration(int registrationId, bool approved) {
             try {
                 await _registrationService.SetStatusAsync(registrationId, approved);
