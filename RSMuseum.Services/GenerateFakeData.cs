@@ -8,13 +8,12 @@ namespace RSMuseum.Services
 {
     public class GenerateFakeData
     {
-        private RSMContext _dbCtx;
+        private readonly RSMContext _dbCtx;
 
         // This class should rarely be used. Customize constructor before running via. DI-container
         // Acts as a type of "Seed" for generating random believable fake data for testing environment
 
-        public GenerateFakeData(RSMContext dbCtx)
-        {
+        public GenerateFakeData(RSMContext dbCtx) {
             _dbCtx = dbCtx;
 
             //var amountOfFakeVolunteersToAdd = 250;
@@ -24,12 +23,10 @@ namespace RSMuseum.Services
             //AddFakeRegistrationsToDb(amountOfFakeRegistrationsToAdd);
         }
 
-        public void AddFakeVolunteersToDb(int count)
-        {
+        public void AddFakeVolunteersToDb(int count) {
             var guilds = _dbCtx.Guild.ToList();
 
-            for (int i = 0; i < count; i++)
-            {
+            for (int i = 0; i < count; i++) {
                 var zipcodes = _dbCtx.ZipCodeTable.ToList();
                 var fakeAddress = new Faker<Address>()
                     .RuleFor(x => x.ZipCode, y => y.PickRandom(zipcodes))
@@ -56,13 +53,11 @@ namespace RSMuseum.Services
             }
         }
 
-        public void AddFakeRegistrationsToDb(int count)
-        {
+        public void AddFakeRegistrationsToDb(int count) {
             var guilds = _dbCtx.Guild.ToList();
             var volunteers = _dbCtx.Volunteer.ToList();
 
-            for (int i = 0; i < count; i++)
-            {
+            for (int i = 0; i < count; i++) {
                 var fakeRegistration = new Faker<Registration>()
                     .RuleFor(x => x.Hours, y => y.Random.Int(0000, 0012))
                     .RuleFor(x => x.Date, y => y.Date.Recent())

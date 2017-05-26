@@ -11,13 +11,11 @@ namespace RSMuseum.Repository.Migrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<RSMContext>
     {
-        public Configuration()
-        {
+        public Configuration() {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(RSMContext context)
-        {
+        protected override void Seed(RSMContext context) {
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
@@ -38,11 +36,13 @@ namespace RSMuseum.Repository.Migrations
             context.Guild.AddOrUpdate(
                   new Guild { GuildName = "Laug 1" },
                   new Guild { GuildName = "Laug 2" },
-                  new Guild { GuildName = "Laug 3" }
+                  new Guild { GuildName = "Laug 3" },
+                  new Guild { GuildName = "Laug 4" }
+
                 );
             context.SaveChanges();
 
-            var volunteer1 = new Volunteer { IsActive = false  };
+            var volunteer1 = new Volunteer { IsActive = false };
             volunteer1.Person = new Person();
             volunteer1.Person.Address = new Address();
             volunteer1.Guilds = context.Guild.ToList();
@@ -67,7 +67,6 @@ namespace RSMuseum.Repository.Migrations
             volunteer2.Person.Phone = "87654321";
             volunteer2.MembershipNumber = 1424;
 
-
             var volunteer3 = new Volunteer { IsActive = true, };
             volunteer3.Person = new Person();
             volunteer3.Person.Address = new Address();
@@ -80,7 +79,6 @@ namespace RSMuseum.Repository.Migrations
             volunteer3.Person.LastName = "Trump";
             volunteer3.Person.Phone = "55554444";
             volunteer3.MembershipNumber = 1124;
-
 
             context.Volunteer.AddOrUpdate(volunteer1, volunteer2, volunteer3);
         }

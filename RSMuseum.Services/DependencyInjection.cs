@@ -25,6 +25,9 @@ namespace RSMuseum.Services
             Container.RegisterSingleton(() => GetAutoMapper(Container));
 
             Container.Verify();
+
+            // Dont uncomment the below! Unless you must generate db-data
+            // Container.GetInstance<GenerateFakeData>();
         }
 
         private static IMapper GetAutoMapper(Container container) {

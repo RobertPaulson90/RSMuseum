@@ -27,6 +27,7 @@ namespace RSMuseum.MVC.Controllers.api.v2
             }
         }
 
+        [HttpGet]
         [Route("api/v2/registrations/{unprocessedOnly?}")]
         public async Task<IHttpActionResult> ListRegistrations(bool? unprocessedOnly = null) {
             if (unprocessedOnly == null) {

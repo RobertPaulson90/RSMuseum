@@ -27,9 +27,6 @@ namespace RSMuseum.MVC
 
             // Konfigurerer ASP.NET til at bruge vores container
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(DependencyInjection.Container);
-
-            // Dont uncomment the below! Unless you must generate db-data
-            // var generateFakeData = DI.Container.GetInstance<GenerateFakeData>();
         }
     }
 }
