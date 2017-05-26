@@ -20,21 +20,20 @@ namespace RSMuseum.Services
         }
 
         public async Task<IList<IGuildDTO>> GetGuildsDtoAsync() {
-            var guildsDTO = new List<IGuildDTO>(); //Instancisere en liste med de volunteer properties som vores View har brug for.
-
+            var guildsDtos = new List<IGuildDTO>(); //Instancisere en liste med de volunteer properties som vores View har brug for.
             var allGuilds = await _dbRepo.GetAllGuildsAsync(); //Går ned i vores DAL for at hente vores frivillige
 
             foreach (var item in allGuilds) //Smider data i vores VolunteerListe.
             {
-                var guildDTO = new GuildDTO()
+                var guildDto = new GuildDto()
                 {
                     GuildName = item.GuildName,
                     GuildId = item.GuildId
                 };
-                guildsDTO.Add(guildDTO);
+                guildsDtos.Add(guildDto);
             }
 
-            return guildsDTO;
+            return guildsDtos;
         }
     }
 }

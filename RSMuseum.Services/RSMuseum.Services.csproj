@@ -65,7 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DI.cs" />
+    <Compile Include="DependencyInjection.cs" />
     <Compile Include="DTOs\GuildDTO.cs" />
     <Compile Include="DTOs\IGuildDTO.cs" />
     <Compile Include="DTOs\IRegistrationDTO.cs" />

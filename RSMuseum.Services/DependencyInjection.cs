@@ -8,12 +8,11 @@ using SimpleInjector.Integration.Web;
 
 namespace RSMuseum.Services
 {
-    public class DI
+    public class DependencyInjection
     {
-        // Access the container in other classes with DI.Container.
-        public static Container Container { get; set; }
+        public static Container Container { get; private set; }
 
-        public DI() {
+        public DependencyInjection() {
             Container = new Container();
             Container.Options.DefaultScopedLifestyle = new SimpleInjector.Lifestyles.AsyncScopedLifestyle();
 
@@ -23,12 +22,12 @@ namespace RSMuseum.Services
             Container.Register<GuildService>();
             Container.Register<RegistrationService>();
 
-            Container.RegisterSingleton(() => GetMapper(Container));
+            Container.RegisterSingleton(() => GetAutoMapper(Container));
 
             Container.Verify();
         }
 
-        private IMapper GetMapper(Container container) {
+        private static IMapper GetAutoMapper(Container container) {
             var mp = container.GetInstance<MapperProvider>();
             return mp.GetMapper();
         }

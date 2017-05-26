@@ -47,7 +47,7 @@ namespace RSMuseum.Services
                     Approved = item.Approved,
                     Date = item.Date,
                     DateTimeRegistered = item.DateTimeRegistered,
-                    Guild = new GuildDTO
+                    Guild = new GuildDto
                     {
                         GuildName = item.Guild.GuildName,
                         GuildId = item.Guild.GuildId,

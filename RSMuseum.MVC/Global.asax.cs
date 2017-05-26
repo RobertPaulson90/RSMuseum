@@ -22,10 +22,10 @@ namespace RSMuseum.MVC
                         .SerializerSettings
                         .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             // Instantiere vores DI container
-            new DI();
+            new DependencyInjection();
 
             // Konfigurerer ASP.NET til at bruge vores container
-            GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(DI.Container);
+            GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(DependencyInjection.Container);
 
             //D ont uncomment and run please
             //var generateFakeData = DI.Container.GetInstance<GenerateFakeData>();
