@@ -20,7 +20,6 @@ namespace RSMuseum.Repository.Entities
 
         [Required]
         public int AddressId { get; set; }
-
         public virtual Address Address { get; set; }
 
         public string Phone { get; set; }

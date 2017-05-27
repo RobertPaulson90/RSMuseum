@@ -73,7 +73,6 @@
     <Compile Include="DTOs\RegistrationDTO.cs" />
     <Compile Include="DTOs\GuildStatisticsDTO.cs" />
     <Compile Include="DTOs\VolunteerViewDTO.cs" />
-    <Compile Include="GenerateFakeData.cs" />
     <Compile Include="GuildService.cs" />
     <Compile Include="MapperProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

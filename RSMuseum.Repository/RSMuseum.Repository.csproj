@@ -92,6 +92,7 @@
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Entities\Volunteer.cs" />
     <Compile Include="Entities\Registration.cs" />
+    <Compile Include="BogusEfSeedDataService.cs" />
     <Compile Include="Migrations\201704190813003_Changed Registration.cs" />
     <Compile Include="Migrations\201704190813003_Changed Registration.Designer.cs">
       <DependentUpon>201704190813003_Changed Registration.cs</DependentUpon>
