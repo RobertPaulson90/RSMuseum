@@ -29,18 +29,27 @@ namespace RSMuseum.Services
                     Stats = new List<StatDTO>()
                 };
 
-                List<Task<int>> tasks = new List<Task<int>>();
+                //List<Task<int>> tasks = new List<Task<int>>();
+                //foreach (var day in EachDay(dateFrom, dateTo)) {
+                //    tasks.Add(_dbRepo.GetStatisticsGuildDailyTotalHours(day, guild));
+                //}
+                //await Task.WhenAll(tasks);
+
+                var dailyHours = new List<int>();
+                //var dailyPeople = new List<int>();
+
                 foreach (var day in EachDay(dateFrom, dateTo)) {
-                    tasks.Add(_dbRepo.GetStatisticsGuildDailyTotalHours(day, guild));
+                    dailyHours.Add(await _dbRepo.GetStatisticsGuildDailyTotalHours(day, guild));
+                    //dailyPeople.Add(await _dbRepo.GetStatisticsGuildDailyUniquePeople(day, guild));
                 }
-                await Task.WhenAll(tasks);
 
                 var days = EachDay(dateFrom, dateTo).ToList();
-                for (int i = 0; i < tasks.Count; i++) {
+                for (int i = 0; i < dailyHours.Count; i++) {
                     var dailyGuildStat = new StatDTO
                     {
                         Date = days[i],
-                        TotalHours = tasks[i].Result
+                        TotalHours = dailyHours[i],
+                        //TotalPeople = dailyPeople[i]
                     };
                     guildStatDto.Stats.Add(dailyGuildStat);
                 }

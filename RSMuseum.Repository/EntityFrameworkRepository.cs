@@ -69,17 +69,19 @@ namespace RSMuseum.Repository
 
         public async Task<int> GetStatisticsGuildDailyTotalHours(DateTime date, Guild guild) {
             return await _dbCtx.Registration
-                             .Where(x => x.Date.Day == date.Date.Day &&
+                            .Where(x => x.Date.Day == date.Date.Day &&
                                 x.Date.Month == date.Date.Month &&
                                 x.Date.Year == date.Date.Year &&
                                 x.GuildId == guild.GuildId)
-                             .SumAsync(x => (int?)x.Hours) ?? 0;
+                            .SumAsync(x => (int?)x.Hours) ?? 0;
         }
 
         public async Task<int> GetStatisticsGuildDailyUniquePeople(DateTime date, Guild guild) {
             return await _dbCtx.Registration
-                .Include(x => x.Guild)
-                .Where(x => x.Guild == guild)
+                .Where(x => x.Date.Day == date.Date.Day &&
+                            x.Date.Month == date.Date.Month &&
+                            x.Date.Year == date.Date.Year &&
+                            x.GuildId == guild.GuildId)
                 .GroupBy(x => x.VolunteerId)
                 .CountAsync();
         }
