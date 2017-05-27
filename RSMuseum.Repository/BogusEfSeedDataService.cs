@@ -37,7 +37,7 @@ namespace RSMuseum.Repository
             count = count - current;
 
             for (int i = 0; i < count; i++) {
-                _dbCtx.Guild.Add(new Guild{GuildName = $"Laug/Guild: {i}"});
+                _dbCtx.Guild.Add(new Guild{GuildName = $"Laug {i}"});
             }
 
             await _dbCtx.SaveChangesAsync();
@@ -60,14 +60,12 @@ namespace RSMuseum.Repository
             await _dbCtx.SaveChangesAsync();
         }
 
-
         public async Task AddBogusVolunteers(int count) {
             var current = await _dbCtx.Volunteer.CountAsync();
             if (current >= count) {
                 return;
             }
             count = count - current;
-
 
             if (await _dbCtx.Volunteer.CountAsync() >= count) {
                 return;
@@ -160,7 +158,5 @@ namespace RSMuseum.Repository
 
             await _dbCtx.SaveChangesAsync();
         }
-
-
     }
 }
