@@ -3,9 +3,11 @@ using System.Threading.Tasks;
 using RSMuseum.Repository.Entities;
 using RSMuseum.Services;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace RSMuseum.MVC.Controllers.api.v2
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RegistrationsApiController : ApiController
     {
         private readonly RegistrationService _registrationService;
