@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using RSMuseum.Services;
 
 namespace RSMuseum.MVC.Controllers.api.v2
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class VolunteersApiV2Controller : ApiController
     {
         private readonly VolunteerService _volunteerService;

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using RSMuseum.Services;
 
 namespace RSMuseum.MVC.Controllers.api.v2
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class StatisticsApiV2Controller : ApiController
     {
         private readonly StatisticsService _statisticsService;
