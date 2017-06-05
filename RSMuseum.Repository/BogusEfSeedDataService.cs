@@ -13,7 +13,7 @@ namespace RSMuseum.Repository
     public class BogusEfSeedDataService
     {
         // This class functions as a seed for generating random believable fake data for testing
-        // Consult Paul W. for any questions
+        // Consult Poul W. for any questions :-)
 
         private readonly RSMContext _dbCtx;
 
@@ -37,7 +37,7 @@ namespace RSMuseum.Repository
             count = count - current;
 
             for (int i = 0; i < count; i++) {
-                _dbCtx.Guild.Add(new Guild { GuildName = $"Laug {i}" });
+                _dbCtx.Guild.Add(new Guild { GuildName = $"Laug {i + 1}" });
             }
 
             await _dbCtx.SaveChangesAsync();
