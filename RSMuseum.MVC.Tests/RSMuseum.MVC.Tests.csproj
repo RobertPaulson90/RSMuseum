@@ -112,7 +112,8 @@
     <Compile Include="Controllers\ApiControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SeleniumTests.cs" />
+    <Compile Include="SeleniumIntegrationTests\SeleniumAngularIntegrationTests.cs" />
+    <Compile Include="SeleniumIntegrationTests\WebDriverTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -130,6 +131,9 @@
       <Project>{5f49aa70-2cf7-4f49-930b-9ebb88c00ec0}</Project>
       <Name>RSMuseum.MVC</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\xunit.analyzers.0.3.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
