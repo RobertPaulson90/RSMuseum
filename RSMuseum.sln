@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSMuseum.MVC", "RSMuseum.MVC\RSMuseum.MVC.csproj", "{5F49AA70-2CF7-4F49-930B-9EBB88C00EC0}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSMuseum.Repository", "RSMuseum.Repository\RSMuseum.Repository.csproj", "{042D0814-233D-44FF-A4DB-401F086BE819}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSMuseum.Repository.Tests", "RSMuseum.Repository.Tests\RSMuseum.Repository.Tests.csproj", "{6C6E086A-410E-4C7C-AAD8-B7658F45C6E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSMuseum.Selenium.E2E.Tests", "RSMuseum.Selenium.E2E.Tests\RSMuseum.Selenium.E2E.Tests.csproj", "{143D9586-87AD-47E6-85CD-14C2AE590091}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{6C6E086A-410E-4C7C-AAD8-B7658F45C6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C6E086A-410E-4C7C-AAD8-B7658F45C6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C6E086A-410E-4C7C-AAD8-B7658F45C6E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{143D9586-87AD-47E6-85CD-14C2AE590091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{143D9586-87AD-47E6-85CD-14C2AE590091}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{143D9586-87AD-47E6-85CD-14C2AE590091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{143D9586-87AD-47E6-85CD-14C2AE590091}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
