@@ -24,5 +24,8 @@ namespace RSMuseum.Repository.Entities
         public int PersonId { get; set; }
 
         public virtual Person Person { get; set; }
+
+        // private because we rely on the database trigger to keep this property ajour
+        public int TotalApprovedHours { get; private set; }
     }
 }
