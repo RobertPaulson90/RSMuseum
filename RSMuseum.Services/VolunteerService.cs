@@ -13,16 +13,14 @@ namespace RSMuseum.Services
         private static IDbRepository _dbRepo;
         private readonly IMapper _mapper;
 
-        public VolunteerService(IDbRepository dbRepo, IMapper mapper) //Vi smider vores db repo som contructor så vores DI container kan instanciere den
-        {
+        public VolunteerService(IDbRepository dbRepo, IMapper mapper) {
             _dbRepo = dbRepo;
             _mapper = mapper;
         }
 
-        public async Task<IList<IVolunteerViewDTO>> GetVolunteersDtoAsync() //Bliver kaldt fra vores RESTful API
-        {
-            var allVolunteers = await _dbRepo.GetAllVolunteersAndGuilds(); //Går ned i vores DAL for at hente vores frivillige
-            return _mapper.Map<IList<Volunteer>, IList<IVolunteerViewDTO>>(allVolunteers);
+        public async Task<IList<IVolunteerViewDTO>> GetVolunteersDtoAsync() { // Called from the API controller layer
+            var allVolunteers = await _dbRepo.GetAllVolunteersAndGuilds(); // Calls down into the repository
+            return _mapper.Map<IList<Volunteer>, IList<IVolunteerViewDTO>>(allVolunteers); // Use automapper to perform the mapping
         }
 
         public async Task<int> GetVolunteerByIdAsync(int id) {
