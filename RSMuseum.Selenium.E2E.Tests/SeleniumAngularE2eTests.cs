@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Threading;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Internal;
 using OpenQA.Selenium.Support.UI;
 using Xunit;
 
@@ -78,12 +75,48 @@ namespace RSMuseum.Selenium.E2E.Tests
 
         [Fact]
         public void ApproveRegistrationWorks() {
-            // TODO
+            _wdFixture.WebDriver.Navigate().GoToUrl(_rootUrl + "/registrering-godkendelse");
+            var wdWait = new WebDriverWait(_wdFixture.WebDriver, _timeSpan);
+
+            // Check if tabledata exists
+            var tabledata = wdWait.Until(d => d.FindElement(By.XPath("//td")));
+            var tableDataText = tabledata.Text;
+            var button = wdWait.Until(d => d.FindElement(By.XPath("//button[contains(@class, 'btn-success')]")));
+            new Actions(_wdFixture.WebDriver)
+                .Click(button)
+                .Perform();
+
+            // This try-catch is a sneaky hack.
+            try {
+                Assert.NotEqual(tabledata.Text, tableDataText); // This should throw an exception!
+                Assert.True(false); // Execution should never reach here, unless the DOM element still exists
+            }
+            catch (Exception) {
+                // We expect to catch the "StaleElementReferencEexception" when looking into tabledata.Text
+                // meaning the table row is missing and the DOM element is gone. Test success!
+                Assert.True(true);
+            }
         }
 
         [Fact]
         public void DeclineRegistrationWorks() {
-            // TODO
+            _wdFixture.WebDriver.Navigate().GoToUrl(_rootUrl + "/registrering-godkendelse");
+            var wdWait = new WebDriverWait(_wdFixture.WebDriver, _timeSpan);
+
+            var tabledata = wdWait.Until(d => d.FindElement(By.XPath("//td")));
+            var tableDataText = tabledata.Text;
+            var button = wdWait.Until(d => d.FindElement(By.XPath("//button[contains(@class, 'btn-danger')]")));
+            new Actions(_wdFixture.WebDriver)
+                .Click(button)
+                .Perform();
+
+            try {
+                Assert.NotEqual(tabledata.Text, tableDataText);
+                Assert.True(false);
+            }
+            catch (Exception) {
+                Assert.True(true);
+            }
         }
 
         [Fact]

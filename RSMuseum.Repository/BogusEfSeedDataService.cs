@@ -132,10 +132,8 @@ namespace RSMuseum.Repository
             }
             count = count - current;
 
-            var guildsTask = _dbCtx.Guild.ToListAsync();
-            var volunteersTask = _dbCtx.Volunteer.ToListAsync();
-
-            await Task.WhenAll(guildsTask, volunteersTask);
+            var guilds = await _dbCtx.Guild.ToListAsync();
+            var volunteers = await _dbCtx.Volunteer.ToListAsync();
 
             for (int i = 0; i < count; i++) {
                 var fakeDate = new Faker().Date.Between(DateTime.Now, DateTime.Today.AddYears(-1)); // Random day between now and 1 year ago
@@ -143,8 +141,8 @@ namespace RSMuseum.Repository
                     .RuleFor(x => x.Hours, y => y.Random.Int(1, 6))
                     .RuleFor(x => x.Date, y => fakeDate)
                     .RuleFor(x => x.Approved, y => true)
-                    .RuleFor(x => x.GuildId, y => y.PickRandom(guildsTask.Result).GuildId)
-                    .RuleFor(x => x.VolunteerId, y => y.PickRandom(volunteersTask.Result).VolunteerId)
+                    .RuleFor(x => x.GuildId, y => y.PickRandom(guilds).GuildId)
+                    .RuleFor(x => x.VolunteerId, y => y.PickRandom(volunteers).VolunteerId)
                     .RuleFor(x => x.DateTimeRegistered, y => fakeDate)
                     .RuleFor(x => x.Processed, y => true)
                     .Generate();
